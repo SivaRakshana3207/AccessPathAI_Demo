@@ -112,7 +112,7 @@
        NAVBAR
     ========================================== */
 
-    nav {
+    nav.top-navbar {
 
       height:68px;
 
@@ -220,16 +220,19 @@
     @keyframes gpsPulse {
 
       0% {
+
         box-shadow:
           0 0 0 0 rgba(16,185,129,.3);
       }
 
       70% {
+
         box-shadow:
           0 0 0 7px rgba(16,185,129,0);
       }
 
       100% {
+
         box-shadow:
           0 0 0 0 rgba(16,185,129,0);
       }
@@ -606,10 +609,12 @@
     @keyframes liveBlink {
 
       0%,100% {
+
         opacity:1;
       }
 
       50% {
+
         opacity:.25;
       }
 
@@ -1313,7 +1318,8 @@
 
       font-weight:800;
 
-      box-shadow:0 4px 12px rgba(0,0,0,.05);
+      box-shadow:
+        0 4px 12px rgba(0,0,0,.05);
     }
 
 
@@ -1374,24 +1380,6 @@
 
       box-shadow:
         0 2px 7px rgba(0,0,0,.15);
-    }
-
-
-    .map-stop::after {
-
-      content:"";
-
-      position:absolute;
-
-      width:80px;
-
-      height:18px;
-
-      top:13px;
-
-      left:8px;
-
-      font-size:9px;
     }
 
 
@@ -1499,19 +1487,26 @@
     @keyframes busPulse {
 
       0% {
+
         transform:scale(.8);
+
         opacity:.8;
       }
 
       70% {
+
         transform:scale(1.25);
+
         opacity:0;
       }
 
       100% {
+
         transform:scale(.8);
+
         opacity:0;
       }
+
     }
 
 
@@ -1842,31 +1837,194 @@
 
 
 
+    /* ==========================================================
+       MOBILE BOTTOM NAVIGATION
+    ========================================================== */
+
+    .mobile-bottom-nav {
+
+      display:none;
+    }
+
+
+    @media(max-width:850px) {
+
+      body {
+
+        padding-bottom:78px;
+      }
+
+
+      .mobile-bottom-nav {
+
+        position:fixed !important;
+
+        top:auto !important;
+
+        left:0;
+
+        right:0;
+
+        bottom:0;
+
+        width:100%;
+
+        height:74px;
+
+        display:flex;
+
+        align-items:center;
+
+        background:rgba(255,255,255,.98);
+
+        border-top:
+          1px solid var(--border);
+
+        border-bottom:none;
+
+        box-shadow:
+          0 -6px 25px rgba(0,0,0,.10);
+
+        padding:5px 6px;
+
+        padding-bottom:
+          calc(
+            5px +
+            env(safe-area-inset-bottom)
+          );
+
+        z-index:99999;
+      }
+
+
+      .mobile-nav-item {
+
+        flex:1;
+
+        min-width:0;
+
+        height:62px;
+
+        border:none;
+
+        border-radius:12px;
+
+        background:transparent;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        justify-content:center;
+
+        gap:4px;
+
+        color:#555;
+
+        font-family:var(--font);
+
+        font-size:8px;
+
+        font-weight:800;
+
+        cursor:pointer;
+
+        transition:
+          background .2s ease,
+          color .2s ease,
+          transform .15s ease;
+
+        -webkit-tap-highlight-color:
+          transparent;
+      }
+
+
+      .mobile-nav-item svg {
+
+        width:21px;
+
+        height:21px;
+
+        stroke-width:2.4;
+      }
+
+
+      .mobile-nav-item:hover {
+
+        background:var(--wine-soft);
+
+        color:var(--wine);
+      }
+
+
+      .mobile-nav-item:active {
+
+        transform:scale(.93);
+      }
+
+
+      .mobile-nav-item.active {
+
+        background:var(--wine-soft);
+
+        color:var(--wine);
+      }
+
+
+      .mobile-nav-item.sos-item {
+
+        color:var(--red);
+      }
+
+
+      .mobile-nav-item.sos-item:hover {
+
+        background:var(--red-soft);
+
+        color:#b91c1c;
+      }
+
+    }
+
+
+
     /* ==========================================
-       MOBILE
+       RESPONSIVE
     ========================================== */
 
     @media(max-width:1100px) {
 
       aside {
+
         width:250px;
       }
 
+
       .planner-grid {
+
         grid-template-columns:1fr 1fr;
       }
 
+
       .track-btn {
+
         width:100%;
+
         margin-top:0;
       }
 
+
       .stops {
+
         grid-template-columns:
           repeat(3,1fr);
       }
 
+
       .features {
+
         grid-template-columns:
           repeat(2,1fr);
       }
@@ -1877,31 +2035,44 @@
     @media(max-width:850px) {
 
       aside {
+
         display:none;
       }
 
+
       main {
+
         padding:15px;
       }
 
+
       .live-grid {
+
         grid-template-columns:1fr;
       }
+
 
       .planner-grid {
+
         grid-template-columns:1fr;
       }
 
+
       .stops {
+
         grid-template-columns:
           repeat(2,1fr);
       }
 
+
       .header-top {
+
         align-items:flex-start;
       }
 
+
       .live-badge {
+
         display:none;
       }
 
@@ -1910,45 +2081,107 @@
 
     @media(max-width:600px) {
 
-      nav {
+      nav.top-navbar {
+
         padding:0 15px;
       }
 
+
       .brand {
+
         font-size:20px;
       }
 
+
       .gps-pill {
+
         display:none;
       }
 
+
       .lang-select {
+
         width:150px;
+
         font-size:12px;
       }
 
+
       .heading-text h1 {
+
         font-size:22px;
       }
 
+
       .heading-text p {
+
         font-size:12px;
       }
 
+
       .eta-grid {
+
         grid-template-columns:1fr;
       }
+
 
       .stops {
+
         grid-template-columns:1fr;
       }
+
 
       .features {
+
         grid-template-columns:1fr;
       }
 
+
       .campus-map {
+
         min-height:280px;
+      }
+
+
+      .mobile-bottom-nav {
+
+        height:68px;
+      }
+
+
+      .mobile-nav-item {
+
+        height:57px;
+
+        font-size:7px;
+
+        gap:3px;
+      }
+
+
+      .mobile-nav-item svg {
+
+        width:20px;
+
+        height:20px;
+      }
+
+    }
+
+
+    @media(max-width:360px) {
+
+      .mobile-nav-item {
+
+        font-size:6.5px;
+      }
+
+
+      .mobile-nav-item svg {
+
+        width:18px;
+
+        height:18px;
       }
 
     }
@@ -1965,7 +2198,7 @@
      NAVBAR
 ========================================================== -->
 
-<nav>
+<nav class="top-navbar">
 
   <div class="brand">
 
@@ -2635,7 +2868,10 @@
 
       <span
         class="legend-dot"
-        style="background:white;border:2px solid #800020"
+        style="
+          background:white;
+          border:2px solid #800020
+        "
       ></span>
 
       Shuttle Stop
@@ -2916,7 +3152,116 @@
 
 
 
+<!-- ==========================================================
+     MOBILE BOTTOM NAVIGATION
+========================================================== -->
+
+<nav
+  class="mobile-bottom-nav"
+  aria-label="Mobile navigation"
+>
+
+
+  <!-- HOME -->
+
+  <button
+    class="mobile-nav-item"
+    type="button"
+    aria-label="Go to Home"
+    onclick="goTo('index.html')"
+  >
+
+    <i data-lucide="home"></i>
+
+    <span>
+      Home
+    </span>
+
+  </button>
+
+
+
+  <!-- AI GUIDE -->
+
+  <button
+    class="mobile-nav-item"
+    type="button"
+    aria-label="Visual AI Guidance"
+    onclick="goTo('virtual.html')"
+  >
+
+    <i data-lucide="eye"></i>
+
+    <span>
+      AI Guide
+    </span>
+
+  </button>
+
+
+
+  <!-- WHEELCHAIR -->
+
+  <button
+    class="mobile-nav-item"
+    type="button"
+    aria-label="Wheelchair Access Routes"
+    onclick="goTo('wheelchair.html')"
+  >
+
+    <i data-lucide="accessibility"></i>
+
+    <span>
+      Wheelchair
+    </span>
+
+  </button>
+
+
+
+  <!-- SHUTTLE - CURRENT PAGE -->
+
+  <button
+    class="mobile-nav-item active"
+    type="button"
+    aria-label="Campus Shuttle Live"
+    aria-current="page"
+  >
+
+    <i data-lucide="bus"></i>
+
+    <span>
+      Shuttle
+    </span>
+
+  </button>
+
+
+
+  <!-- SOS -->
+
+  <button
+    class="mobile-nav-item sos-item"
+    type="button"
+    aria-label="Emergency SOS"
+    onclick="triggerSOS()"
+  >
+
+    <i data-lucide="siren"></i>
+
+    <span>
+      SOS
+    </span>
+
+  </button>
+
+
+</nav>
+
+
+
 <script>
+
 
 /* ==========================================================
    ACCESSPATH AI
@@ -3250,6 +3595,7 @@ function updateShuttlePosition() {
 
   }
 
+
   else if(progress < 48) {
 
     currentStop =
@@ -3265,6 +3611,7 @@ function updateShuttlePosition() {
       "0.8 km";
 
   }
+
 
   else if(progress < 70) {
 
@@ -3282,6 +3629,7 @@ function updateShuttlePosition() {
 
   }
 
+
   else if(progress < 88) {
 
     currentStop =
@@ -3297,6 +3645,7 @@ function updateShuttlePosition() {
       "0.7 km";
 
   }
+
 
   else {
 
@@ -3389,6 +3738,7 @@ function updateMapMarker(
 
   }
 
+
   else if(progress < 50) {
 
     left =
@@ -3399,6 +3749,7 @@ function updateMapMarker(
 
   }
 
+
   else if(progress < 75) {
 
     left =
@@ -3408,6 +3759,7 @@ function updateMapMarker(
       48 - (progress - 50) * .18;
 
   }
+
 
   else {
 
@@ -3531,7 +3883,8 @@ function speakArrival() {
   showMessage(
 
     "Voice announcement played for " +
-    nextStop + ".",
+    nextStop +
+    ".",
 
     false
 
@@ -3657,6 +4010,17 @@ function triggerSOS() {
   speak(
     "Emergency SOS activated."
   );
+
+
+  if(navigator.vibrate) {
+
+    navigator.vibrate([
+      200,
+      100,
+      200
+    ]);
+
+  }
 
 
   alert(
