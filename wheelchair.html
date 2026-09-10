@@ -2,13 +2,8 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>AccessPathAI — Wheelchair Access Routes</title>
 
@@ -22,7 +17,6 @@
   <style>
 
     :root {
-
       --bg: #fafafa;
       --white: #ffffff;
       --sidebar: #fcf9f9;
@@ -50,16 +44,10 @@
 
       --border: #e7e7e7;
 
-      --shadow:
-        0 8px 30px rgba(0,0,0,.05);
+      --shadow: 0 8px 30px rgba(0, 0, 0, .05);
 
-      --font:
-        "Plus Jakarta Sans",
-        sans-serif;
-
-      --heading:
-        "Space Grotesk",
-        sans-serif;
+      --font: "Plus Jakarta Sans", sans-serif;
+      --heading: "Space Grotesk", sans-serif;
     }
 
 
@@ -78,11 +66,8 @@
 
 
     body {
-
       font-family: var(--font);
-
       background: var(--bg);
-
       color: var(--text);
     }
 
@@ -90,7 +75,6 @@
     button,
     select,
     input {
-
       font-family: inherit;
     }
 
@@ -101,46 +85,33 @@
 
 
     /* =====================================================
-       NAVBAR
+       TOP NAVBAR
     ===================================================== */
 
-    nav {
-
+    nav.top-navbar {
       height: 68px;
-
       background: white;
-
-      border-bottom:
-        1px solid var(--border);
+      border-bottom: 1px solid var(--border);
 
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
 
       padding: 0 28px;
 
       position: sticky;
-
       top: 0;
-
-      z-index: 100;
+      z-index: 1000;
     }
 
 
     .brand {
-
       display: flex;
-
       align-items: center;
-
       gap: 10px;
 
       font-family: var(--heading);
-
       font-size: 25px;
-
       color: var(--wine);
     }
 
@@ -151,100 +122,72 @@
 
 
     .brand svg {
-
       width: 25px;
       height: 25px;
-
       stroke-width: 2.5;
     }
 
 
     .nav-right {
-
       display: flex;
-
       align-items: center;
-
       gap: 18px;
     }
 
 
     .gps-pill {
-
       display: flex;
-
       align-items: center;
-
       gap: 8px;
 
       padding: 9px 15px;
 
       border-radius: 999px;
 
-      background:
-        var(--green-soft);
-
-      color:
-        var(--green-dark);
+      background: var(--green-soft);
+      color: var(--green-dark);
 
       font-size: 13px;
-
       font-weight: 700;
     }
 
 
     .gps-dot {
-
       width: 9px;
       height: 9px;
 
       border-radius: 50%;
 
-      background:
-        var(--green);
+      background: var(--green);
 
       box-shadow:
-        0 0 0 4px
-        rgba(16,185,129,.12);
+        0 0 0 4px rgba(16, 185, 129, .12);
     }
 
 
     .gps-pill.error {
-
-      background:
-        var(--red-soft);
-
-      color:
-        var(--red);
+      background: var(--red-soft);
+      color: var(--red);
     }
 
 
     .gps-pill.error .gps-dot {
-
-      background:
-        var(--red);
+      background: var(--red);
     }
 
 
     .lang-select {
-
       width: 255px;
-
       height: 44px;
 
-      border:
-        1px solid #ddd;
-
+      border: 1px solid #ddd;
       border-radius: 10px;
 
-      background:
-        white;
+      background: white;
 
-      padding:
-        0 14px;
+      padding: 0 14px;
 
       font-size: 14px;
-
       font-weight: 600;
 
       outline: none;
@@ -252,13 +195,10 @@
 
 
     .lang-select:focus {
-
-      border-color:
-        var(--wine);
+      border-color: var(--wine);
 
       box-shadow:
-        0 0 0 3px
-        rgba(128,0,32,.08);
+        0 0 0 3px rgba(128, 0, 32, .08);
     }
 
 
@@ -268,10 +208,7 @@
     ===================================================== */
 
     .dashboard {
-
-      min-height:
-        calc(100vh - 68px);
-
+      min-height: calc(100vh - 68px);
       display: flex;
     }
 
@@ -282,170 +219,121 @@
     ===================================================== */
 
     aside {
-
       width: 320px;
-
       flex-shrink: 0;
 
-      background:
-        var(--sidebar);
+      background: var(--sidebar);
 
-      border-right:
-        1px solid var(--border);
+      border-right: 1px solid var(--border);
 
-      padding:
-        30px 24px 20px;
+      padding: 30px 24px 20px;
 
       display: flex;
-
       flex-direction: column;
-
-      justify-content:
-        space-between;
+      justify-content: space-between;
     }
 
 
     .sidebar-title {
-
       font-size: 13px;
-
       font-weight: 700;
 
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
 
-      letter-spacing:
-        .08em;
+      letter-spacing: .08em;
 
       color: #656565;
 
-      margin-bottom:
-        17px;
+      margin-bottom: 17px;
     }
 
 
     .menu {
-
       display: flex;
-
       flex-direction: column;
-
       gap: 5px;
     }
 
 
     .menu-item {
-
       width: 100%;
-
       min-height: 57px;
 
       border: none;
-
       border-radius: 13px;
 
-      background:
-        transparent;
+      background: transparent;
 
       display: flex;
-
       align-items: center;
 
       gap: 14px;
 
-      padding:
-        0 18px;
+      padding: 0 18px;
 
       color: #1d1d1d;
 
       font-size: 15px;
-
       font-weight: 600;
 
       text-align: left;
 
-      transition:
-        .2s ease;
+      transition: .2s ease;
     }
 
 
     .menu-item svg {
-
       width: 23px;
       height: 23px;
-
       flex-shrink: 0;
     }
 
 
     .menu-item:hover {
-
-      background:
-        var(--wine-soft);
-
-      color:
-        var(--wine);
+      background: var(--wine-soft);
+      color: var(--wine);
     }
 
 
     .menu-item.active {
-
-      background:
-        #f1e3e7;
-
-      color:
-        var(--wine);
+      background: #f1e3e7;
+      color: var(--wine);
     }
 
 
     .sos-btn {
-
       width: 100%;
-
       min-height: 69px;
 
       border: none;
-
       border-radius: 14px;
 
-      background:
-        #e52424;
-
+      background: #e52424;
       color: white;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       gap: 10px;
 
       font-size: 15px;
-
       font-weight: 800;
 
       box-shadow:
-        0 7px 18px
-        rgba(220,38,38,.25);
+        0 7px 18px rgba(220, 38, 38, .25);
 
-      transition:
-        .2s ease;
+      transition: .2s ease;
     }
 
 
     .sos-btn:hover {
-
-      background:
-        var(--red-dark);
-
-      transform:
-        translateY(-1px);
+      background: var(--red-dark);
+      transform: translateY(-1px);
     }
 
 
     .sos-btn svg {
-
       width: 24px;
       height: 24px;
     }
@@ -457,25 +345,18 @@
     ===================================================== */
 
     main {
-
       flex: 1;
-
       min-width: 0;
 
       padding: 30px;
 
-      background:
-        var(--bg);
+      background: var(--bg);
     }
 
 
     .main-inner {
-
-      max-width:
-        1500px;
-
-      margin:
-        auto;
+      max-width: 1500px;
+      margin: auto;
     }
 
 
@@ -485,123 +366,83 @@
     ===================================================== */
 
     .page-header {
+      background: white;
 
-      background:
-        white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
 
-      border:
-        1px solid var(--border);
+      padding: 25px;
 
-      border-radius:
-        18px;
+      box-shadow: var(--shadow);
 
-      padding:
-        25px;
-
-      box-shadow:
-        var(--shadow);
-
-      margin-bottom:
-        18px;
+      margin-bottom: 18px;
     }
 
 
     .header-top {
-
       display: flex;
-
       align-items: center;
-
-      justify-content:
-        space-between;
+      justify-content: space-between;
 
       gap: 20px;
     }
 
 
     .heading-left {
-
       display: flex;
-
       align-items: center;
-
       gap: 15px;
     }
 
 
     .heading-icon {
-
       width: 58px;
       height: 58px;
 
       border-radius: 16px;
 
-      background:
-        var(--wine-soft);
-
-      color:
-        var(--wine);
+      background: var(--wine-soft);
+      color: var(--wine);
 
       display: flex;
-
       align-items: center;
-
-      justify-content:
-        center;
+      justify-content: center;
     }
 
 
     .heading-icon svg {
-
       width: 30px;
       height: 30px;
     }
 
 
     .heading-text h1 {
-
-      font-family:
-        var(--heading);
-
+      font-family: var(--heading);
       font-size: 27px;
-
       margin-bottom: 5px;
     }
 
 
     .heading-text p {
-
-      color:
-        var(--muted);
-
+      color: var(--muted);
       font-size: 13px;
-
       line-height: 1.6;
     }
 
 
     .accessibility-badge {
-
       display: flex;
-
       align-items: center;
-
       gap: 8px;
 
-      padding:
-        10px 14px;
+      padding: 10px 14px;
 
-      background:
-        var(--green-soft);
+      background: var(--green-soft);
+      color: var(--green-dark);
 
-      color:
-        var(--green-dark);
-
-      border-radius:
-        999px;
+      border-radius: 999px;
 
       font-size: 12px;
-
       font-weight: 800;
 
       white-space: nowrap;
@@ -614,48 +455,33 @@
     ===================================================== */
 
     .control-card {
+      background: white;
 
-      background:
-        white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
 
-      border:
-        1px solid var(--border);
+      padding: 23px;
 
-      border-radius:
-        18px;
+      box-shadow: var(--shadow);
 
-      padding:
-        23px;
-
-      box-shadow:
-        var(--shadow);
-
-      margin-bottom:
-        18px;
+      margin-bottom: 18px;
     }
 
 
     .section-title {
-
       display: flex;
-
       align-items: center;
-
       gap: 9px;
 
       font-size: 17px;
-
       font-weight: 800;
 
-      margin-bottom:
-        18px;
+      margin-bottom: 18px;
     }
 
 
     .section-title svg {
-
-      color:
-        var(--wine);
+      color: var(--wine);
 
       width: 22px;
       height: 22px;
@@ -663,22 +489,16 @@
 
 
     .route-grid {
-
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
+      grid-template-columns: 1fr 1fr;
       gap: 15px;
     }
 
 
     .field label {
-
       display: block;
 
       font-size: 12px;
-
       color: #666;
 
       font-weight: 700;
@@ -688,25 +508,17 @@
 
 
     .field select {
-
       width: 100%;
-
       height: 52px;
 
-      border:
-        1px solid #ddd;
+      border: 1px solid #ddd;
+      border-radius: 11px;
 
-      border-radius:
-        11px;
+      padding: 0 14px;
 
-      padding:
-        0 14px;
-
-      background:
-        white;
+      background: white;
 
       font-size: 14px;
-
       font-weight: 600;
 
       outline: none;
@@ -714,90 +526,66 @@
 
 
     .field select:focus {
-
-      border-color:
-        var(--wine);
+      border-color: var(--wine);
 
       box-shadow:
-        0 0 0 3px
-        rgba(128,0,32,.07);
+        0 0 0 3px rgba(128, 0, 32, .07);
     }
 
 
 
     /* =====================================================
-       OPTIONS
+       ACCESSIBILITY OPTIONS
     ===================================================== */
 
     .route-options {
-
-      margin-top:
-        18px;
+      margin-top: 18px;
 
       display: flex;
-
       gap: 10px;
-
       flex-wrap: wrap;
     }
 
 
     .option {
+      border: 1px solid #ddd;
 
-      border:
-        1px solid #ddd;
+      background: white;
 
-      background:
-        white;
+      border-radius: 10px;
 
-      border-radius:
-        10px;
-
-      padding:
-        10px 13px;
+      padding: 10px 13px;
 
       display: flex;
-
       align-items: center;
 
       gap: 8px;
 
       font-size: 12px;
-
       font-weight: 700;
 
       color: #444;
 
-      transition:
-        .2s ease;
+      transition: .2s ease;
     }
 
 
     .option:hover {
-
-      border-color:
-        #bbb;
-
-      transform:
-        translateY(-1px);
+      border-color: #bbb;
+      transform: translateY(-1px);
     }
 
 
     .option.active {
+      border-color: #c9f4e3;
 
-      border-color:
-        #c9f4e3;
+      background: var(--green-soft);
 
-      background:
-        var(--green-soft);
-
-      color:
-        var(--green-dark);
+      color: var(--green-dark);
     }
 
 
     .option svg {
-
       width: 17px;
       height: 17px;
     }
@@ -809,54 +597,37 @@
     ===================================================== */
 
     .find-route-btn {
-
       width: 100%;
-
       height: 55px;
 
-      margin-top:
-        18px;
+      margin-top: 18px;
 
       border: none;
+      border-radius: 11px;
 
-      border-radius:
-        11px;
-
-      background:
-        var(--wine);
-
+      background: var(--wine);
       color: white;
 
       display: flex;
-
       align-items: center;
-
-      justify-content:
-        center;
+      justify-content: center;
 
       gap: 9px;
 
       font-size: 14px;
-
       font-weight: 800;
 
-      transition:
-        .2s ease;
+      transition: .2s ease;
     }
 
 
     .find-route-btn:hover {
-
-      background:
-        var(--wine-dark);
-
-      transform:
-        translateY(-1px);
+      background: var(--wine-dark);
+      transform: translateY(-1px);
     }
 
 
     .find-route-btn svg {
-
       width: 20px;
       height: 20px;
     }
@@ -868,47 +639,33 @@
     ===================================================== */
 
     .gps-card {
-
       display: flex;
-
       align-items: center;
-
-      justify-content:
-        space-between;
+      justify-content: space-between;
 
       gap: 15px;
 
-      padding:
-        14px 16px;
+      padding: 14px 16px;
 
-      margin-top:
-        17px;
+      margin-top: 17px;
 
-      background:
-        #fafafa;
+      background: #fafafa;
 
-      border:
-        1px solid #eee;
+      border: 1px solid #eee;
 
-      border-radius:
-        12px;
+      border-radius: 12px;
     }
 
 
     .gps-info {
-
       display: flex;
-
       align-items: center;
-
       gap: 11px;
     }
 
 
     .gps-info svg {
-
-      color:
-        var(--green-dark);
+      color: var(--green-dark);
 
       width: 21px;
       height: 21px;
@@ -916,7 +673,6 @@
 
 
     .gps-info strong {
-
       display: block;
 
       font-size: 13px;
@@ -926,17 +682,13 @@
 
 
     .gps-info span {
-
       color: #777;
-
       font-size: 11px;
     }
 
 
     #gpsCoordinates {
-
       font-size: 12px;
-
       font-weight: 700;
 
       color: #444;
@@ -951,20 +703,15 @@
     ===================================================== */
 
     .message {
-
       display: none;
 
-      margin-top:
-        15px;
+      margin-top: 15px;
 
-      padding:
-        12px 15px;
+      padding: 12px 15px;
 
-      border-radius:
-        10px;
+      border-radius: 10px;
 
       font-size: 12px;
-
       font-weight: 700;
     }
 
@@ -975,28 +722,20 @@
 
 
     .message.success {
+      color: var(--green-dark);
 
-      color:
-        var(--green-dark);
+      background: var(--green-soft);
 
-      background:
-        var(--green-soft);
-
-      border:
-        1px solid #c9f4e3;
+      border: 1px solid #c9f4e3;
     }
 
 
     .message.error {
+      color: #b91c1c;
 
-      color:
-        #b91c1c;
+      background: var(--red-soft);
 
-      background:
-        var(--red-soft);
-
-      border:
-        1px solid #fecaca;
+      border: 1px solid #fecaca;
     }
 
 
@@ -1011,103 +750,76 @@
 
 
     .route-overview {
-
       display: grid;
 
-      grid-template-columns:
-        1.3fr .7fr;
+      grid-template-columns: 1.3fr .7fr;
 
       gap: 18px;
 
-      margin-bottom:
-        18px;
+      margin-bottom: 18px;
     }
 
 
     .route-card {
+      background: white;
 
-      background:
-        white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
 
-      border:
-        1px solid var(--border);
+      padding: 22px;
 
-      border-radius:
-        18px;
-
-      padding:
-        22px;
-
-      box-shadow:
-        var(--shadow);
+      box-shadow: var(--shadow);
     }
 
 
     .route-card h2 {
-
-      font-family:
-        var(--heading);
+      font-family: var(--heading);
 
       font-size: 20px;
 
-      margin-bottom:
-        15px;
+      margin-bottom: 15px;
     }
 
 
     .destination-name {
-
-      color:
-        var(--wine);
+      color: var(--wine);
     }
 
 
     .route-stats {
-
       display: grid;
 
-      grid-template-columns:
-        repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr);
 
       gap: 10px;
     }
 
 
     .stat {
+      border: 1px solid #eee;
 
-      border:
-        1px solid #eee;
+      background: #fafafa;
 
-      background:
-        #fafafa;
+      border-radius: 11px;
 
-      border-radius:
-        11px;
-
-      padding:
-        13px;
+      padding: 13px;
     }
 
 
     .stat-label {
-
       color: #777;
 
       font-size: 10px;
-
       font-weight: 700;
 
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
 
       margin-bottom: 5px;
     }
 
 
     .stat-value {
-
       font-size: 14px;
-
       font-weight: 800;
     }
 
@@ -1118,45 +830,34 @@
     ===================================================== */
 
     .score-card {
-
       display: flex;
 
       flex-direction: column;
 
       align-items: center;
 
-      justify-content:
-        center;
+      justify-content: center;
 
       text-align: center;
 
-      background:
-        white;
+      background: white;
 
-      border:
-        1px solid var(--border);
+      border: 1px solid var(--border);
+      border-radius: 18px;
 
-      border-radius:
-        18px;
+      padding: 22px;
 
-      padding:
-        22px;
-
-      box-shadow:
-        var(--shadow);
+      box-shadow: var(--shadow);
     }
 
 
     .score-circle {
-
       width: 100px;
       height: 100px;
 
-      border-radius:
-        50%;
+      border-radius: 50%;
 
-      border:
-        8px solid #d1fae5;
+      border: 8px solid #d1fae5;
 
       display: flex;
 
@@ -1164,28 +865,22 @@
 
       align-items: center;
 
-      justify-content:
-        center;
+      justify-content: center;
 
-      margin-bottom:
-        10px;
+      margin-bottom: 10px;
     }
 
 
     .score-number {
-
-      font-family:
-        var(--heading);
+      font-family: var(--heading);
 
       font-size: 27px;
 
-      color:
-        var(--green-dark);
+      color: var(--green-dark);
     }
 
 
     .score-percent {
-
       font-size: 10px;
 
       color: #777;
@@ -1195,15 +890,12 @@
 
 
     .score-card h3 {
-
       font-size: 14px;
-
       margin-bottom: 4px;
     }
 
 
     .score-card p {
-
       color: #777;
 
       font-size: 11px;
@@ -1220,37 +912,27 @@
     ===================================================== */
 
     .route-steps {
+      background: white;
 
-      background:
-        white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
 
-      border:
-        1px solid var(--border);
+      padding: 22px;
 
-      border-radius:
-        18px;
+      box-shadow: var(--shadow);
 
-      padding:
-        22px;
-
-      box-shadow:
-        var(--shadow);
-
-      margin-bottom:
-        18px;
+      margin-bottom: 18px;
     }
 
 
     .step {
-
       display: flex;
 
       gap: 14px;
 
       position: relative;
 
-      padding-bottom:
-        19px;
+      padding-bottom: 19px;
     }
 
 
@@ -1260,7 +942,6 @@
 
 
     .step:not(:last-child)::after {
-
       content: "";
 
       position: absolute;
@@ -1273,33 +954,25 @@
 
       width: 2px;
 
-      background:
-        #e5e7eb;
+      background: #e5e7eb;
     }
 
 
     .step-icon {
-
       width: 38px;
       height: 38px;
 
       flex-shrink: 0;
 
-      border-radius:
-        50%;
+      border-radius: 50%;
 
-      background:
-        var(--green-soft);
-
-      color:
-        var(--green-dark);
+      background: var(--green-soft);
+      color: var(--green-dark);
 
       display: flex;
 
       align-items: center;
-
-      justify-content:
-        center;
+      justify-content: center;
 
       position: relative;
 
@@ -1308,20 +981,17 @@
 
 
     .step-icon svg {
-
       width: 19px;
       height: 19px;
     }
 
 
     .step-content {
-
       padding-top: 2px;
     }
 
 
     .step-content strong {
-
       display: block;
 
       font-size: 13px;
@@ -1331,7 +1001,6 @@
 
 
     .step-content span {
-
       color: #777;
 
       font-size: 12px;
@@ -1346,89 +1015,64 @@
     ===================================================== */
 
     .features-card {
+      background: white;
 
-      background:
-        white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
 
-      border:
-        1px solid var(--border);
+      padding: 22px;
 
-      border-radius:
-        18px;
+      box-shadow: var(--shadow);
 
-      padding:
-        22px;
-
-      box-shadow:
-        var(--shadow);
-
-      margin-bottom:
-        18px;
+      margin-bottom: 18px;
     }
 
 
     .features {
-
       display: grid;
 
-      grid-template-columns:
-        repeat(4, 1fr);
+      grid-template-columns: repeat(4, 1fr);
 
       gap: 12px;
     }
 
 
     .feature {
+      border: 1px solid #eee;
 
-      border:
-        1px solid #eee;
+      border-radius: 12px;
 
-      border-radius:
-        12px;
+      padding: 15px;
 
-      padding:
-        15px;
-
-      background:
-        #fafafa;
+      background: #fafafa;
     }
 
 
     .feature-icon {
-
       width: 38px;
       height: 38px;
 
-      border-radius:
-        10px;
+      border-radius: 10px;
 
-      background:
-        var(--blue-soft);
-
-      color:
-        var(--blue);
+      background: var(--blue-soft);
+      color: var(--blue);
 
       display: flex;
 
       align-items: center;
+      justify-content: center;
 
-      justify-content:
-        center;
-
-      margin-bottom:
-        10px;
+      margin-bottom: 10px;
     }
 
 
     .feature-icon svg {
-
       width: 19px;
       height: 19px;
     }
 
 
     .feature strong {
-
       display: block;
 
       font-size: 12px;
@@ -1438,7 +1082,6 @@
 
 
     .feature span {
-
       color: #777;
 
       font-size: 11px;
@@ -1453,34 +1096,28 @@
     ===================================================== */
 
     .action-row {
-
       display: grid;
 
-      grid-template-columns:
-        1fr 1fr;
+      grid-template-columns: 1fr 1fr;
 
       gap: 12px;
 
-      margin-top:
-        18px;
+      margin-top: 18px;
     }
 
 
     .google-btn,
     .voice-btn,
     .back-btn {
-
       height: 53px;
 
-      border-radius:
-        11px;
+      border-radius: 11px;
 
       display: flex;
 
       align-items: center;
 
-      justify-content:
-        center;
+      justify-content: center;
 
       gap: 9px;
 
@@ -1488,83 +1125,60 @@
 
       font-weight: 800;
 
-      text-decoration:
-        none;
+      text-decoration: none;
     }
 
 
     .google-btn {
+      background: var(--wine);
 
-      background:
-        var(--wine);
+      color: white;
 
-      color:
-        white;
-
-      border:
-        none;
+      border: none;
     }
 
 
     .google-btn:hover {
-
-      background:
-        var(--wine-dark);
+      background: var(--wine-dark);
     }
 
 
     .voice-btn {
+      background: white;
 
-      background:
-        white;
+      color: var(--wine);
 
-      color:
-        var(--wine);
-
-      border:
-        1px solid #ddd;
+      border: 1px solid #ddd;
     }
 
 
     .voice-btn:hover {
-
-      background:
-        var(--wine-soft);
+      background: var(--wine-soft);
     }
 
 
     .bottom-actions {
-
-      margin-top:
-        18px;
+      margin-top: 18px;
     }
 
 
     .back-btn {
-
       width: 100%;
 
-      background:
-        #f5f5f5;
+      background: #f5f5f5;
 
-      color:
-        #333;
+      color: #333;
 
-      border:
-        1px solid #ddd;
+      border: 1px solid #ddd;
 
-      transition:
-        .2s ease;
+      transition: .2s ease;
     }
 
 
     .back-btn:hover {
+      background: var(--wine-soft);
 
-      background:
-        var(--wine-soft);
-
-      color:
-        var(--wine);
+      color: var(--wine);
     }
 
 
@@ -1574,36 +1188,37 @@
     ===================================================== */
 
     .route-note {
+      margin-top: 18px;
 
-      margin-top:
-        18px;
+      padding: 13px 15px;
 
-      padding:
-        13px 15px;
+      border-radius: 11px;
 
-      border-radius:
-        11px;
+      background: var(--orange-soft);
 
-      background:
-        var(--orange-soft);
+      border: 1px solid #fde68a;
 
-      border:
-        1px solid #fde68a;
+      color: #92400e;
 
-      color:
-        #92400e;
+      font-size: 11px;
 
-      font-size:
-        11px;
-
-      line-height:
-        1.6;
+      line-height: 1.6;
     }
 
 
 
     /* =====================================================
-       MOBILE
+       MOBILE BOTTOM NAVIGATION
+    ===================================================== */
+
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+
+
+    /* =====================================================
+       TABLET
     ===================================================== */
 
     @media (max-width: 1000px) {
@@ -1613,67 +1228,195 @@
       }
 
       .features {
-        grid-template-columns:
-          repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .route-overview {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr;
       }
 
     }
 
 
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
     @media (max-width: 800px) {
 
       body {
-        overflow: auto;
+        overflow-x: hidden;
+
+        padding-bottom: 82px;
       }
+
 
       aside {
         display: none;
       }
 
+
       main {
         padding: 15px;
       }
 
+
       .route-grid {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr;
       }
+
 
       .route-stats {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr;
       }
+
 
       .features {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr;
       }
 
+
       .action-row {
-        grid-template-columns:
-          1fr;
+        grid-template-columns: 1fr;
       }
+
 
       .gps-pill {
         display: none;
       }
 
+
       .lang-select {
         width: 170px;
       }
 
-      nav {
+
+      nav.top-navbar {
+        padding: 0 15px;
+      }
+
+
+      /* ================================================
+         MOBILE BOTTOM NAV
+      ================================================ */
+
+      .mobile-bottom-nav {
+        display: flex;
+
+        position: fixed !important;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        top: auto !important;
+
+        width: 100%;
+
+        height: 76px;
+
+        background: rgba(255, 255, 255, .98);
+
+        border-top: 1px solid #e5e5e5;
+
+        box-shadow:
+          0 -8px 25px rgba(0, 0, 0, .08);
+
+        z-index: 99999;
+
         padding:
-          0 15px;
+          6px 5px
+          calc(6px + env(safe-area-inset-bottom));
+
+        justify-content: space-around;
+
+        align-items: stretch;
+      }
+
+
+      .mobile-nav-item {
+        flex: 1;
+
+        max-width: 100px;
+
+        border: none;
+
+        background: transparent;
+
+        border-radius: 12px;
+
+        color: #777;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 4px;
+
+        font-size: 8px;
+
+        font-weight: 700;
+
+        line-height: 1;
+
+        transition:
+          background .2s ease,
+          color .2s ease,
+          transform .15s ease;
+      }
+
+
+      .mobile-nav-item svg {
+        width: 21px;
+        height: 21px;
+
+        stroke-width: 2.2;
+      }
+
+
+      .mobile-nav-item:active {
+        transform: scale(.94);
+      }
+
+
+      .mobile-nav-item:hover {
+        background: #fafafa;
+      }
+
+
+      .mobile-nav-item.active {
+        background: var(--wine-soft);
+
+        color: var(--wine);
+      }
+
+
+      .mobile-nav-item.sos-item {
+        color: var(--red);
+      }
+
+
+      .mobile-nav-item.sos-item:hover {
+        background: var(--red-soft);
+      }
+
+
+      .mobile-nav-item.sos-item svg {
+        color: var(--red);
       }
 
     }
 
+
+
+    /* =====================================================
+       SMALL MOBILE
+    ===================================================== */
 
     @media (max-width: 520px) {
 
@@ -1681,53 +1424,101 @@
         font-size: 20px;
       }
 
+
       .lang-select {
         width: 140px;
         font-size: 12px;
       }
 
+
       .header-top {
-        align-items:
-          flex-start;
+        align-items: flex-start;
       }
+
 
       .accessibility-badge {
         display: none;
       }
 
+
       .heading-text h1 {
         font-size: 22px;
       }
 
+
       .heading-text p {
         font-size: 12px;
       }
+
 
       .heading-icon {
         width: 50px;
         height: 50px;
       }
 
+
       .route-options {
-        flex-direction:
-          column;
+        flex-direction: column;
       }
+
 
       .option {
         width: 100%;
       }
 
-      .gps-card {
-        align-items:
-          flex-start;
 
-        flex-direction:
-          column;
+      .gps-card {
+        align-items: flex-start;
+
+        flex-direction: column;
       }
 
+
       #gpsCoordinates {
-        text-align:
-          left;
+        text-align: left;
+      }
+
+
+      .mobile-bottom-nav {
+        height: 70px;
+      }
+
+
+      .mobile-nav-item {
+        font-size: 7px;
+
+        border-radius: 10px;
+      }
+
+
+      .mobile-nav-item svg {
+        width: 20px;
+        height: 20px;
+      }
+
+    }
+
+
+
+    /* =====================================================
+       VERY SMALL MOBILE
+    ===================================================== */
+
+    @media (max-width: 360px) {
+
+      .mobile-bottom-nav {
+        height: 68px;
+      }
+
+
+      .mobile-nav-item {
+        font-size: 6.5px;
+      }
+
+
+      .mobile-nav-item svg {
+        width: 18px;
+        height: 18px;
       }
 
     }
@@ -1741,10 +1532,10 @@
 
 
 <!-- =====================================================
-     NAVBAR
+     TOP NAVBAR
 ===================================================== -->
 
-<nav>
+<nav class="top-navbar">
 
   <div class="brand">
 
@@ -1813,7 +1604,7 @@
 
 
 <!-- =====================================================
-     SIDEBAR
+     DESKTOP SIDEBAR
 ===================================================== -->
 
 <aside>
@@ -1826,6 +1617,9 @@
 
 
     <div class="menu">
+
+
+      <!-- HOME -->
 
       <button
         class="menu-item"
@@ -1840,6 +1634,9 @@
       </button>
 
 
+
+      <!-- AI GUIDANCE -->
+
       <button
         class="menu-item"
         type="button"
@@ -1852,6 +1649,9 @@
 
       </button>
 
+
+
+      <!-- WHEELCHAIR ACTIVE -->
 
       <button
         class="menu-item active"
@@ -1866,10 +1666,13 @@
       </button>
 
 
+
+      <!-- SHUTTLE -->
+
       <button
         class="menu-item"
         type="button"
-        onclick="showComingSoon('Campus Shuttle Live')"
+        onclick="goTo('shuttle.html')"
       >
 
         <i data-lucide="bus"></i>
@@ -1878,6 +1681,9 @@
 
       </button>
 
+
+
+      <!-- INDOOR MAP -->
 
       <button
         class="menu-item"
@@ -1895,6 +1701,9 @@
 
   </div>
 
+
+
+  <!-- DESKTOP SOS -->
 
   <button
     class="sos-btn"
@@ -2108,9 +1917,7 @@
 
 
 
-  <!-- ===================================================
-       ACCESSIBILITY OPTIONS
-  ==================================================== -->
+  <!-- ACCESSIBILITY OPTIONS -->
 
   <div class="route-options">
 
@@ -2174,7 +1981,7 @@
 
 
 
-  <!-- FIND -->
+  <!-- FIND ROUTE -->
 
   <button
     class="find-route-btn"
@@ -2241,9 +2048,7 @@
 <section id="routeResult">
 
 
-  <!-- ===================================================
-       OVERVIEW
-  ==================================================== -->
+  <!-- ROUTE OVERVIEW -->
 
   <div class="route-overview">
 
@@ -2356,9 +2161,12 @@
 
 
 
+      <!-- NOTE -->
+
       <div class="route-note">
 
         <strong>Navigation note:</strong>
+
         Google Maps is provided as a navigation fallback.
         Its walking route is not independently verified as
         wheelchair accessible. Follow the accessibility
@@ -2406,9 +2214,9 @@
 
 
 
-  <!-- ===================================================
+  <!-- =====================================================
        ROUTE STEPS
-  ==================================================== -->
+  ===================================================== -->
 
   <div class="route-steps">
 
@@ -2427,9 +2235,9 @@
 
 
 
-  <!-- ===================================================
+  <!-- =====================================================
        FEATURES
-  ==================================================== -->
+  ===================================================== -->
 
   <div class="features-card">
 
@@ -2530,9 +2338,9 @@
 
 
 
-  <!-- ===================================================
+  <!-- =====================================================
        BOTTOM ACTION
-  ==================================================== -->
+  ===================================================== -->
 
   <div class="bottom-actions">
 
@@ -2562,6 +2370,113 @@
 
 
 
+<!-- =====================================================
+     MOBILE BOTTOM NAVIGATION
+===================================================== -->
+
+<nav
+  class="mobile-bottom-nav"
+  aria-label="Mobile navigation"
+>
+
+
+  <!-- HOME -->
+
+  <button
+    class="mobile-nav-item"
+    type="button"
+    aria-label="Go to Home"
+    onclick="goTo('index.html')"
+  >
+
+    <i data-lucide="home"></i>
+
+    <span>
+      Home
+    </span>
+
+  </button>
+
+
+
+  <!-- AI GUIDE -->
+
+  <button
+    class="mobile-nav-item"
+    type="button"
+    aria-label="Visual AI Guidance"
+    onclick="goTo('virtual.html')"
+  >
+
+    <i data-lucide="eye"></i>
+
+    <span>
+      AI Guide
+    </span>
+
+  </button>
+
+
+
+  <!-- WHEELCHAIR ACTIVE -->
+
+  <button
+    class="mobile-nav-item active"
+    type="button"
+    aria-label="Wheelchair Access Routes"
+    aria-current="page"
+  >
+
+    <i data-lucide="accessibility"></i>
+
+    <span>
+      Wheelchair
+    </span>
+
+  </button>
+
+
+
+  <!-- SHUTTLE -->
+
+  <button
+    class="mobile-nav-item"
+    type="button"
+    aria-label="Campus Shuttle Live"
+    onclick="goTo('shuttle.html')"
+  >
+
+    <i data-lucide="bus"></i>
+
+    <span>
+      Shuttle
+    </span>
+
+  </button>
+
+
+
+  <!-- SOS -->
+
+  <button
+    class="mobile-nav-item sos-item"
+    type="button"
+    aria-label="Emergency SOS"
+    onclick="triggerSOS()"
+  >
+
+    <i data-lucide="siren"></i>
+
+    <span>
+      SOS
+    </span>
+
+  </button>
+
+</nav>
+
+
+
 <script>
 
 /* =========================================================
@@ -2583,7 +2498,6 @@ lucide.createIcons();
 ========================================================= */
 
 let userLat = null;
-
 let userLng = null;
 
 let currentDestination = "";
@@ -2610,14 +2524,11 @@ const CAMPUS_ADDRESS =
 
 const accessibleRoutes = {
 
-
   "Central Library": {
 
-    distance:
-      "Approx. 650 m",
+    distance: "Approx. 650 m",
 
-    score:
-      96,
+    score: 96,
 
     steps: [
 
@@ -2652,11 +2563,9 @@ const accessibleRoutes = {
 
   "Admin Block": {
 
-    distance:
-      "Approx. 450 m",
+    distance: "Approx. 450 m",
 
-    score:
-      94,
+    score: 94,
 
     steps: [
 
@@ -2691,11 +2600,9 @@ const accessibleRoutes = {
 
   "CSE Block": {
 
-    distance:
-      "Approx. 800 m",
+    distance: "Approx. 800 m",
 
-    score:
-      93,
+    score: 93,
 
     steps: [
 
@@ -2730,11 +2637,9 @@ const accessibleRoutes = {
 
   "ECE Block": {
 
-    distance:
-      "Approx. 850 m",
+    distance: "Approx. 850 m",
 
-    score:
-      92,
+    score: 92,
 
     steps: [
 
@@ -2769,11 +2674,9 @@ const accessibleRoutes = {
 
   "EEE Block": {
 
-    distance:
-      "Approx. 900 m",
+    distance: "Approx. 900 m",
 
-    score:
-      92,
+    score: 92,
 
     steps: [
 
@@ -2808,11 +2711,9 @@ const accessibleRoutes = {
 
   "Mechanical Block": {
 
-    distance:
-      "Approx. 1.0 km",
+    distance: "Approx. 1.0 km",
 
-    score:
-      90,
+    score: 90,
 
     steps: [
 
@@ -2847,11 +2748,9 @@ const accessibleRoutes = {
 
   "Civil Block": {
 
-    distance:
-      "Approx. 950 m",
+    distance: "Approx. 950 m",
 
-    score:
-      91,
+    score: 91,
 
     steps: [
 
@@ -2886,11 +2785,9 @@ const accessibleRoutes = {
 
   "Auditorium": {
 
-    distance:
-      "Approx. 700 m",
+    distance: "Approx. 700 m",
 
-    score:
-      95,
+    score: 95,
 
     steps: [
 
@@ -2925,11 +2822,9 @@ const accessibleRoutes = {
 
   "Seminar Hall": {
 
-    distance:
-      "Approx. 750 m",
+    distance: "Approx. 750 m",
 
-    score:
-      94,
+    score: 94,
 
     steps: [
 
@@ -2964,11 +2859,9 @@ const accessibleRoutes = {
 
   "Canteen": {
 
-    distance:
-      "Approx. 500 m",
+    distance: "Approx. 500 m",
 
-    score:
-      93,
+    score: 93,
 
     steps: [
 
@@ -3003,11 +2896,9 @@ const accessibleRoutes = {
 
   "Medical Centre": {
 
-    distance:
-      "Approx. 600 m",
+    distance: "Approx. 600 m",
 
-    score:
-      97,
+    score: 97,
 
     steps: [
 
@@ -3042,11 +2933,9 @@ const accessibleRoutes = {
 
   "Placement Cell": {
 
-    distance:
-      "Approx. 700 m",
+    distance: "Approx. 700 m",
 
-    score:
-      94,
+    score: 94,
 
     steps: [
 
@@ -3081,11 +2970,9 @@ const accessibleRoutes = {
 
   "Main Gate": {
 
-    distance:
-      "Approx. 400 m",
+    distance: "Approx. 400 m",
 
-    score:
-      98,
+    score: 98,
 
     steps: [
 
@@ -3114,11 +3001,9 @@ const accessibleRoutes = {
 
   "Parking": {
 
-    distance:
-      "Approx. 350 m",
+    distance: "Approx. 350 m",
 
-    score:
-      96,
+    score: 96,
 
     steps: [
 
@@ -3167,7 +3052,6 @@ function startGPS() {
       "GPS not supported";
 
     return;
-
   }
 
 
@@ -3224,14 +3108,11 @@ function startGPS() {
 
       {
 
-        enableHighAccuracy:
-          true,
+        enableHighAccuracy: true,
 
-        maximumAge:
-          3000,
+        maximumAge: 3000,
 
-        timeout:
-          15000
+        timeout: 15000
 
       }
 
@@ -3268,9 +3149,7 @@ function setGPSStatus(
       "error"
     );
 
-  }
-
-  else {
+  } else {
 
     pill.classList.remove(
       "error"
@@ -3294,11 +3173,6 @@ function loadPassedDestination() {
     );
 
 
-  /*
-   * URLSearchParams already decodes
-   * the destination.
-   */
-
   let destination =
     params.get("destination") ||
     sessionStorage.getItem(
@@ -3311,9 +3185,7 @@ function loadPassedDestination() {
 
 
   if (!destination) {
-
     return;
-
   }
 
 
@@ -3321,47 +3193,27 @@ function loadPassedDestination() {
     destination.trim();
 
 
-  /*
-   * Match exact campus route.
-   */
-
   const destinationSelect =
     document.getElementById(
       "destination"
     );
 
 
-  const optionExists =
+  const matchingOption =
     Array.from(
       destinationSelect.options
-    ).some(
+    ).find(
       option =>
-        option.value
-        .toLowerCase() ===
+        option.value.toLowerCase() ===
         destination.toLowerCase()
     );
 
 
-  if (optionExists) {
-
-    const matchingOption =
-      Array.from(
-        destinationSelect.options
-      ).find(
-        option =>
-          option.value
-            .toLowerCase() ===
-          destination.toLowerCase()
-      );
-
+  if (matchingOption) {
 
     destinationSelect.value =
       matchingOption.value;
 
-
-    /*
-     * Automatically prepare the route.
-     */
 
     setTimeout(
       function() {
@@ -3372,9 +3224,7 @@ function loadPassedDestination() {
       400
     );
 
-  }
-
-  else {
+  } else {
 
     showMessage(
       "Destination received: " +
@@ -3409,7 +3259,6 @@ function findAccessibleRoute() {
     );
 
     return;
-
   }
 
 
@@ -3431,14 +3280,8 @@ function findAccessibleRoute() {
     );
 
     return;
-
   }
 
-
-  /*
-   * Save destination so other
-   * AccessPathAI modules can use it.
-   */
 
   localStorage.setItem(
     "accessPathDestination",
@@ -3451,10 +3294,6 @@ function findAccessibleRoute() {
     destination
   );
 
-
-  /*
-   * Result information
-   */
 
   document.getElementById(
     "resultDestination"
@@ -3497,8 +3336,7 @@ function findAccessibleRoute() {
     );
 
 
-  container.innerHTML =
-    "";
+  container.innerHTML = "";
 
 
   route.steps.forEach(
@@ -3558,9 +3396,10 @@ function findAccessibleRoute() {
   );
 
 
-  /*
-   * Show result
-   */
+
+  /* =====================================================
+     SHOW RESULT
+  ===================================================== */
 
   document.getElementById(
     "routeResult"
@@ -3576,9 +3415,10 @@ function findAccessibleRoute() {
   );
 
 
-  /*
-   * Voice announcement
-   */
+
+  /* =====================================================
+     VOICE
+  ===================================================== */
 
   speak(
     "Accessible route to " +
@@ -3589,19 +3429,18 @@ function findAccessibleRoute() {
   );
 
 
-  /*
-   * Scroll to result
-   */
+
+  /* =====================================================
+     SCROLL
+  ===================================================== */
 
   document.getElementById(
     "routeResult"
   ).scrollIntoView({
 
-    behavior:
-      "smooth",
+    behavior: "smooth",
 
-    block:
-      "start"
+    block: "start"
 
   });
 
@@ -3627,9 +3466,7 @@ function createGoogleMapsLink(
   );
 
 
-  /*
-   * Use GPS when available.
-   */
+  /* GPS origin */
 
   if (
     userLat !== null &&
@@ -3643,9 +3480,7 @@ function createGoogleMapsLink(
       userLng
     );
 
-  }
-
-  else {
+  } else {
 
     params.set(
       "origin",
@@ -3655,6 +3490,8 @@ function createGoogleMapsLink(
   }
 
 
+  /* Destination */
+
   params.set(
     "destination",
     destination +
@@ -3662,11 +3499,6 @@ function createGoogleMapsLink(
     CAMPUS_ADDRESS
   );
 
-
-  /*
-   * Google Maps walking navigation
-   * is used as fallback only.
-   */
 
   params.set(
     "travelmode",
@@ -3709,7 +3541,6 @@ function speakRoute() {
     );
 
     return;
-
   }
 
 
@@ -3721,7 +3552,6 @@ function speakRoute() {
     );
 
     return;
-
   }
 
 
@@ -3805,9 +3635,7 @@ function speak(text) {
   if (
     !("speechSynthesis" in window)
   ) {
-
     return;
-
   }
 
 
@@ -3911,11 +3739,6 @@ function showMessage(
     );
 
 
-
-  /*
-   * Automatically hide after 5 seconds.
-   */
-
   clearTimeout(
     window.messageTimer
   );
@@ -3971,18 +3794,21 @@ function triggerSOS() {
     locationText;
 
 
-  /*
-   * Voice
-   */
-
   speak(
     "Emergency SOS activated."
   );
 
 
-  /*
-   * Browser alert
-   */
+  if (
+    navigator.vibrate
+  ) {
+
+    navigator.vibrate(
+      [300, 150, 300]
+    );
+
+  }
+
 
   alert(
     message
@@ -4101,7 +3927,7 @@ window.addEventListener(
 
 
 /* =========================================================
-   CLEANUP GPS
+   CLEANUP
 ========================================================= */
 
 window.addEventListener(
@@ -4118,6 +3944,7 @@ window.addEventListener(
 
     }
 
+
     if (
       "speechSynthesis" in window
     ) {
@@ -4133,5 +3960,4 @@ window.addEventListener(
 
 
 </body>
-
 </html>
