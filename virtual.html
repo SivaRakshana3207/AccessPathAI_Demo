@@ -1,0 +1,4113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AccessPath AI — Visual AI Guidance</title>
+
+<!-- =========================================================
+     GOOGLE FONT
+========================================================= -->
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+  rel="stylesheet"
+>
+
+<!-- =========================================================
+     LUCIDE
+========================================================= -->
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- =========================================================
+     TENSORFLOW.JS
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js"></script>
+
+<!-- =========================================================
+     COCO-SSD
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+
+  --bg: #fafafa;
+  --white: #ffffff;
+
+  --wine: #800020;
+  --wine-dark: #680019;
+  --wine-soft: #f6e9ed;
+
+  --green: #10b981;
+  --green-dark: #047857;
+  --green-soft: #ecfdf5;
+
+  --red: #dc2626;
+  --red-dark: #b91c1c;
+
+  --orange: #f59e0b;
+
+  --text: #171717;
+  --muted: #666666;
+
+  --border: #e7e7e7;
+
+  --shadow:
+    0 8px 30px rgba(0,0,0,0.06);
+
+  --font:
+    "Plus Jakarta Sans",
+    sans-serif;
+
+  --heading:
+    "Space Grotesk",
+    sans-serif;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+
+html,
+body {
+
+  width: 100%;
+  min-height: 100%;
+
+}
+
+
+body {
+
+  font-family: var(--font);
+
+  background: var(--bg);
+
+  color: var(--text);
+
+  overflow-x: hidden;
+}
+
+
+button {
+
+  font-family: inherit;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+nav {
+
+  height: 68px;
+
+  width: 100%;
+
+  background: white;
+
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 0 28px;
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 1000;
+}
+
+
+.brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  font-family: var(--heading);
+
+  font-size: 25px;
+
+  font-weight: 700;
+
+  color: var(--wine);
+}
+
+
+.brand span {
+
+  color: #171717;
+}
+
+
+.brand svg {
+
+  width: 26px;
+  height: 26px;
+
+  stroke-width: 2.5;
+}
+
+
+.nav-right {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-pill {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 9px 15px;
+
+  border-radius: 999px;
+
+  background: var(--green-soft);
+
+  color: var(--green-dark);
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+
+.status-dot {
+
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 0 4px rgba(16,185,129,.12);
+}
+
+
+.status-pill.error {
+
+  background: #fef2f2;
+
+  color: var(--red-dark);
+}
+
+
+.status-pill.error .status-dot {
+
+  background: var(--red);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+
+  width: 100%;
+
+  max-width: 1500px;
+
+  margin: auto;
+
+  padding: 26px;
+}
+
+
+/* =========================================================
+   HEADER CARD
+========================================================= */
+
+.page-header {
+
+  background: white;
+
+  border: 1px solid var(--border);
+
+  border-radius: 18px;
+
+  padding: 22px 24px;
+
+  box-shadow: var(--shadow);
+
+  margin-bottom: 18px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+}
+
+
+.header-left {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+}
+
+
+.header-icon {
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 14px;
+
+  background: var(--wine-soft);
+
+  color: var(--wine);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+.header-icon svg {
+
+  width: 28px;
+  height: 28px;
+}
+
+
+.page-header h1 {
+
+  font-family: var(--heading);
+
+  font-size: 24px;
+
+  margin-bottom: 4px;
+}
+
+
+.page-header p {
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   DESTINATION
+========================================================= */
+
+.destination-card {
+
+  background: white;
+
+  border: 1px solid var(--border);
+
+  border-radius: 14px;
+
+  padding: 14px 18px;
+
+  margin-bottom: 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+}
+
+
+.destination-card svg {
+
+  width: 22px;
+  height: 22px;
+
+  color: var(--wine);
+
+  flex-shrink: 0;
+}
+
+
+.destination-info {
+
+  min-width: 0;
+}
+
+
+.destination-label {
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  color: #777;
+
+  text-transform: uppercase;
+
+  letter-spacing: .06em;
+
+  margin-bottom: 3px;
+}
+
+
+.destination-value {
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.content-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.7fr)
+    minmax(310px, .75fr);
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   CAMERA CARD
+========================================================= */
+
+.camera-card {
+
+  background: white;
+
+  border: 1px solid var(--border);
+
+  border-radius: 18px;
+
+  padding: 16px;
+
+  box-shadow: var(--shadow);
+}
+
+
+.camera-container {
+
+  position: relative;
+
+  width: 100%;
+
+  min-height: 570px;
+
+  background: #090909;
+
+  border-radius: 15px;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+#camera {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+
+  transform: scaleX(-1);
+
+  display: block;
+}
+
+
+/* =========================================================
+   CANVAS
+========================================================= */
+
+#overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  pointer-events: none;
+
+  transform: scaleX(-1);
+}
+
+
+/* =========================================================
+   CAMERA TOP BAR
+========================================================= */
+
+.camera-top {
+
+  position: absolute;
+
+  top: 14px;
+
+  left: 14px;
+
+  right: 14px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  z-index: 10;
+
+  pointer-events: none;
+}
+
+
+.camera-live {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 8px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(0,0,0,.72);
+
+  color: white;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+.camera-live-dot {
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #ef4444;
+
+  animation: livePulse 1.3s infinite;
+}
+
+
+@keyframes livePulse {
+
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .3;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
+}
+
+
+.camera-mode {
+
+  padding: 8px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.88);
+
+  color: #222;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   START CAMERA OVERLAY
+========================================================= */
+
+.camera-start {
+
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 20;
+
+  background:
+    linear-gradient(
+      rgba(0,0,0,.68),
+      rgba(0,0,0,.82)
+    );
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 30px;
+}
+
+
+.camera-start.hidden {
+
+  display: none;
+}
+
+
+.start-inner {
+
+  color: white;
+
+  max-width: 420px;
+}
+
+
+.start-icon {
+
+  width: 74px;
+  height: 74px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,.13);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin: 0 auto 18px;
+}
+
+
+.start-icon svg {
+
+  width: 35px;
+  height: 35px;
+}
+
+
+.start-inner h2 {
+
+  font-family: var(--heading);
+
+  font-size: 25px;
+
+  margin-bottom: 9px;
+}
+
+
+.start-inner p {
+
+  color: #d8d8d8;
+
+  font-size: 13px;
+
+  line-height: 1.7;
+
+  margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   START BUTTON
+========================================================= */
+
+.start-camera-btn {
+
+  border: none;
+
+  border-radius: 11px;
+
+  padding: 14px 22px;
+
+  background: var(--wine);
+
+  color: white;
+
+  font-weight: 800;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+
+.start-camera-btn:hover {
+
+  background: var(--wine-dark);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   GUIDANCE INDICATOR
+========================================================= */
+
+.guidance-indicator {
+
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 25px;
+
+  transform: translateX(-50%);
+
+  z-index: 10;
+
+  width: 72%;
+
+  max-width: 600px;
+
+  padding: 13px 17px;
+
+  border-radius: 13px;
+
+  background: rgba(0,0,0,.78);
+
+  color: white;
+
+  backdrop-filter: blur(8px);
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.guidance-indicator.safe {
+
+  border: 1px solid rgba(16,185,129,.55);
+}
+
+
+.guidance-indicator.warning {
+
+  border: 1px solid rgba(245,158,11,.75);
+}
+
+
+.guidance-indicator.danger {
+
+  border: 1px solid rgba(220,38,38,.85);
+
+  animation: dangerPulse .9s infinite;
+}
+
+
+@keyframes dangerPulse {
+
+  0% {
+    box-shadow: 0 0 0 rgba(220,38,38,0);
+  }
+
+  50% {
+    box-shadow: 0 0 28px rgba(220,38,38,.4);
+  }
+
+  100% {
+    box-shadow: 0 0 0 rgba(220,38,38,0);
+  }
+
+}
+
+
+.guidance-icon {
+
+  width: 35px;
+  height: 35px;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: rgba(255,255,255,.1);
+}
+
+
+.guidance-icon svg {
+
+  width: 20px;
+  height: 20px;
+}
+
+
+.guidance-text strong {
+
+  display: block;
+
+  font-size: 13px;
+
+  margin-bottom: 2px;
+}
+
+
+.guidance-text span {
+
+  font-size: 11px;
+
+  color: #cfcfcf;
+}
+
+
+/* =========================================================
+   CAMERA CONTROLS
+========================================================= */
+
+.camera-controls {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 14px;
+}
+
+
+.control-btn {
+
+  flex: 1;
+
+  height: 50px;
+
+  border: 1px solid #dddddd;
+
+  background: white;
+
+  border-radius: 11px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  color: #222;
+}
+
+
+.control-btn:hover {
+
+  border-color: var(--wine);
+
+  color: var(--wine);
+}
+
+
+.control-btn.primary {
+
+  background: var(--wine);
+
+  border-color: var(--wine);
+
+  color: white;
+}
+
+
+.control-btn.primary:hover {
+
+  background: var(--wine-dark);
+
+  color: white;
+}
+
+
+.control-btn.danger {
+
+  background: #fef2f2;
+
+  border-color: #fecaca;
+
+  color: var(--red-dark);
+}
+
+
+/* =========================================================
+   RIGHT PANEL
+========================================================= */
+
+.side-panel {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+
+.info-card {
+
+  background: white;
+
+  border: 1px solid var(--border);
+
+  border-radius: 17px;
+
+  padding: 18px;
+
+  box-shadow: var(--shadow);
+}
+
+
+.card-title {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  margin-bottom: 15px;
+}
+
+
+.card-title svg {
+
+  width: 20px;
+  height: 20px;
+
+  color: var(--wine);
+}
+
+
+/* =========================================================
+   GPS
+========================================================= */
+
+.gps-box {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 13px;
+
+  background: #fafafa;
+
+  border: 1px solid #eeeeee;
+
+  border-radius: 11px;
+}
+
+
+.gps-box svg {
+
+  width: 21px;
+  height: 21px;
+
+  color: var(--wine);
+}
+
+
+.gps-coordinates {
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+
+.gps-accuracy {
+
+  font-size: 10px;
+
+  color: #777;
+
+  margin-top: 3px;
+}
+
+
+/* =========================================================
+   OBJECT STATUS
+========================================================= */
+
+.object-count {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 12px 0;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+
+.object-count:last-child {
+
+  border-bottom: none;
+}
+
+
+.object-name {
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+
+.object-distance {
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  padding: 5px 8px;
+
+  border-radius: 999px;
+}
+
+
+.distance-safe {
+
+  color: var(--green-dark);
+
+  background: var(--green-soft);
+}
+
+
+.distance-warning {
+
+  color: #92400e;
+
+  background: #fffbeb;
+}
+
+
+.distance-danger {
+
+  color: var(--red-dark);
+
+  background: #fef2f2;
+}
+
+
+/* =========================================================
+   DIRECTIONS
+========================================================= */
+
+.direction-box {
+
+  min-height: 105px;
+
+  background: var(--wine-soft);
+
+  border-radius: 12px;
+
+  padding: 15px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.direction-arrow {
+
+  width: 46px;
+  height: 46px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  color: var(--wine);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+
+.direction-arrow svg {
+
+  width: 25px;
+  height: 25px;
+}
+
+
+.direction-main {
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  margin-bottom: 4px;
+}
+
+
+.direction-sub {
+
+  font-size: 11px;
+
+  color: #666;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.accessibility-list {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.accessibility-item {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  background: #fafafa;
+
+  border: 1px solid #eeeeee;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+
+.accessibility-item svg {
+
+  width: 17px;
+  height: 17px;
+
+  color: var(--wine);
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert-box {
+
+  display: none;
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  background: #fef2f2;
+
+  border: 1px solid #fecaca;
+
+  color: var(--red-dark);
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  line-height: 1.5;
+}
+
+
+.alert-box.show {
+
+  display: flex;
+
+  gap: 9px;
+
+  align-items: flex-start;
+}
+
+
+.alert-box svg {
+
+  width: 18px;
+  height: 18px;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   FOOTER MESSAGE
+========================================================= */
+
+.system-message {
+
+  margin-top: 15px;
+
+  padding: 12px 15px;
+
+  border-radius: 11px;
+
+  background: #fff8fa;
+
+  border: 1px solid #efdce2;
+
+  color: var(--wine);
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  display: none;
+}
+
+
+.system-message.show {
+
+  display: block;
+}
+
+
+.system-message.error {
+
+  color: var(--red-dark);
+
+  background: #fef2f2;
+
+  border-color: #fecaca;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width: 1050px) {
+
+  .content-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+  .side-panel {
+
+    display: grid;
+
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+}
+
+
+@media(max-width: 700px) {
+
+  nav {
+
+    padding: 0 15px;
+  }
+
+
+  .brand {
+
+    font-size: 20px;
+  }
+
+
+  .status-pill {
+
+    display: none;
+  }
+
+
+  main {
+
+    padding: 14px;
+  }
+
+
+  .page-header {
+
+    padding: 17px;
+  }
+
+
+  .page-header h1 {
+
+    font-size: 20px;
+  }
+
+
+  .side-panel {
+
+    display: flex;
+  }
+
+
+  .camera-container {
+
+    min-height: 470px;
+  }
+
+
+  .guidance-indicator {
+
+    width: calc(100% - 30px);
+
+    bottom: 15px;
+  }
+
+}
+
+
+@media(max-width: 480px) {
+
+  .camera-container {
+
+    min-height: 430px;
+  }
+
+
+  .camera-controls {
+
+    flex-direction: column;
+  }
+
+
+  .destination-value {
+
+    max-width: 240px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav>
+
+  <div class="brand">
+
+    <i data-lucide="compass"></i>
+
+    AccessPath<span>AI</span>
+
+  </div>
+
+
+  <div class="nav-right">
+
+    <div
+      class="status-pill"
+      id="systemStatus"
+    >
+
+      <span class="status-dot"></span>
+
+      <span id="systemStatusText">
+        AI Ready
+      </span>
+
+    </div>
+
+  </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+
+  <section class="page-header">
+
+    <div class="header-left">
+
+      <div class="header-icon">
+
+        <i data-lucide="eye"></i>
+
+      </div>
+
+
+      <div>
+
+        <h1>
+          Visual AI Guidance
+        </h1>
+
+        <p>
+          Real-time obstacle detection for safer campus navigation
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =======================================================
+       DESTINATION
+  ======================================================== -->
+
+  <section class="destination-card">
+
+    <i data-lucide="map-pin"></i>
+
+    <div class="destination-info">
+
+      <div class="destination-label">
+        Current Destination
+      </div>
+
+      <div
+        class="destination-value"
+        id="destinationDisplay"
+      >
+        No destination selected
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =======================================================
+       CONTENT
+  ======================================================== -->
+
+  <div class="content-grid">
+
+
+    <!-- =====================================================
+         CAMERA
+    ====================================================== -->
+
+    <section class="camera-card">
+
+
+      <div class="camera-container">
+
+
+        <!-- CAMERA -->
+
+        <video
+          id="camera"
+          autoplay
+          playsinline
+          muted
+        ></video>
+
+
+        <!-- DETECTION OVERLAY -->
+
+        <canvas
+          id="overlay"
+        ></canvas>
+
+
+        <!-- CAMERA TOP -->
+
+        <div class="camera-top">
+
+          <div class="camera-live">
+
+            <span class="camera-live-dot"></span>
+
+            AI VISION LIVE
+
+          </div>
+
+
+          <div class="camera-mode">
+
+            OBSTACLE DETECTION
+
+          </div>
+
+        </div>
+
+
+
+        <!-- START CAMERA -->
+
+        <div
+          class="camera-start"
+          id="cameraStart"
+        >
+
+          <div class="start-inner">
+
+            <div class="start-icon">
+
+              <i data-lucide="camera"></i>
+
+            </div>
+
+
+            <h2>
+              Start Visual Guidance
+            </h2>
+
+
+            <p>
+              AccessPath AI will use your camera
+              to detect obstacles and provide
+              spoken warnings while you travel.
+            </p>
+
+
+            <button
+              class="start-camera-btn"
+              onclick="startVisualGuidance()"
+            >
+
+              <i data-lucide="camera"></i>
+
+              Start Camera
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- GUIDANCE -->
+
+        <div
+          class="guidance-indicator safe"
+          id="guidanceIndicator"
+        >
+
+          <div class="guidance-icon">
+
+            <i
+              data-lucide="check-circle"
+              id="guidanceIcon"
+            ></i>
+
+          </div>
+
+
+          <div class="guidance-text">
+
+            <strong id="guidanceMain">
+              Path appears clear
+            </strong>
+
+            <span id="guidanceSub">
+              Start the camera for AI obstacle detection
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- CAMERA CONTROLS -->
+
+      <div class="camera-controls">
+
+        <button
+          class="control-btn primary"
+          id="cameraButton"
+          onclick="startVisualGuidance()"
+        >
+
+          <i data-lucide="play"></i>
+
+          Start Guidance
+
+        </button>
+
+
+        <button
+          class="control-btn"
+          id="voiceButton"
+          onclick="toggleVoiceGuidance()"
+        >
+
+          <i data-lucide="volume-2"></i>
+
+          Voice On
+
+        </button>
+
+
+        <button
+          class="control-btn danger"
+          onclick="stopVisualGuidance()"
+        >
+
+          <i data-lucide="square"></i>
+
+          Stop
+
+        </button>
+
+      </div>
+
+
+      <div
+        class="system-message"
+        id="systemMessage"
+      ></div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         SIDE PANEL
+    ====================================================== -->
+
+    <aside class="side-panel">
+
+
+      <!-- ===================================================
+           GPS
+      ==================================================== -->
+
+      <section class="info-card">
+
+        <div class="card-title">
+
+          <i data-lucide="navigation"></i>
+
+          Live Location
+
+        </div>
+
+
+        <div class="gps-box">
+
+          <i data-lucide="map-pin"></i>
+
+          <div>
+
+            <div
+              class="gps-coordinates"
+              id="gpsCoordinates"
+            >
+              Locating...
+            </div>
+
+            <div
+              class="gps-accuracy"
+              id="gpsAccuracy"
+            >
+              Waiting for GPS
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           DETECTED OBJECTS
+      ==================================================== -->
+
+      <section class="info-card">
+
+        <div class="card-title">
+
+          <i data-lucide="scan"></i>
+
+          Detected Objects
+
+        </div>
+
+
+        <div id="objectList">
+
+          <div class="object-count">
+
+            <span class="object-name">
+              No objects detected
+            </span>
+
+            <span class="object-distance distance-safe">
+              SAFE
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           NAVIGATION GUIDANCE
+      ==================================================== -->
+
+      <section class="info-card">
+
+        <div class="card-title">
+
+          <i data-lucide="route"></i>
+
+          Navigation Guidance
+
+        </div>
+
+
+        <div class="direction-box">
+
+          <div class="direction-arrow">
+
+            <i
+              data-lucide="arrow-up"
+              id="directionIcon"
+            ></i>
+
+          </div>
+
+
+          <div>
+
+            <div
+              class="direction-main"
+              id="directionMain"
+            >
+              Continue forward
+            </div>
+
+            <div
+              class="direction-sub"
+              id="directionSub"
+            >
+              Follow your selected destination route.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           ACCESSIBILITY
+      ==================================================== -->
+
+      <section class="info-card">
+
+        <div class="card-title">
+
+          <i data-lucide="accessibility"></i>
+
+          Accessibility Mode
+
+        </div>
+
+
+        <div class="accessibility-list">
+
+
+          <div class="accessibility-item">
+
+            <i data-lucide="volume-2"></i>
+
+            Spoken obstacle warnings
+
+          </div>
+
+
+          <div class="accessibility-item">
+
+            <i data-lucide="scan"></i>
+
+            Real-time object detection
+
+          </div>
+
+
+          <div class="accessibility-item">
+
+            <i data-lucide="navigation"></i>
+
+            GPS-aware navigation
+
+          </div>
+
+
+          <div class="accessibility-item">
+
+            <i data-lucide="triangle-alert"></i>
+
+            Forward-path safety detection
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           ALERT
+      ==================================================== -->
+
+      <div
+        class="alert-box"
+        id="dangerAlert"
+      >
+
+        <i data-lucide="triangle-alert"></i>
+
+        <span id="dangerText">
+          Obstacle detected ahead.
+        </span>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+</main>
+
+
+
+<script>
+
+/* =========================================================
+   ACCESSPATH AI
+   VISUAL AI GUIDANCE
+========================================================= */
+
+
+/* =========================================================
+   ICONS
+========================================================= */
+
+lucide.createIcons();
+
+
+/* =========================================================
+   APPLICATION STATE
+========================================================= */
+
+let video = null;
+
+let canvas = null;
+
+let ctx = null;
+
+let stream = null;
+
+let model = null;
+
+let detectionRunning = false;
+
+let animationFrame = null;
+
+let gpsWatchId = null;
+
+let userLat = null;
+
+let userLng = null;
+
+let gpsAccuracy = null;
+
+let voiceEnabled = true;
+
+let lastSpokenObject = "";
+
+let lastSpokenTime = 0;
+
+let lastDangerTime = 0;
+
+let destination = "";
+
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const cameraStart =
+  document.getElementById("cameraStart");
+
+const systemMessage =
+  document.getElementById("systemMessage");
+
+const systemStatus =
+  document.getElementById("systemStatus");
+
+const systemStatusText =
+  document.getElementById("systemStatusText");
+
+const destinationDisplay =
+  document.getElementById("destinationDisplay");
+
+const gpsCoordinates =
+  document.getElementById("gpsCoordinates");
+
+const gpsAccuracyDisplay =
+  document.getElementById("gpsAccuracy");
+
+const objectList =
+  document.getElementById("objectList");
+
+const guidanceIndicator =
+  document.getElementById("guidanceIndicator");
+
+const guidanceMain =
+  document.getElementById("guidanceMain");
+
+const guidanceSub =
+  document.getElementById("guidanceSub");
+
+const guidanceIcon =
+  document.getElementById("guidanceIcon");
+
+const dangerAlert =
+  document.getElementById("dangerAlert");
+
+const dangerText =
+  document.getElementById("dangerText");
+
+
+
+/* =========================================================
+   LOAD DESTINATION
+========================================================= */
+
+function loadDestination() {
+
+  /*
+   * First check URL parameter.
+   *
+   * Example:
+   *
+   * virtual.html?destination=Central%20Library
+   */
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const urlDestination =
+    params.get("destination");
+
+
+  if (urlDestination) {
+
+    destination =
+      urlDestination;
+
+  }
+
+
+  /*
+   * Check localStorage.
+   */
+
+  if (!destination) {
+
+    const storedDestination =
+      localStorage.getItem(
+        "accessPathDestination"
+      );
+
+
+    if (storedDestination) {
+
+      destination =
+        storedDestination;
+
+    }
+
+  }
+
+
+  /*
+   * Check sessionStorage.
+   */
+
+  if (!destination) {
+
+    const sessionDestination =
+      sessionStorage.getItem(
+        "accessPathDestination"
+      );
+
+
+    if (sessionDestination) {
+
+      destination =
+        sessionDestination;
+
+    }
+
+  }
+
+
+  if (destination) {
+
+    destinationDisplay.innerText =
+      destination;
+
+  }
+
+  else {
+
+    destinationDisplay.innerText =
+      "No destination selected";
+
+  }
+
+}
+
+
+
+/* =========================================================
+   SAVE DESTINATION
+========================================================= */
+
+function saveDestination() {
+
+  if (!destination) {
+    return;
+  }
+
+
+  localStorage.setItem(
+    "accessPathDestination",
+    destination
+  );
+
+
+  sessionStorage.setItem(
+    "accessPathDestination",
+    destination
+  );
+
+}
+
+
+
+/* =========================================================
+   GPS
+========================================================= */
+
+function startGPS() {
+
+  if (!navigator.geolocation) {
+
+    gpsCoordinates.innerText =
+      "GPS not supported";
+
+    gpsAccuracyDisplay.innerText =
+      "Browser does not support location";
+
+    return;
+
+  }
+
+
+  gpsWatchId =
+    navigator.geolocation.watchPosition(
+
+      function(position) {
+
+        userLat =
+          position.coords.latitude;
+
+        userLng =
+          position.coords.longitude;
+
+        gpsAccuracy =
+          position.coords.accuracy;
+
+
+        gpsCoordinates.innerText =
+          userLat.toFixed(6) +
+          ", " +
+          userLng.toFixed(6);
+
+
+        gpsAccuracyDisplay.innerText =
+          "Accuracy ±" +
+          Math.round(gpsAccuracy) +
+          " metres";
+
+
+        updateSystemStatus(
+          "GPS + AI Ready",
+          false
+        );
+
+      },
+
+
+      function(error) {
+
+        console.error(
+          "GPS error:",
+          error
+        );
+
+
+        gpsCoordinates.innerText =
+          "GPS unavailable";
+
+        gpsAccuracyDisplay.innerText =
+          "Allow location permission";
+
+      },
+
+
+      {
+
+        enableHighAccuracy: true,
+
+        maximumAge: 3000,
+
+        timeout: 15000
+
+      }
+
+    );
+
+}
+
+
+
+/* =========================================================
+   SYSTEM STATUS
+========================================================= */
+
+function updateSystemStatus(
+  text,
+  error = false
+) {
+
+  systemStatusText.innerText =
+    text;
+
+
+  if (error) {
+
+    systemStatus.classList.add(
+      "error"
+    );
+
+  }
+
+  else {
+
+    systemStatus.classList.remove(
+      "error"
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(
+  text,
+  error = false
+) {
+
+  systemMessage.innerText =
+    text;
+
+  systemMessage.classList.add(
+    "show"
+  );
+
+
+  if (error) {
+
+    systemMessage.classList.add(
+      "error"
+    );
+
+  }
+
+  else {
+
+    systemMessage.classList.remove(
+      "error"
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   SPEAK
+========================================================= */
+
+function speak(
+  text,
+  force = false
+) {
+
+  if (
+    !voiceEnabled &&
+    !force
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    !("speechSynthesis" in window)
+  ) {
+
+    return;
+
+  }
+
+
+  window.speechSynthesis.cancel();
+
+
+  const utterance =
+    new SpeechSynthesisUtterance(
+      text
+    );
+
+
+  utterance.lang =
+    "en-IN";
+
+
+  utterance.rate =
+    0.9;
+
+
+  utterance.pitch =
+    1;
+
+
+  window.speechSynthesis.speak(
+    utterance
+  );
+
+}
+
+
+
+/* =========================================================
+   TOGGLE VOICE
+========================================================= */
+
+function toggleVoiceGuidance() {
+
+  voiceEnabled =
+    !voiceEnabled;
+
+
+  const button =
+    document.getElementById(
+      "voiceButton"
+    );
+
+
+  if (voiceEnabled) {
+
+    button.innerHTML =
+      `
+      <i data-lucide="volume-2"></i>
+      Voice On
+      `;
+
+    speak(
+      "Voice guidance enabled.",
+      true
+    );
+
+  }
+
+  else {
+
+    button.innerHTML =
+      `
+      <i data-lucide="volume-x"></i>
+      Voice Off
+      `;
+
+    window.speechSynthesis.cancel();
+
+  }
+
+
+  lucide.createIcons();
+
+}
+
+
+
+/* =========================================================
+   START VISUAL GUIDANCE
+========================================================= */
+
+async function startVisualGuidance() {
+
+  try {
+
+    if (detectionRunning) {
+
+      return;
+
+    }
+
+
+    showMessage(
+      "Requesting camera permission..."
+    );
+
+
+    updateSystemStatus(
+      "Starting camera..."
+    );
+
+
+    /*
+     * CAMERA
+     */
+
+    stream =
+      await navigator.mediaDevices.getUserMedia({
+
+        video: {
+
+          facingMode: {
+            ideal: "environment"
+          },
+
+          width: {
+            ideal: 1280
+          },
+
+          height: {
+            ideal: 720
+          }
+
+        },
+
+        audio: false
+
+      });
+
+
+    video =
+      document.getElementById(
+        "camera"
+      );
+
+
+    canvas =
+      document.getElementById(
+        "overlay"
+      );
+
+
+    ctx =
+      canvas.getContext(
+        "2d"
+      );
+
+
+    video.srcObject =
+      stream;
+
+
+    await video.play();
+
+
+    /*
+     * CAMERA UI
+     */
+
+    cameraStart.classList.add(
+      "hidden"
+    );
+
+
+    /*
+     * LOAD AI MODEL
+     */
+
+    showMessage(
+      "Loading AI obstacle detection model..."
+    );
+
+
+    updateSystemStatus(
+      "Loading AI model..."
+    );
+
+
+    if (!model) {
+
+      model =
+        await cocoSsd.load();
+
+    }
+
+
+    /*
+     * READY
+     */
+
+    detectionRunning =
+      true;
+
+
+    updateSystemStatus(
+      "AI Vision Live"
+    );
+
+
+    showMessage(
+      "Visual AI guidance is active."
+    );
+
+
+    speak(
+      destination
+        ? "Visual guidance started. Destination is " +
+          destination +
+          ". I will warn you about obstacles ahead."
+        : "Visual guidance started. I will warn you about obstacles ahead.",
+      true
+    );
+
+
+    resizeCanvas();
+
+
+    detectFrame();
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Camera error:",
+      error
+    );
+
+
+    updateSystemStatus(
+      "Camera unavailable",
+      true
+    );
+
+
+    showMessage(
+      getCameraErrorMessage(error),
+      true
+    );
+
+
+    speak(
+      "Camera access could not be started. Please allow camera permission.",
+      true
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   CAMERA ERROR MESSAGE
+========================================================= */
+
+function getCameraErrorMessage(
+  error
+) {
+
+  if (
+    error.name ===
+    "NotAllowedError"
+  ) {
+
+    return (
+      "Camera permission was denied. " +
+      "Allow camera access in Chrome and try again."
+    );
+
+  }
+
+
+  if (
+    error.name ===
+    "NotFoundError"
+  ) {
+
+    return (
+      "No camera was found on this device."
+    );
+
+  }
+
+
+  if (
+    error.name ===
+    "NotReadableError"
+  ) {
+
+    return (
+      "Camera is being used by another application."
+    );
+
+  }
+
+
+  return (
+    "Unable to start the camera. " +
+    "Please check browser permissions."
+  );
+
+}
+
+
+
+/* =========================================================
+   RESIZE CANVAS
+========================================================= */
+
+function resizeCanvas() {
+
+  if (
+    !video ||
+    !canvas
+  ) {
+
+    return;
+
+  }
+
+
+  const width =
+    video.videoWidth ||
+    video.clientWidth;
+
+
+  const height =
+    video.videoHeight ||
+    video.clientHeight;
+
+
+  if (
+    width &&
+    height
+  ) {
+
+    canvas.width =
+      width;
+
+    canvas.height =
+      height;
+
+  }
+
+}
+
+
+
+/* =========================================================
+   DETECTION LOOP
+========================================================= */
+
+async function detectFrame() {
+
+  if (!detectionRunning) {
+
+    return;
+
+  }
+
+
+  if (
+    video.readyState >= 2 &&
+    model
+  ) {
+
+    try {
+
+      const predictions =
+        await model.detect(
+          video
+        );
+
+
+      processPredictions(
+        predictions
+      );
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Detection error:",
+        error
+      );
+
+    }
+
+  }
+
+
+  animationFrame =
+    requestAnimationFrame(
+      detectFrame
+    );
+
+}
+
+
+
+/* =========================================================
+   OBJECT CATEGORIES
+========================================================= */
+
+const importantObjects = [
+
+  "person",
+
+  "bicycle",
+
+  "car",
+
+  "motorcycle",
+
+  "bus",
+
+  "truck",
+
+  "chair",
+
+  "bench",
+
+  "backpack",
+
+  "suitcase",
+
+  "handbag",
+
+  "dog",
+
+  "cat",
+
+  "bird",
+
+  "skateboard",
+
+  "stroller",
+
+  "traffic light",
+
+  "stop sign"
+
+];
+
+
+
+/* =========================================================
+   PROCESS PREDICTIONS
+========================================================= */
+
+function processPredictions(
+  predictions
+) {
+
+  resizeCanvas();
+
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+
+  /*
+   * Filter confidence.
+   */
+
+  const objects =
+    predictions.filter(
+      item =>
+        item.score >= 0.50
+    );
+
+
+  /*
+   * Draw boxes.
+   */
+
+  objects.forEach(
+    object => {
+
+      drawDetection(
+        object
+      );
+
+    }
+  );
+
+
+  /*
+   * Update object panel.
+   */
+
+  updateObjectPanel(
+    objects
+  );
+
+
+  /*
+   * Find forward obstacles.
+   */
+
+  const forwardObjects =
+    objects.filter(
+      object =>
+        isForwardObstacle(
+          object
+        )
+    );
+
+
+  /*
+   * Safety logic.
+   */
+
+  if (
+    forwardObjects.length === 0
+  ) {
+
+    setSafeState();
+
+    return;
+
+  }
+
+
+  /*
+   * Find closest / biggest object.
+   */
+
+  forwardObjects.sort(
+    (a, b) =>
+      getDangerScore(b) -
+      getDangerScore(a)
+  );
+
+
+  const dangerObject =
+    forwardObjects[0];
+
+
+  const proximity =
+    estimateProximity(
+      dangerObject
+    );
+
+
+  if (
+    proximity === "VERY CLOSE"
+  ) {
+
+    setDangerState(
+      dangerObject
+    );
+
+  }
+
+  else if (
+    proximity === "NEAR"
+  ) {
+
+    setWarningState(
+      dangerObject
+    );
+
+  }
+
+  else {
+
+    setSafeState(
+      dangerObject
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   DRAW DETECTION
+========================================================= */
+
+function drawDetection(
+  object
+) {
+
+  const [
+    x,
+    y,
+    width,
+    height
+  ] =
+    object.bbox;
+
+
+  const proximity =
+    estimateProximity(
+      object
+    );
+
+
+  let lineWidth =
+    3;
+
+
+  ctx.lineWidth =
+    lineWidth;
+
+
+  /*
+   * Use default canvas stroke.
+   */
+
+  if (
+    proximity ===
+    "VERY CLOSE"
+  ) {
+
+    ctx.strokeStyle =
+      "#ff0000";
+
+  }
+
+  else if (
+    proximity ===
+    "NEAR"
+  ) {
+
+    ctx.strokeStyle =
+      "#ffb000";
+
+  }
+
+  else {
+
+    ctx.strokeStyle =
+      "#00d084";
+
+  }
+
+
+  ctx.strokeRect(
+    x,
+    y,
+    width,
+    height
+  );
+
+
+  /*
+   * LABEL BACKGROUND
+   */
+
+  const label =
+    object.class +
+    " " +
+    Math.round(
+      object.score * 100
+    ) +
+    "%";
+
+
+  ctx.font =
+    "bold 15px Arial";
+
+
+  const textWidth =
+    ctx.measureText(
+      label
+    ).width;
+
+
+  ctx.fillStyle =
+    "rgba(0,0,0,.78)";
+
+
+  ctx.fillRect(
+    x,
+    Math.max(
+      0,
+      y - 28
+    ),
+    textWidth + 16,
+    28
+  );
+
+
+  ctx.fillStyle =
+    "#ffffff";
+
+
+  ctx.fillText(
+    label,
+    x + 8,
+    Math.max(
+      19,
+      y - 9
+    )
+  );
+
+}
+
+
+
+/* =========================================================
+   PROXIMITY ESTIMATION
+========================================================= */
+
+function estimateProximity(
+  object
+) {
+
+  const [
+    x,
+    y,
+    width,
+    height
+  ] =
+    object.bbox;
+
+
+  const frameWidth =
+    video.videoWidth ||
+    1280;
+
+
+  const frameHeight =
+    video.videoHeight ||
+    720;
+
+
+  const area =
+    width *
+    height;
+
+
+  const frameArea =
+    frameWidth *
+    frameHeight;
+
+
+  const areaRatio =
+    area /
+    frameArea;
+
+
+  /*
+   * Object center.
+   */
+
+  const centerX =
+    x +
+    width / 2;
+
+
+  const centerY =
+    y +
+    height / 2;
+
+
+  /*
+   * Larger object =
+   * visually closer.
+   */
+
+  if (
+    areaRatio > 0.20 ||
+    height / frameHeight > 0.58
+  ) {
+
+    return "VERY CLOSE";
+
+  }
+
+
+  if (
+    areaRatio > 0.08 ||
+    height / frameHeight > 0.35
+  ) {
+
+    return "NEAR";
+
+  }
+
+
+  return "FAR";
+
+}
+
+
+
+/* =========================================================
+   FORWARD OBSTACLE
+========================================================= */
+
+function isForwardObstacle(
+  object
+) {
+
+  const [
+    x,
+    y,
+    width,
+    height
+  ] =
+    object.bbox;
+
+
+  const frameWidth =
+    video.videoWidth ||
+    1280;
+
+
+  const frameHeight =
+    video.videoHeight ||
+    720;
+
+
+  const centerX =
+    x +
+    width / 2;
+
+
+  const centerY =
+    y +
+    height / 2;
+
+
+  /*
+   * Only important physical
+   * objects.
+   */
+
+  if (
+    !importantObjects.includes(
+      object.class
+    )
+  ) {
+
+    return false;
+
+  }
+
+
+  /*
+   * Ignore tiny objects.
+   */
+
+  if (
+    width < frameWidth * 0.035 &&
+    height < frameHeight * 0.06
+  ) {
+
+    return false;
+
+  }
+
+
+  /*
+   * Forward corridor.
+   *
+   * Approximately middle 55%.
+   */
+
+  const leftBoundary =
+    frameWidth * 0.225;
+
+
+  const rightBoundary =
+    frameWidth * 0.775;
+
+
+  /*
+   * Object must intersect
+   * lower/middle travel region.
+   */
+
+  const objectBottom =
+    y +
+    height;
+
+
+  const lowerTravelZone =
+    frameHeight *
+    0.38;
+
+
+  const insideHorizontal =
+    centerX >= leftBoundary &&
+    centerX <= rightBoundary;
+
+
+  const insideVertical =
+    objectBottom >=
+    lowerTravelZone;
+
+
+  return (
+    insideHorizontal &&
+    insideVertical
+  );
+
+}
+
+
+
+/* =========================================================
+   DANGER SCORE
+========================================================= */
+
+function getDangerScore(
+  object
+) {
+
+  const [
+    x,
+    y,
+    width,
+    height
+  ] =
+    object.bbox;
+
+
+  const frameWidth =
+    video.videoWidth ||
+    1280;
+
+
+  const frameHeight =
+    video.videoHeight ||
+    720;
+
+
+  const area =
+    width *
+    height;
+
+
+  const frameArea =
+    frameWidth *
+    frameHeight;
+
+
+  const areaRatio =
+    area /
+    frameArea;
+
+
+  const centerX =
+    x +
+    width / 2;
+
+
+  const centerDistance =
+    Math.abs(
+      centerX -
+      frameWidth / 2
+    );
+
+
+  const centerFactor =
+    1 -
+    Math.min(
+      centerDistance /
+      (frameWidth / 2),
+      1
+    );
+
+
+  return (
+    areaRatio * 10 +
+    centerFactor * 2 +
+    object.score
+  );
+
+}
+
+
+
+/* =========================================================
+   OBJECT PANEL
+========================================================= */
+
+function updateObjectPanel(
+  objects
+) {
+
+  if (
+    objects.length === 0
+  ) {
+
+    objectList.innerHTML =
+
+      `
+      <div class="object-count">
+
+        <span class="object-name">
+          No objects detected
+        </span>
+
+        <span class="object-distance distance-safe">
+          SAFE
+        </span>
+
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  /*
+   * Keep important objects only.
+   */
+
+  const visible =
+    objects
+      .filter(
+        object =>
+          importantObjects.includes(
+            object.class
+          )
+      )
+      .sort(
+        (a, b) =>
+          getDangerScore(b) -
+          getDangerScore(a)
+      )
+      .slice(
+        0,
+        6
+      );
+
+
+  if (
+    visible.length === 0
+  ) {
+
+    objectList.innerHTML =
+
+      `
+      <div class="object-count">
+
+        <span class="object-name">
+          Background detected
+        </span>
+
+        <span class="object-distance distance-safe">
+          SAFE
+        </span>
+
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  objectList.innerHTML =
+    visible
+      .map(
+        object => {
+
+          const proximity =
+            estimateProximity(
+              object
+            );
+
+
+          let className =
+            "distance-safe";
+
+
+          if (
+            proximity ===
+            "NEAR"
+          ) {
+
+            className =
+              "distance-warning";
+
+          }
+
+
+          if (
+            proximity ===
+            "VERY CLOSE"
+          ) {
+
+            className =
+              "distance-danger";
+
+          }
+
+
+          return `
+
+            <div class="object-count">
+
+              <span class="object-name">
+                ${capitalize(
+                  object.class
+                )}
+              </span>
+
+              <span class="object-distance ${className}">
+                ${proximity}
+              </span>
+
+            </div>
+
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+
+/* =========================================================
+   SAFE STATE
+========================================================= */
+
+function setSafeState(
+  optionalObject = null
+) {
+
+  guidanceIndicator.className =
+    "guidance-indicator safe";
+
+
+  guidanceIcon.setAttribute(
+    "data-lucide",
+    "check-circle"
+  );
+
+
+  guidanceMain.innerText =
+    "Path appears clear";
+
+
+  if (optionalObject) {
+
+    guidanceSub.innerText =
+      capitalize(
+        optionalObject.class
+      ) +
+      " detected at a safe distance.";
+
+  }
+
+  else {
+
+    guidanceSub.innerText =
+      "No immediate obstacle detected in your forward path.";
+
+  }
+
+
+  dangerAlert.classList.remove(
+    "show"
+  );
+
+
+  lucide.createIcons();
+
+}
+
+
+
+/* =========================================================
+   WARNING STATE
+========================================================= */
+
+function setWarningState(
+  object
+) {
+
+  guidanceIndicator.className =
+    "guidance-indicator warning";
+
+
+  guidanceIcon.setAttribute(
+    "data-lucide",
+    "triangle-alert"
+  );
+
+
+  guidanceMain.innerText =
+    capitalize(
+      object.class
+    ) +
+    " ahead";
+
+
+  guidanceSub.innerText =
+    "Obstacle detected nearby. Slow down and check your path.";
+
+
+  dangerAlert.classList.add(
+    "show"
+  );
+
+
+  dangerText.innerText =
+    capitalize(
+      object.class
+    ) +
+    " detected ahead. Please be careful.";
+
+
+  speakObstacle(
+    object,
+    "near"
+  );
+
+
+  lucide.createIcons();
+
+}
+
+
+
+/* =========================================================
+   DANGER STATE
+========================================================= */
+
+function setDangerState(
+  object
+) {
+
+  guidanceIndicator.className =
+    "guidance-indicator danger";
+
+
+  guidanceIcon.setAttribute(
+    "data-lucide",
+    "octagon-alert"
+  );
+
+
+  guidanceMain.innerText =
+    "STOP — obstacle very close";
+
+
+  guidanceSub.innerText =
+    capitalize(
+      object.class
+    ) +
+    " is directly in your forward path.";
+
+
+  dangerAlert.classList.add(
+    "show"
+  );
+
+
+  dangerText.innerText =
+    "STOP. " +
+    capitalize(
+      object.class
+    ) +
+    " is very close ahead.";
+
+
+  speakObstacle(
+    object,
+    "danger"
+  );
+
+
+  lucide.createIcons();
+
+}
+
+
+
+/* =========================================================
+   SPOKEN OBSTACLE WARNING
+========================================================= */
+
+function speakObstacle(
+  object,
+  level
+) {
+
+  if (!voiceEnabled) {
+
+    return;
+
+  }
+
+
+  const now =
+    Date.now();
+
+
+  /*
+   * Prevent repeated announcements.
+   */
+
+  const objectName =
+    object.class;
+
+
+  const messageKey =
+    level +
+    "-" +
+    objectName;
+
+
+  const cooldown =
+    level ===
+    "danger"
+      ? 2200
+      : 4000;
+
+
+  if (
+    messageKey ===
+      lastSpokenObject &&
+    now -
+      lastSpokenTime <
+      cooldown
+  ) {
+
+    return;
+
+  }
+
+
+  lastSpokenObject =
+    messageKey;
+
+
+  lastSpokenTime =
+    now;
+
+
+  if (
+    level ===
+    "danger"
+  ) {
+
+    speak(
+      "Stop. " +
+      objectName +
+      " very close ahead.",
+      true
+    );
+
+  }
+
+  else {
+
+    speak(
+      "Warning. " +
+      objectName +
+      " ahead.",
+      true
+    );
+
+  }
+
+}
+
+
+
+/* =========================================================
+   CAPITALIZE
+========================================================= */
+
+function capitalize(
+  text
+) {
+
+  if (!text) {
+    return "";
+  }
+
+
+  return (
+    text.charAt(0).toUpperCase() +
+    text.slice(1)
+  );
+
+}
+
+
+
+/* =========================================================
+   STOP GUIDANCE
+========================================================= */
+
+function stopVisualGuidance() {
+
+  detectionRunning =
+    false;
+
+
+  if (animationFrame) {
+
+    cancelAnimationFrame(
+      animationFrame
+    );
+
+    animationFrame =
+      null;
+
+  }
+
+
+  if (stream) {
+
+    stream
+      .getTracks()
+      .forEach(
+        track =>
+          track.stop()
+      );
+
+
+    stream =
+      null;
+
+  }
+
+
+  if (ctx && canvas) {
+
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+  }
+
+
+  if (video) {
+
+    video.srcObject =
+      null;
+
+  }
+
+
+  cameraStart.classList.remove(
+    "hidden"
+  );
+
+
+  updateSystemStatus(
+    "AI Ready"
+  );
+
+
+  guidanceIndicator.className =
+    "guidance-indicator safe";
+
+
+  guidanceIcon.setAttribute(
+    "data-lucide",
+    "check-circle"
+  );
+
+
+  guidanceMain.innerText =
+    "Visual guidance stopped";
+
+
+  guidanceSub.innerText =
+    "Start the camera to resume obstacle detection.";
+
+
+  dangerAlert.classList.remove(
+    "show"
+  );
+
+
+  speak(
+    "Visual guidance stopped.",
+    true
+  );
+
+
+  lucide.createIcons();
+
+}
+
+
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    /*
+     * Space
+     */
+
+    if (
+      event.code ===
+      "Space" &&
+      event.target.tagName !==
+      "INPUT"
+    ) {
+
+      event.preventDefault();
+
+
+      if (
+        detectionRunning
+      ) {
+
+        stopVisualGuidance();
+
+      }
+
+      else {
+
+        startVisualGuidance();
+
+      }
+
+    }
+
+
+    /*
+     * Escape
+     */
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      stopVisualGuidance();
+
+    }
+
+  }
+);
+
+
+
+/* =========================================================
+   VOICE COMMANDS
+========================================================= */
+
+let commandRecognition =
+  null;
+
+
+function startVoiceCommands() {
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+  if (!SpeechRecognition) {
+
+    return;
+
+  }
+
+
+  commandRecognition =
+    new SpeechRecognition();
+
+
+  commandRecognition.lang =
+    "en-IN";
+
+
+  commandRecognition.continuous =
+    true;
+
+
+  commandRecognition.interimResults =
+    false;
+
+
+  commandRecognition.onresult =
+    function(event) {
+
+      const result =
+        event.results[
+          event.results.length - 1
+        ][0]
+        .transcript
+        .toLowerCase()
+        .trim();
+
+
+      console.log(
+        "Voice command:",
+        result
+      );
+
+
+      if (
+        result.includes(
+          "start guidance"
+        ) ||
+        result.includes(
+          "start camera"
+        ) ||
+        result.includes(
+          "begin guidance"
+        )
+      ) {
+
+        startVisualGuidance();
+
+      }
+
+
+      if (
+        result.includes(
+          "stop guidance"
+        ) ||
+        result.includes(
+          "stop camera"
+        )
+      ) {
+
+        stopVisualGuidance();
+
+      }
+
+
+      if (
+        result.includes(
+          "voice off"
+        )
+      ) {
+
+        if (voiceEnabled) {
+
+          toggleVoiceGuidance();
+
+        }
+
+      }
+
+
+      if (
+        result.includes(
+          "voice on"
+        )
+      ) {
+
+        if (!voiceEnabled) {
+
+          toggleVoiceGuidance();
+
+        }
+
+      }
+
+    };
+
+
+  commandRecognition.onerror =
+    function(error) {
+
+      console.log(
+        "Command recognition:",
+        error
+      );
+
+    };
+
+
+  try {
+
+    commandRecognition.start();
+
+  }
+
+  catch(error) {
+
+    console.log(error);
+
+  }
+
+}
+
+
+
+/* =========================================================
+   PAGE VISIBILITY
+========================================================= */
+
+document.addEventListener(
+  "visibilitychange",
+  function() {
+
+    /*
+     * Stop camera when
+     * user leaves the page.
+     */
+
+    if (
+      document.hidden &&
+      detectionRunning
+    ) {
+
+      stopVisualGuidance();
+
+    }
+
+  }
+);
+
+
+
+/* =========================================================
+   WINDOW RESIZE
+========================================================= */
+
+window.addEventListener(
+  "resize",
+  function() {
+
+    resizeCanvas();
+
+  }
+);
+
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+window.addEventListener(
+  "load",
+  function() {
+
+    lucide.createIcons();
+
+    loadDestination();
+
+    saveDestination();
+
+    startGPS();
+
+    /*
+     * Optional voice command listener.
+     *
+     * Browser may ask microphone
+     * permission.
+     *
+     * Keep disabled initially.
+     */
+
+  }
+);
+
+</script>
+
+
+</body>
+
+</html>
