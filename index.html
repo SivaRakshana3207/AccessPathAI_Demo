@@ -1840,94 +1840,440 @@ function setGPSStatus(
 ========================================================= */
 
 function cleanVoiceDestination(text) {
-    const input = text.toLowerCase().trim();
+    const input = text
+        .toLowerCase()
+        .replace(/[.,!?]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
 
-    // Sathyabama University campus places
+    // ============================================================
+    // SATHYABAMA INSTITUTE OF SCIENCE AND TECHNOLOGY
+    // OFFICIAL CAMPUS MAP DESTINATIONS
+    // ============================================================
+
     const campusPlaces = [
+
+        // --------------------------------------------------------
+        // ADMINISTRATIVE ZONE
+        // --------------------------------------------------------
+
+        "administrative block",
+        "admin block",
+
+        "colonel dr jeppiaar memorial",
+        "dr jeppiaar memorial",
+        "jeppiaar memorial",
+
+        "reception block",
+        "reception",
+
+        "controller of examination",
+        "controller of examinations",
+        "coe",
+        "examination controller",
+
+        "auditorium block",
+        "auditorium",
+
         "central library",
         "library",
 
-        "admin block",
-        "administrative block",
-        "administration block",
+        // --------------------------------------------------------
+        // RESEARCH ZONE
+        // --------------------------------------------------------
 
+        "international research centre",
+        "international research center",
+        "irc",
+
+        "colonel dr jeppiaar research park",
+        "dr jeppiaar research park",
+        "jeppiaar research park",
+        "research park",
+
+        // --------------------------------------------------------
+        // CLASSROOMS / DEPARTMENTS / LABORATORIES
+        // --------------------------------------------------------
+
+        "class room block 01",
+        "classroom block 01",
+        "class room block one",
+        "classroom block one",
+        "class block 01",
+
+        "department of computer science and engineering",
+        "department of computer science and engg",
+        "computer science and engineering department",
+        "computer science department",
         "computer science block",
-        "cse block",
         "cse department",
+        "cse block",
+        "cse",
 
-        "mechanical block",
-        "mechanical engineering block",
-
-        "civil block",
-        "civil engineering block",
-
-        "ece block",
-        "ece department",
+        "department of electronics and communication engineering",
+        "department of electronics and comm engineering",
+        "electronics and communication engineering department",
+        "electronics and communication department",
         "electronics and communication block",
+        "ece department",
+        "ece block",
+        "ece",
 
-        "eee block",
-        "eee department",
+        "computer science laboratory",
+        "computer science lab",
+        "cse laboratory",
+        "cse lab",
+
+        "department of electrical and electronics engineering",
+        "department of electrical and electronics engg",
+        "electrical and electronics engineering department",
+        "electrical and electronics department",
         "electrical and electronics block",
+        "eee department",
+        "eee block",
+        "eee",
 
-        "biomedical block",
-        "biomedical engineering block",
+        "department of mechanical engineering",
+        "department of mechanical engg",
+        "mechanical engineering department",
+        "mechanical engineering block",
+        "mechanical block",
+        "mechanical department",
 
+        "indian bank",
+        "bank",
+
+        "machine shop and drawing hall",
+        "machine shop",
+        "drawing hall",
+
+        "bio medical laboratory",
+        "biomedical laboratory",
+        "biomedical lab",
+        "bio medical lab",
+
+        "department of information technology",
+        "information technology department",
+        "information technology block",
+        "it department",
+        "it block",
+
+        "fluid mechanics laboratory",
+        "fluid mechanics lab",
+
+        "computer aided manufacturing laboratory",
+        "computer aided manufacturing lab",
+        "cam laboratory",
+        "cam lab",
+
+        "thermal laboratory",
+        "thermal lab",
+
+        "department of chemical engineering",
+        "department of chemical engg",
+        "chemical engineering department",
+        "chemical engineering block",
+        "chemical block",
+        "chemical department",
+
+        "department of aeronautical engineering",
+        "department of aeronautical engg",
+        "aeronautical engineering department",
+        "aeronautical engineering block",
+        "aeronautical block",
+        "aeronautical department",
+
+        "class room block 02",
+        "classroom block 02",
+        "class room block two",
+        "classroom block two",
+        "class block 02",
+
+        "class room block 03",
+        "classroom block 03",
+        "class room block three",
+        "classroom block three",
+        "class block 03",
+
+        "class room block 04",
+        "classroom block 04",
+        "class room block four",
+        "classroom block four",
+        "class block 04",
+
+        "student activity centre",
+        "student activity center",
+        "student activity centre",
+        "student activity centre sac",
+        "sac",
+
+        "class room block 06",
+        "classroom block 06",
+        "class room block six",
+        "classroom block six",
+        "class block 06",
+
+        "class room block 07",
+        "classroom block 07",
+        "class room block seven",
+        "classroom block seven",
+        "class block 07",
+
+        "class room block 08",
+        "classroom block 08",
+        "class room block eight",
+        "classroom block eight",
+        "class block 08",
+
+        "class room block 14",
+        "classroom block 14",
+        "class room block fourteen",
+        "classroom block fourteen",
+        "class block 14",
+
+        "class room block 15",
+        "classroom block 15",
+        "class room block fifteen",
+        "classroom block fifteen",
+        "class block 15",
+
+        "class room block 16",
+        "classroom block 16",
+        "class room block sixteen",
+        "classroom block sixteen",
+        "class block 16",
+
+        "class room block 18",
+        "classroom block 18",
+        "class room block eighteen",
+        "classroom block eighteen",
+        "class block 18",
+
+        "class room block 19",
+        "classroom block 19",
+        "class room block nineteen",
+        "classroom block nineteen",
+        "class block 19",
+
+        "department of physics chemistry and maths",
+        "department of physics chemistry mathematics",
+        "physics chemistry maths department",
+        "physics department",
+        "chemistry department",
+        "mathematics department",
+
+        "department of civil engineering",
+        "department of civil engg",
+        "civil engineering department",
+        "civil engineering block",
+        "civil block",
+        "civil department",
+
+        "department of visual communication",
+        "visual communication department",
+        "visual communication block",
+
+        "department of biotechnology and biomedical engineering",
+        "department of biotech and biomedical engineering",
+        "biotechnology and biomedical engineering department",
+        "biotechnology department",
         "biotechnology block",
+        "biotech department",
         "biotech block",
+        "biomedical engineering department",
+        "biomedical engineering block",
+        "biomedical block",
 
+        "department of automobile engineering",
+        "department of automobile engg",
+        "automobile engineering department",
+        "automobile engineering block",
+        "automobile block",
+
+        "law moot court and classrooms",
+        "law moot court",
+        "moot court",
+
+        "school of law",
+        "law school",
+
+        "school of pharmacy",
+        "pharmacy school",
+        "pharmacy",
+
+        "school of management studies",
+        "management studies",
+        "management school",
+
+        "department of architecture",
+        "architecture department",
         "architecture block",
         "school of architecture",
 
-        "auditorium",
-        "main auditorium",
+        "department of fashion design",
+        "fashion design department",
+        "fashion design block",
 
-        "seminar hall",
-        "seminar hall 1",
-        "seminar hall 2",
+        "school of nursing",
+        "nursing school",
+
+        "dental college and hospital",
+        "dental college",
+        "dental hospital",
+        "dental college hospital",
+
+        // --------------------------------------------------------
+        // HOSTELS AND MESS
+        // --------------------------------------------------------
+
+        "boys mess hall",
+        "boys mess",
+        "boys hostel mess",
+
+        "girls mess hall",
+        "girls mess",
+        "girls hostel mess",
 
         "canteen",
         "main canteen",
-        "food court",
 
-        "hostel",
-        "girls hostel",
-        "boys hostel",
+        "dr m gopalakrishnan boys hostel and indoor court",
+        "dr m gopalakrishnan boys hostel",
+        "m gopalakrishnan boys hostel",
+        "gopalakrishnan boys hostel",
+        "indoor court",
 
-        "main gate",
-        "entrance gate",
-        "north gate",
-        "south gate",
+        "dr mgr illam boys hostel",
+        "mgr illam boys hostel",
+        "mgr boys hostel",
+
+        "col dr jeppiaar illam boys hostel",
+        "colonel dr jeppiaar illam boys hostel",
+        "jeppiaar illam boys hostel",
+        "jeppiaar boys hostel",
+
+        "st antonys illam boys hostel",
+        "st antony's illam boys hostel",
+        "st antony boys hostel",
+
+        "second year boys hostel",
+        "2nd year boys hostel",
+        "boys second year hostel",
+
+        "final year boys hostel",
+        "boys final year hostel",
+
+        "dental ug and pg hostel",
+        "dental hostel",
+
+        "international hostel",
+
+        "panimallar illam girls hostel",
+        "panimallar girls hostel",
+
+        "final year girls hostel",
+        "girls final year hostel",
+
+        "immaculate mary illam girls hostel",
+        "immaculate mary girls hostel",
+
+        "st mother teresa illam girls hostel",
+        "mother teresa girls hostel",
+        "st teresa girls hostel",
+
+        "janakkiammal illam girls hostel",
+        "janakkiammal girls hostel",
+
+        "mother of rosary illam girls hostel",
+        "mother of rosary girls hostel",
+
+        "second year girls hostel",
+        "2nd year girls hostel",
+        "girls second year hostel",
+
+        // --------------------------------------------------------
+        // OTHER CAMPUS FACILITIES
+        // --------------------------------------------------------
+
+        "open air theater",
+        "open air theatre",
+        "oat",
+
+        "church",
+
+        "transport block",
+        "transport office",
+        "transport",
+
+        "meteorological tower",
+        "metrological tower",
+        "weather tower",
+
+        "aero hangar",
+        "aeronautical hangar",
+        "aircraft hangar",
+
+        "sewage treatment plant",
+        "stp",
+
+        // --------------------------------------------------------
+        // ADDITIONAL CURRENT CAMPUS FACILITIES
+        // --------------------------------------------------------
+
+        "indoor stadium",
+        "indoor stadium",
+
+        "sports ground",
+        "playground",
+        "ground",
+
+        "gym",
+        "gymnasium",
 
         "parking",
         "car parking",
         "bike parking",
+        "two wheeler parking",
 
-        "playground",
-        "ground",
-        "sports ground",
+        "main gate",
+        "main entrance",
+        "entrance gate",
 
-        "gym",
-        "indoor stadium",
+        "north gate",
+        "south gate",
+
+        "food court",
 
         "medical centre",
         "medical center",
         "health centre",
         "health center",
+        "medical centre",
 
         "placement cell",
-        "training and placement",
         "placement office",
+        "training and placement",
+        "training and placement office",
 
         "exam cell",
         "examination cell",
 
-        "bank",
         "atm",
 
         "temple",
-        "church",
 
-        "research block",
+        // Current university campus references
+        "centre for advanced studies",
+        "center for advanced studies",
+        "sathyabama centre for advanced studies",
+        "sathyabama center for advanced studies",
+
+        "st pauls block",
+        "st paul's block",
+
+        "tower lab",
+        "tower laboratory",
+
         "research centre",
         "research center",
 
@@ -1935,19 +2281,28 @@ function cleanVoiceDestination(text) {
         "innovation center"
     ];
 
-    // Sort longest names first
-    // This prevents "library" from being selected before "central library"
+    // ============================================================
+    // IMPORTANT:
+    // Check the longest destination first.
+    // Example:
+    // "central library" must be detected before "library".
+    // ============================================================
+
     campusPlaces.sort((a, b) => b.length - a.length);
 
-    // Find ONLY a recognized campus place
     for (const place of campusPlaces) {
+
         if (input.includes(place)) {
+
+            // Return canonical display name
             return place
-                .replace(/\b\w/g, c => c.toUpperCase());
+                .replace(/\b\w/g, c => c.toUpperCase())
+                .replace(/\bAnd\b/g, "and")
+                .replace(/\bOf\b/g, "of")
+                .replace(/\bThe\b/g, "the");
         }
     }
 
-    // No recognized Sathyabama place found
     return "";
 }
 
