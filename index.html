@@ -3,1175 +3,1971 @@
 
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-  <title>AccessPathAI — Smart Campus Navigation</title>
+<title>AccessPathAI — Smart Campus Navigation</title>
 
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap"
-    rel="stylesheet"
-  >
+<link
+href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap"
+rel="stylesheet">
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
+<style>
 
-    :root {
+/* =========================================================
+   ROOT
+========================================================= */
 
-      --bg-page: #ffffff;
-      --bg-main: #fafafa;
-      --sidebar-bg: #fcf9f9;
+:root {
 
-      --text-main: #171717;
-      --text-muted: #666666;
+    --bg-page:#ffffff;
+    --bg-main:#fafafa;
+    --sidebar-bg:#fcf9f9;
 
-      --wine: #800020;
-      --wine-dark: #680019;
-      --wine-soft: #f6e9ed;
+    --text-main:#171717;
+    --text-muted:#666666;
 
-      --green: #10b981;
-      --green-dark: #047857;
-      --green-soft: #ecfdf5;
+    --wine:#800020;
+    --wine-dark:#680019;
+    --wine-soft:#f6e9ed;
 
-      --red: #dc2626;
-      --red-dark: #b91c1c;
+    --green:#10b981;
+    --green-dark:#047857;
+    --green-soft:#ecfdf5;
 
-      --border: #e7e7e7;
+    --red:#dc2626;
+    --red-dark:#b91c1c;
 
-      --shadow:
-        0 8px 30px rgba(0, 0, 0, 0.05);
+    --border:#e7e7e7;
 
-      --font-main:
+    --shadow:
+        0 8px 30px rgba(0,0,0,0.05);
+
+    --font-main:
         "Plus Jakarta Sans",
         sans-serif;
 
-      --font-heading:
+    --font-heading:
         "Space Grotesk",
         sans-serif;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html {
+    width:100%;
+    min-height:100%;
+}
+
+body {
+
+    width:100%;
+    min-height:100vh;
+
+    font-family:var(--font-main);
+
+    background:var(--bg-page);
+
+    color:var(--text-main);
+
+    overflow-x:hidden;
+}
+
+button,
+input,
+select {
+    font-family:inherit;
+}
+
+button {
+    cursor:pointer;
+}
+
+a {
+    -webkit-tap-highlight-color:transparent;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+nav {
+
+    height:68px;
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    padding:
+        0
+        clamp(15px,3vw,28px);
+
+    background:#ffffff;
+
+    border-bottom:1px solid var(--border);
+
+    position:relative;
+
+    z-index:1000;
+}
+
+
+.brand {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-family:var(--font-heading);
+
+    font-size:25px;
+
+    font-weight:700;
+
+    color:var(--wine);
+
+    white-space:nowrap;
+}
+
+
+.brand span {
+    color:#171717;
+}
+
+
+.brand-icon {
+
+    width:25px;
+    height:25px;
+
+    stroke-width:2.5;
+
+    flex-shrink:0;
+}
+
+
+.nav-right {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    min-width:0;
+}
+
+
+/* =========================================================
+   GPS PILL
+========================================================= */
+
+.gps-pill {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:9px 15px;
+
+    border-radius:999px;
+
+    background:var(--green-soft);
+
+    color:var(--green-dark);
+
+    font-size:13px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+
+.gps-dot {
+
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 0 4px rgba(16,185,129,0.12);
+
+    flex-shrink:0;
+}
+
+
+.gps-pill.error {
+
+    background:#fef2f2;
+
+    color:var(--red-dark);
+}
+
+
+.gps-pill.error .gps-dot {
+    background:var(--red);
+}
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+.lang-select {
+
+    width:255px;
+
+    max-width:255px;
+
+    height:44px;
+
+    padding:0 14px;
+
+    border:1px solid #dddddd;
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    color:var(--text-main);
+
+    font-size:14px;
+
+    font-weight:600;
+
+    outline:none;
+
+    min-width:0;
+}
+
+
+.lang-select:focus {
+
+    border-color:var(--wine);
+
+    box-shadow:
+        0 0 0 3px rgba(128,0,32,0.08);
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard {
+
+    min-height:calc(100vh - 68px);
+
+    display:flex;
+
+    min-width:0;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+aside {
+
+    width:320px;
+
+    flex:0 0 320px;
+
+    background:var(--sidebar-bg);
+
+    border-right:1px solid var(--border);
+
+    padding:30px 24px 20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    min-height:calc(100vh - 68px);
+}
+
+
+.sidebar-title {
+
+    font-size:13px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.08em;
+
+    color:#656565;
+
+    margin-bottom:17px;
+}
+
+
+.menu {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:5px;
+}
+
+
+.menu-item {
+
+    width:100%;
+
+    min-height:57px;
+
+    border:none;
+
+    border-radius:13px;
+
+    background:transparent;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:0 18px;
+
+    color:#1d1d1d;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    text-align:left;
+
+    transition:.2s ease;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+
+.menu-item svg {
+
+    width:23px;
+    height:23px;
+
+    flex-shrink:0;
+}
+
+
+.menu-item:hover {
+
+    background:var(--wine-soft);
+
+    color:var(--wine);
+}
+
+
+.menu-item.active {
+
+    background:#f1e3e7;
+
+    color:var(--wine);
+}
+
+
+/* =========================================================
+   SOS
+========================================================= */
+
+.sos-btn {
+
+    width:100%;
+
+    min-height:69px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#e52424;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 7px 18px rgba(220,38,38,.25);
+
+    transition:.2s ease;
+}
+
+
+.sos-btn:hover {
+
+    background:var(--red-dark);
+
+    transform:translateY(-1px);
+}
+
+
+.sos-btn svg {
+
+    width:24px;
+    height:24px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+
+    flex:1;
+
+    min-width:0;
+
+    min-height:calc(100vh - 68px);
+
+    background:var(--bg-main);
+
+    padding:30px;
+
+    overflow-x:hidden;
+}
+
+
+.main-inner {
+
+    width:100%;
+
+    max-width:1500px;
+
+    margin:auto;
+}
+
+
+/* =========================================================
+   CONTROL CARD
+========================================================= */
+
+.control-card {
+
+    background:#ffffff;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:23px;
+
+    box-shadow:var(--shadow);
+}
+
+
+.status-row {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:18px;
+}
+
+
+.status-item {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    min-width:0;
+}
+
+
+.status-item svg {
+
+    width:20px;
+    height:20px;
+
+    color:var(--wine);
+
+    stroke-width:2.2;
+
+    flex-shrink:0;
+}
+
+
+.status-value {
+
+    font-weight:700;
+
+    overflow-wrap:anywhere;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-row {
+
+    display:flex;
+
+    gap:12px;
+
+    width:100%;
+}
+
+
+.destination-input {
+
+    flex:1;
+
+    min-width:0;
+
+    height:57px;
+
+    border:1px solid #dddddd;
+
+    border-radius:12px;
+
+    padding:0 20px;
+
+    font-size:16px;
+
+    outline:none;
+
+    background:#ffffff;
+
+    color:var(--text-main);
+}
+
+
+.destination-input::placeholder {
+    color:#888888;
+}
+
+
+.destination-input:focus {
+
+    border-color:var(--wine);
+
+    box-shadow:
+        0 0 0 4px rgba(128,0,32,.07);
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.action-btn {
+
+    width:58px;
+
+    height:57px;
+
+    flex:0 0 58px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--wine);
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    transition:.2s ease;
+}
+
+
+.action-btn:hover {
+
+    background:var(--wine-dark);
+
+    transform:translateY(-1px);
+}
+
+
+.action-btn svg {
+
+    width:24px;
+    height:24px;
+}
+
+
+.action-btn.listening {
+
+    background:var(--red);
+
+    animation:pulse 1s infinite;
+}
+
+
+@keyframes pulse {
+
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(220,38,38,.45);
     }
 
-
-    /* =========================================================
-       RESET
-    ========================================================== */
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    70% {
+        box-shadow:
+            0 0 0 12px rgba(220,38,38,0);
     }
 
-    html,
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(220,38,38,0);
+    }
+}
+
+
+/* =========================================================
+   GOOGLE PANEL
+========================================================= */
+
+.google-panel {
+
+    margin-top:18px;
+
+    background:#ffffff;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+    overflow:hidden;
+}
+
+
+.google-header {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    margin-bottom:16px;
+}
+
+
+.google-title {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:17px;
+
+    font-weight:800;
+
+    min-width:0;
+}
+
+
+.google-title svg {
+
+    color:var(--wine);
+
+    width:23px;
+    height:23px;
+
+    flex-shrink:0;
+}
+
+
+.google-badge {
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:6px 10px;
+
+    border-radius:999px;
+
+    background:#f5f5f5;
+
+    color:#555;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   ROUTE SUMMARY
+========================================================= */
+
+.route-summary {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:12px;
+
+    margin-bottom:14px;
+}
+
+
+.route-box {
+
+    border:1px solid #eeeeee;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    background:#fafafa;
+
+    min-width:0;
+}
+
+
+.route-label {
+
+    color:#777;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:.04em;
+
+    margin-bottom:5px;
+}
+
+
+.route-value {
+
+    font-size:14px;
+
+    font-weight:700;
+
+    word-break:break-word;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   URL
+========================================================= */
+
+.url-label {
+
+    font-size:12px;
+
+    color:#666;
+
+    font-weight:700;
+
+    margin-bottom:7px;
+}
+
+
+.url-box {
+
+    display:flex;
+
+    gap:8px;
+
+    width:100%;
+}
+
+
+.google-url {
+
+    flex:1;
+
+    min-width:0;
+
+    height:47px;
+
+    border:1px solid #dddddd;
+
+    border-radius:9px;
+
+    padding:0 13px;
+
+    background:#f8f8f8;
+
+    color:#444;
+
+    font-size:12px;
+
+    outline:none;
+}
+
+
+.copy-btn {
+
+    height:47px;
+
+    padding:0 15px;
+
+    border:1px solid #dddddd;
+
+    background:white;
+
+    color:#333;
+
+    border-radius:9px;
+
+    font-weight:700;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:7px;
+
+    flex-shrink:0;
+}
+
+
+.copy-btn:hover {
+
+    border-color:var(--wine);
+
+    color:var(--wine);
+}
+
+
+.copy-btn svg {
+
+    width:16px;
+    height:16px;
+}
+
+
+/* =========================================================
+   START NAVIGATION
+========================================================= */
+
+.start-navigation {
+
+    width:100%;
+
+    min-height:53px;
+
+    margin-top:13px;
+
+    border:none;
+
+    border-radius:11px;
+
+    background:var(--wine);
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    text-decoration:none;
+
+    transition:.2s ease;
+
+    text-align:center;
+
+    padding:10px 15px;
+}
+
+
+.start-navigation:hover {
+
+    background:var(--wine-dark);
+
+    transform:translateY(-1px);
+}
+
+
+.start-navigation svg {
+
+    width:19px;
+    height:19px;
+
+    flex-shrink:0;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+
+    margin-top:14px;
+
+    padding:12px 15px;
+
+    background:#fff8fa;
+
+    border:1px solid #efdce2;
+
+    border-radius:10px;
+
+    color:var(--wine);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    display:none;
+
+    line-height:1.5;
+}
+
+
+.message.show {
+    display:block;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+
+    margin-top:18px;
+
+    min-height:330px;
+
+    background:white;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:40px;
+
+    box-shadow:var(--shadow);
+}
+
+
+.empty-icon {
+
+    width:70px;
+    height:70px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:var(--wine-soft);
+
+    color:var(--wine);
+
+    margin-bottom:18px;
+}
+
+
+.empty-icon svg {
+
+    width:34px;
+    height:34px;
+}
+
+
+.empty-state h2 {
+
+    font-family:var(--font-heading);
+
+    font-size:25px;
+
+    margin-bottom:9px;
+}
+
+
+.empty-state p {
+
+    max-width:650px;
+
+    color:#707070;
+
+    line-height:1.7;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   SUCCESS
+========================================================= */
+
+.navigation-ready {
+
+    margin-top:18px;
+
+    padding:16px;
+
+    border-radius:13px;
+
+    background:var(--green-soft);
+
+    border:1px solid #c9f4e3;
+
+    color:var(--green-dark);
+
+    display:none;
+
+    line-height:1.5;
+}
+
+
+.navigation-ready.show {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+
+.navigation-ready svg {
+
+    width:21px;
+    height:21px;
+
+    flex-shrink:0;
+}
+
+
+/* =========================================================
+   MOBILE BOTTOM NAV
+========================================================= */
+
+.mobile-nav {
+
+    display:none;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width:1100px) {
+
+    aside {
+
+        width:250px;
+
+        flex-basis:250px;
+
+        padding-left:17px;
+
+        padding-right:17px;
+    }
+
+    main {
+        padding:22px;
+    }
+
+    .menu-item {
+        padding:0 14px;
+        font-size:14px;
+    }
+
+    .gps-pill {
+        padding:8px 12px;
+    }
+
+    .lang-select {
+        width:210px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE / TABLET
+========================================================= */
+
+@media (max-width:900px) {
+
     body {
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
-
-      font-family: var(--font-main);
-
-      background: var(--bg-page);
-
-      color: var(--text-main);
-
-      overflow: hidden;
-    }
-
-    button,
-    input,
-    select {
-      font-family: inherit;
-    }
-
-    button {
-      cursor: pointer;
+        overflow-x:hidden;
+        padding-bottom:76px;
     }
 
 
-    /* =========================================================
+    /* -----------------------------------------------------
        NAVBAR
-    ========================================================== */
+    ----------------------------------------------------- */
 
     nav {
 
-      height: 68px;
+        height:64px;
 
-      width: 100%;
+        padding:
+            0 14px;
 
-      display: flex;
+        gap:8px;
 
-      align-items: center;
+        position:sticky;
 
-      justify-content: space-between;
-
-      padding: 0 28px;
-
-      background: #ffffff;
-
-      border-bottom: 1px solid var(--border);
-
-      position: relative;
-
-      z-index: 100;
+        top:0;
     }
 
 
     .brand {
 
-      display: flex;
+        font-size:20px;
 
-      align-items: center;
-
-      gap: 10px;
-
-      font-family: var(--font-heading);
-
-      font-size: 25px;
-
-      font-weight: 700;
-
-      color: var(--wine);
-    }
-
-
-    .brand span {
-      color: #171717;
+        gap:7px;
     }
 
 
     .brand-icon {
 
-      width: 25px;
-      height: 25px;
+        width:22px;
+        height:22px;
+    }
 
-      stroke-width: 2.5;
+
+    .gps-pill {
+
+        display:none;
     }
 
 
     .nav-right {
 
-      display: flex;
+        margin-left:auto;
 
-      align-items: center;
-
-      gap: 18px;
+        flex:0 1 auto;
     }
 
-
-    /* =========================================================
-       GPS PILL
-    ========================================================== */
-
-    .gps-pill {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      padding: 9px 15px;
-
-      border-radius: 999px;
-
-      background: var(--green-soft);
-
-      color: var(--green-dark);
-
-      font-size: 13px;
-
-      font-weight: 700;
-
-      white-space: nowrap;
-    }
-
-
-    .gps-dot {
-
-      width: 9px;
-      height: 9px;
-
-      border-radius: 50%;
-
-      background: var(--green);
-
-      box-shadow:
-        0 0 0 4px rgba(16,185,129,0.12);
-    }
-
-
-    .gps-pill.error {
-
-      background: #fef2f2;
-
-      color: var(--red-dark);
-    }
-
-
-    .gps-pill.error .gps-dot {
-      background: var(--red);
-    }
-
-
-    /* =========================================================
-       LANGUAGE
-    ========================================================== */
 
     .lang-select {
 
-      min-width: 255px;
+        width:auto;
 
-      height: 44px;
+        max-width:180px;
 
-      padding: 0 14px;
+        height:40px;
 
-      border: 1px solid #dddddd;
+        padding:0 9px;
 
-      border-radius: 10px;
-
-      background: #ffffff;
-
-      color: var(--text-main);
-
-      font-size: 14px;
-
-      font-weight: 600;
-
-      outline: none;
+        font-size:12px;
     }
 
 
-    .lang-select:focus {
-
-      border-color: var(--wine);
-
-      box-shadow:
-        0 0 0 3px rgba(128,0,32,0.08);
-    }
-
-
-    /* =========================================================
+    /* -----------------------------------------------------
        DASHBOARD
-    ========================================================== */
+    ----------------------------------------------------- */
 
     .dashboard {
 
-      height: calc(100vh - 68px);
+        display:block;
 
-      display: flex;
-
-      min-height: 0;
+        min-height:calc(100vh - 64px);
     }
 
 
-    /* =========================================================
-       SIDEBAR
-    ========================================================== */
+    /* -----------------------------------------------------
+       DESKTOP SIDEBAR HIDDEN
+    ----------------------------------------------------- */
 
     aside {
-
-      width: 320px;
-
-      flex-shrink: 0;
-
-      background: var(--sidebar-bg);
-
-      border-right: 1px solid var(--border);
-
-      padding: 30px 24px 20px;
-
-      display: flex;
-
-      flex-direction: column;
-
-      justify-content: space-between;
+        display:none;
     }
 
 
-    .sidebar-title {
-
-      font-size: 13px;
-
-      font-weight: 700;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.08em;
-
-      color: #656565;
-
-      margin-bottom: 17px;
-    }
-
-
-    .menu {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 5px;
-    }
-
-
-    .menu-item {
-
-      width: 100%;
-
-      min-height: 57px;
-
-      border: none;
-
-      border-radius: 13px;
-
-      background: transparent;
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 14px;
-
-      padding: 0 18px;
-
-      color: #1d1d1d;
-
-      font-size: 15px;
-
-      font-weight: 600;
-
-      text-align: left;
-
-      transition: 0.2s ease;
-    }
-
-
-    .menu-item svg {
-
-      width: 23px;
-      height: 23px;
-
-      flex-shrink: 0;
-    }
-
-
-    .menu-item:hover {
-
-      background: var(--wine-soft);
-
-      color: var(--wine);
-    }
-
-
-    .menu-item.active {
-
-      background: #f1e3e7;
-
-      color: var(--wine);
-    }
-
-
-    /* =========================================================
-       SOS
-    ========================================================== */
-
-    .sos-btn {
-
-      width: 100%;
-
-      min-height: 69px;
-
-      border: none;
-
-      border-radius: 14px;
-
-      background: #e52424;
-
-      color: white;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      gap: 10px;
-
-      font-size: 15px;
-
-      font-weight: 800;
-
-      box-shadow:
-        0 7px 18px rgba(220,38,38,0.25);
-
-      transition: 0.2s ease;
-    }
-
-
-    .sos-btn:hover {
-
-      background: var(--red-dark);
-
-      transform: translateY(-1px);
-    }
-
-
-    .sos-btn svg {
-
-      width: 24px;
-      height: 24px;
-    }
-
-
-    /* =========================================================
+    /* -----------------------------------------------------
        MAIN
-    ========================================================== */
+    ----------------------------------------------------- */
 
     main {
 
-      flex: 1;
+        width:100%;
 
-      min-width: 0;
+        min-height:calc(100vh - 64px);
 
-      min-height: 0;
-
-      background: var(--bg-main);
-
-      padding: 30px;
-
-      overflow-y: auto;
+        padding:
+            14px
+            14px
+            25px;
     }
 
 
     .main-inner {
-
-      width: 100%;
-
-      max-width: 1500px;
-
-      margin: auto;
+        width:100%;
     }
 
 
-    /* =========================================================
-       CONTROL CARD
-    ========================================================== */
+    /* -----------------------------------------------------
+       CONTROL
+    ----------------------------------------------------- */
 
     .control-card {
 
-      background: #ffffff;
+        padding:17px;
 
-      border: 1px solid var(--border);
-
-      border-radius: 18px;
-
-      padding: 23px;
-
-      box-shadow: var(--shadow);
+        border-radius:16px;
     }
 
 
     .status-row {
 
-      display: flex;
+        gap:10px 18px;
 
-      align-items: center;
-
-      gap: 35px;
-
-      flex-wrap: wrap;
-
-      margin-bottom: 18px;
+        margin-bottom:15px;
     }
 
 
     .status-item {
 
-      display: flex;
+        font-size:12px;
 
-      align-items: center;
+        gap:6px;
 
-      gap: 9px;
-
-      font-size: 15px;
-
-      font-weight: 600;
+        max-width:100%;
     }
 
 
     .status-item svg {
 
-      width: 20px;
-      height: 20px;
-
-      color: var(--wine);
-
-      stroke-width: 2.2;
+        width:18px;
+        height:18px;
     }
 
 
     .status-value {
-      font-weight: 700;
+
+        max-width:180px;
+
+        overflow:hidden;
+
+        text-overflow:ellipsis;
+
+        white-space:nowrap;
     }
 
 
-    /* =========================================================
+    /* -----------------------------------------------------
        SEARCH
-    ========================================================== */
+    ----------------------------------------------------- */
 
     .search-row {
 
-      display: flex;
-
-      gap: 12px;
+        gap:8px;
     }
 
 
     .destination-input {
 
-      flex: 1;
+        height:52px;
 
-      height: 57px;
+        padding:
+            0 14px;
 
-      border: 1px solid #dddddd;
+        font-size:14px;
 
-      border-radius: 12px;
-
-      padding: 0 20px;
-
-      font-size: 16px;
-
-      outline: none;
-
-      background: #ffffff;
-
-      color: var(--text-main);
-    }
-
-
-    .destination-input::placeholder {
-      color: #888888;
-    }
-
-
-    .destination-input:focus {
-
-      border-color: var(--wine);
-
-      box-shadow:
-        0 0 0 4px rgba(128,0,32,0.07);
+        border-radius:11px;
     }
 
 
     .action-btn {
 
-      width: 58px;
+        width:52px;
 
-      height: 57px;
+        height:52px;
 
-      border: none;
+        flex-basis:52px;
 
-      border-radius: 12px;
-
-      background: var(--wine);
-
-      color: white;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      transition: 0.2s ease;
-    }
-
-
-    .action-btn:hover {
-
-      background: var(--wine-dark);
-
-      transform: translateY(-1px);
+        border-radius:11px;
     }
 
 
     .action-btn svg {
 
-      width: 24px;
-      height: 24px;
+        width:22px;
+        height:22px;
     }
 
 
-    .action-btn.listening {
-
-      background: var(--red);
-
-      animation: pulse 1s infinite;
-    }
-
-
-    @keyframes pulse {
-
-      0% {
-        box-shadow: 0 0 0 0 rgba(220,38,38,0.45);
-      }
-
-      70% {
-        box-shadow: 0 0 0 12px rgba(220,38,38,0);
-      }
-
-      100% {
-        box-shadow: 0 0 0 0 rgba(220,38,38,0);
-      }
-
-    }
-
-
-    /* =========================================================
+    /* -----------------------------------------------------
        GOOGLE PANEL
-    ========================================================== */
+    ----------------------------------------------------- */
 
     .google-panel {
 
-      margin-top: 18px;
+        margin-top:14px;
 
-      background: #ffffff;
+        padding:16px;
 
-      border: 1px solid var(--border);
-
-      border-radius: 18px;
-
-      padding: 20px;
-
-      box-shadow: var(--shadow);
+        border-radius:16px;
     }
 
 
     .google-header {
 
-      display: flex;
+        align-items:flex-start;
 
-      align-items: center;
+        flex-direction:column;
 
-      justify-content: space-between;
-
-      gap: 15px;
-
-      margin-bottom: 16px;
+        gap:10px;
     }
 
 
     .google-title {
 
-      display: flex;
-
-      align-items: center;
-
-      gap: 10px;
-
-      font-size: 17px;
-
-      font-weight: 800;
-    }
-
-
-    .google-title svg {
-
-      color: var(--wine);
-
-      width: 23px;
-      height: 23px;
+        font-size:15px;
     }
 
 
     .google-badge {
-
-      display: inline-flex;
-
-      align-items: center;
-
-      gap: 6px;
-
-      padding: 6px 10px;
-
-      border-radius: 999px;
-
-      background: #f5f5f5;
-
-      color: #555;
-
-      font-size: 11px;
-
-      font-weight: 700;
+        font-size:10px;
     }
 
 
-    /* =========================================================
-       ROUTE SUMMARY
-    ========================================================== */
-
     .route-summary {
 
-      display: grid;
+        grid-template-columns:1fr;
 
-      grid-template-columns: 1fr 1fr;
-
-      gap: 12px;
-
-      margin-bottom: 14px;
+        gap:9px;
     }
 
 
     .route-box {
 
-      border: 1px solid #eeeeee;
-
-      border-radius: 12px;
-
-      padding: 14px;
-
-      background: #fafafa;
-    }
-
-
-    .route-label {
-
-      color: #777;
-
-      font-size: 11px;
-
-      font-weight: 700;
-
-      text-transform: uppercase;
-
-      letter-spacing: 0.04em;
-
-      margin-bottom: 5px;
+        padding:12px;
     }
 
 
     .route-value {
 
-      font-size: 14px;
-
-      font-weight: 700;
-
-      word-break: break-word;
+        font-size:13px;
     }
 
 
-    /* =========================================================
-       GOOGLE URL
-    ========================================================== */
-
-    .url-label {
-
-      font-size: 12px;
-
-      color: #666;
-
-      font-weight: 700;
-
-      margin-bottom: 7px;
-    }
-
+    /* -----------------------------------------------------
+       URL
+    ----------------------------------------------------- */
 
     .url-box {
 
-      display: flex;
+        flex-direction:column;
 
-      gap: 8px;
+        gap:8px;
     }
 
 
     .google-url {
 
-      flex: 1;
+        width:100%;
 
-      height: 47px;
-
-      border: 1px solid #dddddd;
-
-      border-radius: 9px;
-
-      padding: 0 13px;
-
-      background: #f8f8f8;
-
-      color: #444;
-
-      font-size: 12px;
-
-      outline: none;
+        height:45px;
     }
 
 
     .copy-btn {
 
-      height: 47px;
+        width:100%;
 
-      padding: 0 15px;
-
-      border: 1px solid #dddddd;
-
-      background: white;
-
-      color: #333;
-
-      border-radius: 9px;
-
-      font-weight: 700;
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 7px;
+        height:45px;
     }
 
 
-    .copy-btn:hover {
-
-      border-color: var(--wine);
-
-      color: var(--wine);
-    }
-
-
-    .copy-btn svg {
-
-      width: 16px;
-      height: 16px;
-    }
-
-
-    /* =========================================================
-       START NAVIGATION
-    ========================================================== */
-
-    .start-navigation {
-
-      width: 100%;
-
-      height: 53px;
-
-      margin-top: 13px;
-
-      border: none;
-
-      border-radius: 11px;
-
-      background: var(--wine);
-
-      color: white;
-
-      font-size: 14px;
-
-      font-weight: 800;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      gap: 9px;
-
-      text-decoration: none;
-
-      transition: 0.2s ease;
-    }
-
-
-    .start-navigation:hover {
-
-      background: var(--wine-dark);
-
-      transform: translateY(-1px);
-    }
-
-
-    .start-navigation svg {
-
-      width: 19px;
-      height: 19px;
-    }
-
-
-    /* =========================================================
-       MESSAGE
-    ========================================================== */
-
-    .message {
-
-      margin-top: 14px;
-
-      padding: 12px 15px;
-
-      background: #fff8fa;
-
-      border: 1px solid #efdce2;
-
-      border-radius: 10px;
-
-      color: var(--wine);
-
-      font-size: 13px;
-
-      font-weight: 600;
-
-      display: none;
-    }
-
-
-    .message.show {
-      display: block;
-    }
-
-
-    /* =========================================================
+    /* -----------------------------------------------------
        EMPTY STATE
-    ========================================================== */
+    ----------------------------------------------------- */
 
     .empty-state {
 
-      margin-top: 18px;
+        min-height:300px;
 
-      min-height: 330px;
+        margin-top:14px;
 
-      background: white;
+        padding:
+            30px
+            20px;
 
-      border: 1px solid var(--border);
-
-      border-radius: 18px;
-
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      justify-content: center;
-
-      text-align: center;
-
-      padding: 40px;
-
-      box-shadow: var(--shadow);
+        border-radius:16px;
     }
 
 
     .empty-icon {
 
-      width: 70px;
-      height: 70px;
-
-      border-radius: 50%;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      background: var(--wine-soft);
-
-      color: var(--wine);
-
-      margin-bottom: 18px;
+        width:62px;
+        height:62px;
     }
 
 
     .empty-icon svg {
 
-      width: 34px;
-      height: 34px;
+        width:30px;
+        height:30px;
     }
 
 
     .empty-state h2 {
 
-      font-family: var(--font-heading);
-
-      font-size: 25px;
-
-      margin-bottom: 9px;
+        font-size:21px;
     }
 
 
     .empty-state p {
 
-      max-width: 650px;
+        font-size:13px;
 
-      color: #707070;
-
-      line-height: 1.7;
-
-      font-size: 14px;
+        line-height:1.65;
     }
 
 
-    /* =========================================================
-       SUCCESS
-    ========================================================== */
+    /* -----------------------------------------------------
+       MOBILE BOTTOM NAV
+    ----------------------------------------------------- */
+
+    .mobile-nav {
+
+        position:fixed;
+
+        display:flex;
+
+        left:0;
+        right:0;
+        bottom:0;
+
+        height:72px;
+
+        padding:
+            7px
+            8px
+            calc(7px + env(safe-area-inset-bottom));
+
+        background:#ffffff;
+
+        border-top:1px solid var(--border);
+
+        box-shadow:
+            0 -5px 20px rgba(0,0,0,.08);
+
+        z-index:2000;
+
+        gap:5px;
+    }
+
+
+    .mobile-nav-item {
+
+        flex:1;
+
+        min-width:0;
+
+        border:none;
+
+        background:transparent;
+
+        border-radius:11px;
+
+        color:#666;
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+        justify-content:center;
+
+        gap:3px;
+
+        font-size:9px;
+
+        font-weight:700;
+
+        text-align:center;
+
+        padding:4px 2px;
+    }
+
+
+    .mobile-nav-item svg {
+
+        width:21px;
+        height:21px;
+    }
+
+
+    .mobile-nav-item.active {
+
+        background:var(--wine-soft);
+
+        color:var(--wine);
+    }
+
+
+    /* -----------------------------------------------------
+       SOS FLOATING BUTTON
+    ----------------------------------------------------- */
+
+    .mobile-sos {
+
+        position:fixed;
+
+        right:14px;
+
+        bottom:87px;
+
+        width:57px;
+
+        height:57px;
+
+        border-radius:50%;
+
+        border:none;
+
+        background:#e52424;
+
+        color:white;
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        box-shadow:
+            0 7px 20px rgba(220,38,38,.35);
+
+        z-index:1500;
+    }
+
+
+    .mobile-sos svg {
+
+        width:25px;
+        height:25px;
+    }
+
 
     .navigation-ready {
 
-      margin-top: 18px;
+        font-size:12px;
+    }
+}
 
-      padding: 16px;
 
-      border-radius: 13px;
+/* =========================================================
+   SMALL PHONES
+========================================================= */
 
-      background: var(--green-soft);
+@media (max-width:560px) {
 
-      border: 1px solid #c9f4e3;
+    nav {
 
-      color: var(--green-dark);
+        height:60px;
 
-      display: none;
+        padding:
+            0 10px;
     }
 
 
-    .navigation-ready.show {
+    .brand {
 
-      display: flex;
-
-      align-items: center;
-
-      gap: 10px;
+        font-size:18px;
     }
 
 
-    .navigation-ready svg {
+    .brand-icon {
 
-      width: 21px;
-      height: 21px;
-
-      flex-shrink: 0;
+        width:20px;
+        height:20px;
     }
 
 
-    /* =========================================================
-       MOBILE
-    ========================================================== */
+    .lang-select {
 
-    @media (max-width: 900px) {
+        max-width:150px;
 
-      body {
-        overflow: auto;
-      }
+        height:38px;
 
-
-      nav {
-        padding: 0 15px;
-      }
-
-
-      .brand {
-        font-size: 20px;
-      }
-
-
-      .gps-pill {
-        display: none;
-      }
-
-
-      .lang-select {
-        min-width: 170px;
-      }
-
-
-      .dashboard {
-
-        height: auto;
-
-        min-height: calc(100vh - 68px);
-      }
-
-
-      aside {
-        display: none;
-      }
-
-
-      main {
-        padding: 14px;
-      }
-
-
-      .status-row {
-        gap: 14px;
-      }
-
-
-      .route-summary {
-        grid-template-columns: 1fr;
-      }
-
-
-      .url-box {
-        flex-direction: column;
-      }
-
-
-      .copy-btn {
-        justify-content: center;
-      }
-
+        font-size:11px;
     }
 
 
-    @media (max-width: 560px) {
+    main {
 
-      .lang-select {
-
-        min-width: 135px;
-
-        font-size: 12px;
-      }
-
-
-      .search-row {
-        gap: 7px;
-      }
-
-
-      .action-btn {
-
-        width: 48px;
-
-        height: 52px;
-      }
-
-
-      .destination-input {
-
-        height: 52px;
-
-        padding: 0 13px;
-
-        font-size: 14px;
-      }
-
-
-      .control-card {
-        padding: 16px;
-      }
-
-
-      .google-panel {
-        padding: 15px;
-      }
-
+        padding:
+            10px
+            10px
+            20px;
     }
 
-  </style>
+
+    .control-card {
+
+        padding:13px;
+
+        border-radius:14px;
+    }
+
+
+    .status-row {
+
+        display:grid;
+
+        grid-template-columns:1fr;
+
+        gap:8px;
+    }
+
+
+    .status-item {
+
+        font-size:11px;
+    }
+
+
+    .status-value {
+
+        max-width:none;
+
+        white-space:normal;
+
+        overflow:visible;
+
+        text-overflow:initial;
+    }
+
+
+    .search-row {
+
+        display:grid;
+
+        grid-template-columns:
+            minmax(0,1fr)
+            50px
+            50px;
+
+        gap:6px;
+    }
+
+
+    .destination-input {
+
+        width:100%;
+
+        height:50px;
+
+        font-size:13px;
+
+        padding:
+            0 11px;
+    }
+
+
+    .action-btn {
+
+        width:50px;
+
+        height:50px;
+
+        flex-basis:50px;
+    }
+
+
+    .google-panel {
+
+        padding:13px;
+
+        border-radius:14px;
+    }
+
+
+    .google-title {
+
+        font-size:14px;
+    }
+
+
+    .route-box {
+
+        padding:11px;
+    }
+
+
+    .route-label {
+
+        font-size:10px;
+    }
+
+
+    .route-value {
+
+        font-size:12px;
+    }
+
+
+    .start-navigation {
+
+        min-height:52px;
+
+        font-size:12px;
+
+        padding:
+            9px;
+    }
+
+
+    .empty-state {
+
+        min-height:280px;
+
+        padding:
+            25px
+            15px;
+    }
+
+
+    .empty-state h2 {
+
+        font-size:19px;
+    }
+
+
+    .empty-state p {
+
+        font-size:12px;
+
+        line-height:1.6;
+    }
+
+
+    .mobile-nav {
+
+        height:68px;
+    }
+
+
+    .mobile-nav-item {
+
+        font-size:8px;
+    }
+
+
+    .mobile-nav-item svg {
+
+        width:20px;
+        height:20px;
+    }
+
+
+    .mobile-sos {
+
+        width:52px;
+
+        height:52px;
+
+        right:12px;
+
+        bottom:82px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width:380px) {
+
+    .brand {
+
+        font-size:16px;
+    }
+
+
+    .lang-select {
+
+        max-width:130px;
+
+        font-size:10px;
+    }
+
+
+    .search-row {
+
+        grid-template-columns:
+            minmax(0,1fr)
+            46px
+            46px;
+    }
+
+
+    .action-btn {
+
+        width:46px;
+
+        height:48px;
+    }
+
+
+    .destination-input {
+
+        height:48px;
+
+        font-size:12px;
+    }
+
+
+    .mobile-nav-item span {
+
+        display:none;
+    }
+
+
+    .mobile-nav-item svg {
+
+        width:23px;
+
+        height:23px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+
+    outline:
+        3px solid rgba(128,0,32,.35);
+
+    outline-offset:2px;
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion:reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        transition-duration:.01ms !important;
+
+        scroll-behavior:auto !important;
+    }
+}
+
+</style>
 
 </head>
 
@@ -1179,475 +1975,549 @@
 <body>
 
 
-  <!-- =========================================================
-       NAVBAR
-  ========================================================== -->
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
 
-  <nav>
+<nav>
 
     <div class="brand">
 
-      <i
-        data-lucide="compass"
-        class="brand-icon"
-      ></i>
+        <i
+            data-lucide="compass"
+            class="brand-icon">
+        </i>
 
-      AccessPath<span>AI</span>
+        AccessPath<span>AI</span>
 
     </div>
 
 
     <div class="nav-right">
 
-      <div
-        class="gps-pill"
-        id="gpsPill"
-      >
+        <div
+            class="gps-pill"
+            id="gpsPill">
 
-        <span class="gps-dot"></span>
+            <span class="gps-dot"></span>
 
-        <span id="gpsStatus">
-          GPS Locating...
-        </span>
+            <span id="gpsStatus">
+                GPS Locating...
+            </span>
 
-      </div>
+        </div>
 
 
-      <select
-        id="languagePicker"
-        class="lang-select"
-      >
+        <select
+            id="languagePicker"
+            class="lang-select"
+            aria-label="Select language">
 
-        <option value="en-IN">
-          English (India)
-        </option>
+            <option value="en-IN">
+                English (India)
+            </option>
 
-        <option value="ta-IN">
-          தமிழ் (Tamil)
-        </option>
+            <option value="ta-IN">
+                தமிழ் (Tamil)
+            </option>
 
-        <option value="hi-IN">
-          हिन्दी (Hindi)
-        </option>
+            <option value="hi-IN">
+                हिन्दी (Hindi)
+            </option>
 
-        <option value="te-IN">
-          తెలుగు (Telugu)
-        </option>
+            <option value="te-IN">
+                తెలుగు (Telugu)
+            </option>
 
-        <option value="kn-IN">
-          ಕನ್ನಡ (Kannada)
-        </option>
+            <option value="kn-IN">
+                ಕನ್ನಡ (Kannada)
+            </option>
 
-        <option value="ml-IN">
-          മലയാളം (Malayalam)
-        </option>
+            <option value="ml-IN">
+                മലയാളം (Malayalam)
+            </option>
 
-        <option value="mr-IN">
-          मराठी (Marathi)
-        </option>
+            <option value="mr-IN">
+                मराठी (Marathi)
+            </option>
 
-        <option value="bn-IN">
-          বাংলা (Bengali)
-        </option>
+            <option value="bn-IN">
+                বাংলা (Bengali)
+            </option>
 
-        <option value="gu-IN">
-          ગુજરાતી (Gujarati)
-        </option>
+            <option value="gu-IN">
+                ગુજરાતી (Gujarati)
+            </option>
 
-        <option value="pa-IN">
-          ਪੰਜਾਬੀ (Punjabi)
-        </option>
+            <option value="pa-IN">
+                ਪੰਜਾਬੀ (Punjabi)
+            </option>
 
-      </select>
+        </select>
 
     </div>
 
-  </nav>
+</nav>
 
 
-  <!-- =========================================================
-       DASHBOARD
-  ========================================================== -->
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
 
-  <div class="dashboard">
+<div class="dashboard">
 
 
-    <!-- SIDEBAR -->
+    <!-- =====================================================
+         DESKTOP SIDEBAR
+    ====================================================== -->
 
     <aside>
 
-      <div>
+        <div>
 
-        <div class="sidebar-title">
-          Navigation Dashboard
+            <div class="sidebar-title">
+                Navigation Dashboard
+            </div>
+
+
+            <div class="menu">
+
+
+                <button
+                    class="menu-item active"
+                    type="button">
+
+                    <i data-lucide="bot"></i>
+
+                    <span>
+                        AI Voice Assistant
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menu-item"
+                    type="button"
+                    onclick="openVisualGuidance()">
+
+                    <i data-lucide="eye"></i>
+
+                    <span>
+                        Visual AI Guidance
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menu-item"
+                    type="button"
+                    onclick="openWheelchairRoute()"
+                    aria-label="Wheelchair Access Routes">
+
+                    <i data-lucide="accessibility"></i>
+
+                    <span>
+                        Wheelchair Access Routes
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="menu-item"
+                    type="button"
+                    onclick="openCampusShuttle()">
+
+                    <i data-lucide="bus"></i>
+
+                    <span>
+                        Campus Shuttle Live
+                    </span>
+
+                </button>
+
+            </div>
+
         </div>
 
 
-        <div class="menu">
-
-          <button
-            class="menu-item active"
+        <button
+            class="sos-btn"
             type="button"
-          >
+            onclick="triggerSOS()">
 
-            <i data-lucide="bot"></i>
+            <i data-lucide="alert-triangle"></i>
 
-            <span>AI Voice Assistant</span>
+            EMERGENCY SOS
 
-          </button>
-
-
-          <button
-            class="menu-item"
-            type="button"
-            onclick="openVisualGuidance()"
-          >
-
-            <i data-lucide="eye"></i>
-
-            <span>Visual AI Guidance</span>
-
-          </button>
-
-
-          <button
-            class="menu-item"
-            type="button"
-            onclick="openWheelchairRoute()"
-            aria-label="Wheelchair Access Routes"
-          >
-
-            <i data-lucide="accessibility"></i>
-
-            <span>Wheelchair Access Routes</span>
-
-          </button>
-
-
-          <button
-            class="menu-item"
-            type="button"
-            onclick="openCampusShuttle()"
-          >
-
-            <i data-lucide="bus"></i>
-
-            <span>Campus Shuttle Live</span>
-
-          </button>
-
-        </div>
-
-      </div>
-
-
-      <button
-        class="sos-btn"
-        type="button"
-        onclick="triggerSOS()"
-      >
-
-        <i data-lucide="alert-triangle"></i>
-
-        EMERGENCY SOS
-
-      </button>
+        </button>
 
     </aside>
 
 
-    <!-- MAIN -->
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
 
     <main>
 
-      <div class="main-inner">
+        <div class="main-inner">
 
 
-        <!-- CONTROL CARD -->
+            <!-- =================================================
+                 CONTROL CARD
+            ================================================== -->
 
-        <section class="control-card">
+            <section class="control-card">
 
 
-          <div class="status-row">
+                <div class="status-row">
 
 
-            <div class="status-item">
+                    <div class="status-item">
 
-              <i data-lucide="navigation-2"></i>
+                        <i data-lucide="navigation-2"></i>
 
-              <span>Current GPS:</span>
+                        <span>
+                            Current GPS:
+                        </span>
 
-              <span
-                class="status-value"
-                id="currentLocDisplay"
-              >
-                Acquiring position...
-              </span>
+                        <span
+                            class="status-value"
+                            id="currentLocDisplay">
 
-            </div>
+                            Acquiring position...
 
+                        </span>
 
-            <div class="status-item">
+                    </div>
 
-              <i data-lucide="map-pin"></i>
 
-              <span>Destination:</span>
+                    <div class="status-item">
 
-              <span
-                class="status-value"
-                id="targetDisplay"
-              >
-                None
-              </span>
+                        <i data-lucide="map-pin"></i>
 
-            </div>
+                        <span>
+                            Destination:
+                        </span>
 
-          </div>
+                        <span
+                            class="status-value"
+                            id="targetDisplay">
 
+                            None
 
-          <!-- SEARCH -->
+                        </span>
 
-          <div class="search-row">
+                    </div>
 
+                </div>
 
-            <input
-              type="text"
-              id="userInput"
-              class="destination-input"
-              placeholder="Type or speak any destination..."
-              autocomplete="off"
-              aria-label="Destination"
-              onkeydown="handleEnter(event)"
-            >
 
+                <!-- SEARCH -->
 
-            <!-- MIC -->
+                <div class="search-row">
 
-            <button
-              class="action-btn"
-              id="micBtn"
-              type="button"
-              title="Voice input"
-              aria-label="Voice input"
-              onclick="toggleVoiceInput()"
-            >
 
-              <i data-lucide="mic"></i>
+                    <input
+                        type="text"
+                        id="userInput"
+                        class="destination-input"
+                        placeholder="Type or speak any destination..."
+                        autocomplete="off"
+                        aria-label="Destination"
+                        onkeydown="handleEnter(event)"
+                    >
 
-            </button>
 
+                    <button
+                        class="action-btn"
+                        id="micBtn"
+                        type="button"
+                        title="Voice input"
+                        aria-label="Voice input"
+                        onclick="toggleVoiceInput()">
 
-            <!-- NAVIGATE -->
+                        <i data-lucide="mic"></i>
 
-            <button
-              class="action-btn"
-              type="button"
-              title="Open Google Maps"
-              aria-label="Open Google Maps"
-              onclick="processTextSubmit()"
-            >
+                    </button>
 
-              <i data-lucide="navigation"></i>
 
-            </button>
+                    <button
+                        class="action-btn"
+                        type="button"
+                        title="Open Google Maps"
+                        aria-label="Open Google Maps"
+                        onclick="processTextSubmit()">
 
-          </div>
+                        <i data-lucide="navigation"></i>
 
+                    </button>
 
-          <!-- MESSAGE -->
+                </div>
 
-          <div
-            class="message"
-            id="message"
-          ></div>
 
-        </section>
+                <div
+                    class="message"
+                    id="message">
+                </div>
 
+            </section>
 
-        <!-- =====================================================
-             GOOGLE MAPS PANEL
-        ====================================================== -->
 
-        <section
-          class="google-panel"
-          id="googlePanel"
-          style="display:none;"
-        >
+            <!-- =================================================
+                 GOOGLE MAPS PANEL
+            ================================================== -->
 
+            <section
+                class="google-panel"
+                id="googlePanel"
+                style="display:none;">
 
-          <div class="google-header">
+                <div class="google-header">
 
-            <div class="google-title">
+                    <div class="google-title">
 
-              <i data-lucide="map"></i>
+                        <i data-lucide="map"></i>
 
-              Google Maps Navigation
+                        <span>
+                            Google Maps Navigation
+                        </span>
 
-            </div>
+                    </div>
 
 
-            <div class="google-badge">
+                    <div class="google-badge">
 
-              GOOGLE MAPS
+                        GOOGLE MAPS
 
-            </div>
+                    </div>
 
-          </div>
+                </div>
 
 
-          <!-- ROUTE -->
+                <div class="route-summary">
 
-          <div class="route-summary">
 
+                    <div class="route-box">
 
-            <div class="route-box">
+                        <div class="route-label">
+                            Starting Point
+                        </div>
 
-              <div class="route-label">
-                Starting Point
-              </div>
+                        <div
+                            class="route-value"
+                            id="googleOrigin">
 
-              <div
-                class="route-value"
-                id="googleOrigin"
-              >
-                Waiting for GPS...
-              </div>
+                            Waiting for GPS...
 
-            </div>
+                        </div>
 
+                    </div>
 
-            <div class="route-box">
 
-              <div class="route-label">
-                Destination
-              </div>
+                    <div class="route-box">
 
-              <div
-                class="route-value"
-                id="googleDestination"
-              >
-                None
-              </div>
+                        <div class="route-label">
+                            Destination
+                        </div>
 
-            </div>
+                        <div
+                            class="route-value"
+                            id="googleDestination">
 
-          </div>
+                            None
 
+                        </div>
 
-          <!-- URL -->
+                    </div>
 
-          <div class="url-label">
+                </div>
 
-            Google Maps Directions URL
 
-          </div>
+                <div class="url-label">
+                    Google Maps Directions URL
+                </div>
 
 
-          <div class="url-box">
+                <div class="url-box">
 
+                    <input
+                        type="text"
+                        id="googleMapsUrl"
+                        class="google-url"
+                        readonly
+                    >
 
-            <input
-              type="text"
-              id="googleMapsUrl"
-              class="google-url"
-              readonly
-            >
 
+                    <button
+                        class="copy-btn"
+                        type="button"
+                        onclick="copyGoogleUrl()">
 
-            <button
-              class="copy-btn"
-              type="button"
-              onclick="copyGoogleUrl()"
-            >
+                        <i data-lucide="copy"></i>
 
-              <i data-lucide="copy"></i>
+                        Copy URL
 
-              Copy URL
+                    </button>
 
-            </button>
+                </div>
 
-          </div>
 
+                <a
+                    id="startNavigation"
+                    class="start-navigation"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer">
 
-          <!-- START GOOGLE MAPS -->
+                    <i data-lucide="navigation"></i>
 
-          <a
-            id="startNavigation"
-            class="start-navigation"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+                    Start Walking Navigation in Google Maps
 
-            <i data-lucide="navigation"></i>
+                </a>
 
-            Start Walking Navigation in Google Maps
 
-          </a>
+                <div
+                    class="navigation-ready"
+                    id="navigationReady">
 
+                    <i data-lucide="check-circle"></i>
 
-          <div
-            class="navigation-ready"
-            id="navigationReady"
-          >
+                    <span>
+                        Google Maps navigation is ready.
+                    </span>
 
-            <i data-lucide="check-circle"></i>
+                </div>
 
-            <span>
-              Google Maps navigation is ready.
-            </span>
+            </section>
 
-          </div>
 
-        </section>
+            <!-- =================================================
+                 EMPTY STATE
+            ================================================== -->
 
+            <section
+                class="empty-state"
+                id="emptyState">
 
-        <!-- EMPTY STATE -->
+                <div class="empty-icon">
 
-        <section
-          class="empty-state"
-          id="emptyState"
-        >
+                    <i data-lucide="map"></i>
 
-          <div class="empty-icon">
+                </div>
 
-            <i data-lucide="map"></i>
 
-          </div>
+                <h2>
+                    Smart Campus Navigation
+                </h2>
 
 
-          <h2>
-            Smart Campus Navigation
-          </h2>
+                <p>
 
+                    Your current location is obtained automatically
+                    from browser GPS. Enter any destination by typing
+                    or speaking it, and AccessPathAI will create a
+                    Google Maps walking-navigation route.
 
-          <p>
-            Your current location is obtained automatically
-            from browser GPS. Enter any destination by typing
-            or speaking it, and AccessPathAI will create a
-            Google Maps walking-navigation route.
-          </p>
+                </p>
 
-        </section>
+            </section>
 
-
-      </div>
+        </div>
 
     </main>
 
-  </div>
+</div>
 
 
-  <!-- =========================================================
-       JAVASCRIPT
-  ========================================================== -->
+<!-- =========================================================
+     MOBILE SOS
+========================================================= -->
+
+<button
+    class="mobile-sos"
+    type="button"
+    onclick="triggerSOS()"
+    aria-label="Emergency SOS"
+    title="Emergency SOS">
+
+    <i data-lucide="alert-triangle"></i>
+
+</button>
+
+
+<!-- =========================================================
+     MOBILE BOTTOM NAVIGATION
+========================================================= -->
+
+<div class="mobile-nav">
+
+    <button
+        class="mobile-nav-item active"
+        type="button"
+        onclick="setMobileActive(this)">
+
+        <i data-lucide="bot"></i>
+
+        <span>
+            Voice
+        </span>
+
+    </button>
+
+
+    <button
+        class="mobile-nav-item"
+        type="button"
+        onclick="openVisualGuidance()">
+
+        <i data-lucide="eye"></i>
+
+        <span>
+            Visual
+        </span>
+
+    </button>
+
+
+    <button
+        class="mobile-nav-item"
+        type="button"
+        onclick="openWheelchairRoute()">
+
+        <i data-lucide="accessibility"></i>
+
+        <span>
+            Wheelchair
+        </span>
+
+    </button>
+
+
+    <button
+        class="mobile-nav-item"
+        type="button"
+        onclick="openCampusShuttle()">
+
+        <i data-lucide="bus"></i>
+
+        <span>
+            Shuttle
+        </span>
+
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
 <script>
-/* =========================================================
-   ACCESSPATHAI
-   MULTILINGUAL DESTINATION NAVIGATION
-   ========================================================= */
-
 
 /* =========================================================
    ICONS
@@ -1669,12 +2539,12 @@ let recognition = null;
 
 
 /* =========================================================
-   SATHYABAMA CAMPUS CONTEXT
+   SATHYABAMA ADDRESS
 ========================================================= */
 
 const SATHYABAMA_ADDRESS =
-  "Sathyabama University, Sathyabma Campus Rd, " +
-  "Kamaraj Nagar, Semmancheri, Chennai, Tamil Nadu 600119";
+    "Sathyabama University, Sathyabma Campus Rd, " +
+    "Kamaraj Nagar, Semmancheri, Chennai, Tamil Nadu 600119";
 
 
 /* =========================================================
@@ -1683,96 +2553,100 @@ const SATHYABAMA_ADDRESS =
 
 function startGPS() {
 
-  if (!navigator.geolocation) {
+    if (!navigator.geolocation) {
 
-    setGPSStatus(
-      "GPS not supported",
-      true
-    );
-
-    document.getElementById(
-      "currentLocDisplay"
-    ).innerText =
-      "GPS not supported";
-
-    return;
-  }
-
-  setGPSStatus(
-    "Requesting GPS...",
-    false
-  );
-
-  gpsWatchId =
-    navigator.geolocation.watchPosition(
-
-      function(position) {
-
-        userLat =
-          position.coords.latitude;
-
-        userLng =
-          position.coords.longitude;
-
-        currentAccuracy =
-          position.coords.accuracy;
-
-        updateGPSDisplay();
-
-      },
-
-      function(error) {
-
-        console.error(
-          "GPS error:",
-          error
+        setGPSStatus(
+            "GPS not supported",
+            true
         );
 
-        if (
-          error.code ===
-          error.PERMISSION_DENIED
-        ) {
-
-          setGPSStatus(
-            "Location permission denied",
-            true
-          );
-
-          document.getElementById(
+        document.getElementById(
             "currentLocDisplay"
-          ).innerText =
-            "Allow browser location";
-        }
+        ).innerText =
+            "GPS not supported";
 
-        else if (
-          error.code ===
-          error.POSITION_UNAVAILABLE
-        ) {
+        return;
+    }
 
-          setGPSStatus(
-            "Location unavailable",
-            true
-          );
 
-        }
-
-        else {
-
-          setGPSStatus(
-            "GPS timeout",
-            true
-          );
-        }
-
-      },
-
-      {
-        enableHighAccuracy: true,
-        maximumAge: 3000,
-        timeout: 15000
-      }
-
+    setGPSStatus(
+        "Requesting GPS...",
+        false
     );
+
+
+    gpsWatchId =
+        navigator.geolocation.watchPosition(
+
+            function(position) {
+
+                userLat =
+                    position.coords.latitude;
+
+                userLng =
+                    position.coords.longitude;
+
+                currentAccuracy =
+                    position.coords.accuracy;
+
+                updateGPSDisplay();
+
+            },
+
+
+            function(error) {
+
+                console.error(
+                    "GPS error:",
+                    error
+                );
+
+
+                if (
+                    error.code ===
+                    error.PERMISSION_DENIED
+                ) {
+
+                    setGPSStatus(
+                        "Location permission denied",
+                        true
+                    );
+
+                    document.getElementById(
+                        "currentLocDisplay"
+                    ).innerText =
+                        "Allow browser location";
+
+                }
+
+                else if (
+                    error.code ===
+                    error.POSITION_UNAVAILABLE
+                ) {
+
+                    setGPSStatus(
+                        "Location unavailable",
+                        true
+                    );
+
+                }
+
+                else {
+
+                    setGPSStatus(
+                        "GPS timeout",
+                        true
+                    );
+                }
+
+            },
+
+            {
+                enableHighAccuracy:true,
+                maximumAge:3000,
+                timeout:15000
+            }
+        );
 }
 
 
@@ -1782,27 +2656,30 @@ function startGPS() {
 
 function updateGPSDisplay() {
 
-  if (
-    userLat === null ||
-    userLng === null
-  ) {
-    return;
-  }
+    if (
+        userLat === null ||
+        userLng === null
+    ) {
+        return;
+    }
 
-  const coordinateText =
-    userLat.toFixed(6) +
-    ", " +
-    userLng.toFixed(6);
 
-  document.getElementById(
-    "currentLocDisplay"
-  ).innerText =
-    coordinateText;
+    const coordinateText =
+        userLat.toFixed(6) +
+        ", " +
+        userLng.toFixed(6);
 
-  setGPSStatus(
-    "GPS Live",
-    false
-  );
+
+    document.getElementById(
+        "currentLocDisplay"
+    ).innerText =
+        coordinateText;
+
+
+    setGPSStatus(
+        "GPS Live",
+        false
+    );
 }
 
 
@@ -1811,51 +2688,47 @@ function updateGPSDisplay() {
 ========================================================= */
 
 function setGPSStatus(
-  text,
-  isError
+    text,
+    isError
 ) {
 
-  document.getElementById(
-    "gpsStatus"
-  ).innerText =
-    text;
-
-  const pill =
     document.getElementById(
-      "gpsPill"
-    );
+        "gpsStatus"
+    ).innerText =
+        text;
 
-  if (isError) {
-    pill.classList.add("error");
-  }
 
-  else {
-    pill.classList.remove("error");
-  }
+    const pill =
+        document.getElementById(
+            "gpsPill"
+        );
+
+
+    if (isError) {
+        pill.classList.add("error");
+    }
+
+    else {
+        pill.classList.remove("error");
+    }
 }
 
 
 /* =========================================================
-   CLEAN ENGLISH DESTINATION
+   DESTINATION CLEANER
 ========================================================= */
 
 function cleanVoiceDestination(text) {
-    const input = text
-        .toLowerCase()
-        .replace(/[.,!?]/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
 
-    // ============================================================
-    // SATHYABAMA INSTITUTE OF SCIENCE AND TECHNOLOGY
-    // OFFICIAL CAMPUS MAP DESTINATIONS
-    // ============================================================
+    const input =
+        text
+            .toLowerCase()
+            .replace(/[.,!?]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+
 
     const campusPlaces = [
-
-        // --------------------------------------------------------
-        // ADMINISTRATIVE ZONE
-        // --------------------------------------------------------
 
         "administrative block",
         "admin block",
@@ -1867,20 +2740,17 @@ function cleanVoiceDestination(text) {
         "reception block",
         "reception",
 
-        "controller of examination",
         "controller of examinations",
-        "coe",
+        "controller of examination",
         "examination controller",
+        "coe",
 
         "auditorium block",
+        "main auditorium",
         "auditorium",
 
         "central library",
         "library",
-
-        // --------------------------------------------------------
-        // RESEARCH ZONE
-        // --------------------------------------------------------
 
         "international research centre",
         "international research center",
@@ -1891,10 +2761,6 @@ function cleanVoiceDestination(text) {
         "jeppiaar research park",
         "research park",
 
-        // --------------------------------------------------------
-        // CLASSROOMS / DEPARTMENTS / LABORATORIES
-        // --------------------------------------------------------
-
         "class room block 01",
         "classroom block 01",
         "class room block one",
@@ -1902,7 +2768,6 @@ function cleanVoiceDestination(text) {
         "class block 01",
 
         "department of computer science and engineering",
-        "department of computer science and engg",
         "computer science and engineering department",
         "computer science department",
         "computer science block",
@@ -1911,7 +2776,6 @@ function cleanVoiceDestination(text) {
         "cse",
 
         "department of electronics and communication engineering",
-        "department of electronics and comm engineering",
         "electronics and communication engineering department",
         "electronics and communication department",
         "electronics and communication block",
@@ -1925,7 +2789,6 @@ function cleanVoiceDestination(text) {
         "cse lab",
 
         "department of electrical and electronics engineering",
-        "department of electrical and electronics engg",
         "electrical and electronics engineering department",
         "electrical and electronics department",
         "electrical and electronics block",
@@ -1934,7 +2797,6 @@ function cleanVoiceDestination(text) {
         "eee",
 
         "department of mechanical engineering",
-        "department of mechanical engg",
         "mechanical engineering department",
         "mechanical engineering block",
         "mechanical block",
@@ -1970,100 +2832,94 @@ function cleanVoiceDestination(text) {
         "thermal lab",
 
         "department of chemical engineering",
-        "department of chemical engg",
         "chemical engineering department",
         "chemical engineering block",
         "chemical block",
         "chemical department",
 
         "department of aeronautical engineering",
-        "department of aeronautical engg",
         "aeronautical engineering department",
         "aeronautical engineering block",
         "aeronautical block",
         "aeronautical department",
 
         "class room block 02",
-        "block 02",
+        "classroom block 02",
         "class room block two",
-        "block two",
+        "classroom block two",
         "class block 02",
 
         "class room block 03",
-        "block 03",
+        "classroom block 03",
         "class room block three",
-        "block three",
+        "classroom block three",
         "class block 03",
 
         "class room block 04",
-        "block 04",
+        "classroom block 04",
         "class room block four",
-        "block four",
+        "classroom block four",
         "class block 04",
 
         "student activity centre",
         "student activity center",
-        "student activity centre",
-        "student activity centre sac",
         "sac",
 
         "class room block 06",
-        "block 06",
+        "classroom block 06",
         "class room block six",
         "classroom block six",
         "class block 06",
 
         "class room block 07",
-        "block 07",
+        "classroom block 07",
         "class room block seven",
-        "block seven",
+        "classroom block seven",
         "class block 07",
 
         "class room block 08",
-        "block 08",
+        "classroom block 08",
         "class room block eight",
-        "block eight",
+        "classroom block eight",
         "class block 08",
 
         "class room block 14",
-        "block 14",
+        "classroom block 14",
         "class room block fourteen",
-        "block fourteen",
+        "classroom block fourteen",
         "class block 14",
 
         "class room block 15",
-        "block 15",
+        "classroom block 15",
         "class room block fifteen",
-        "block fifteen",
+        "classroom block fifteen",
         "class block 15",
 
         "class room block 16",
-        "block 16",
+        "classroom block 16",
         "class room block sixteen",
-        "block sixteen",
+        "classroom block sixteen",
         "class block 16",
 
         "class room block 18",
-        "block 18",
+        "classroom block 18",
         "class room block eighteen",
-        "block eighteen",
+        "classroom block eighteen",
         "class block 18",
 
         "class room block 19",
-        "block 19",
+        "classroom block 19",
         "class room block nineteen",
-        "block nineteen",
+        "classroom block nineteen",
         "class block 19",
 
         "department of physics chemistry and maths",
-        "department of physics chemistry mathematics",
         "physics chemistry maths department",
         "physics department",
         "chemistry department",
         "mathematics department",
 
         "department of civil engineering",
-        "department of civil engg",
         "civil engineering department",
         "civil engineering block",
         "civil block",
@@ -2074,7 +2930,6 @@ function cleanVoiceDestination(text) {
         "visual communication block",
 
         "department of biotechnology and biomedical engineering",
-        "department of biotech and biomedical engineering",
         "biotechnology and biomedical engineering department",
         "biotechnology department",
         "biotechnology block",
@@ -2085,7 +2940,6 @@ function cleanVoiceDestination(text) {
         "biomedical block",
 
         "department of automobile engineering",
-        "department of automobile engg",
         "automobile engineering department",
         "automobile engineering block",
         "automobile block",
@@ -2122,22 +2976,15 @@ function cleanVoiceDestination(text) {
         "dental hospital",
         "dental college hospital",
 
-        // --------------------------------------------------------
-        // HOSTELS AND MESS
-        // --------------------------------------------------------
-
         "boys mess hall",
         "boys mess",
-        "boys hostel mess",
 
         "girls mess hall",
         "girls mess",
-        "girls hostel mess",
 
-        "canteen",
         "main canteen",
+        "canteen",
 
-        "dr m gopalakrishnan boys hostel and indoor court",
         "dr m gopalakrishnan boys hostel",
         "m gopalakrishnan boys hostel",
         "gopalakrishnan boys hostel",
@@ -2153,7 +3000,6 @@ function cleanVoiceDestination(text) {
         "jeppiaar boys hostel",
 
         "st antonys illam boys hostel",
-        "st antony's illam boys hostel",
         "st antony boys hostel",
 
         "second year boys hostel",
@@ -2191,10 +3037,6 @@ function cleanVoiceDestination(text) {
         "2nd year girls hostel",
         "girls second year hostel",
 
-        // --------------------------------------------------------
-        // OTHER CAMPUS FACILITIES
-        // --------------------------------------------------------
-
         "open air theater",
         "open air theatre",
         "oat",
@@ -2206,7 +3048,6 @@ function cleanVoiceDestination(text) {
         "transport",
 
         "meteorological tower",
-        "metrological tower",
         "weather tower",
 
         "aero hangar",
@@ -2216,11 +3057,6 @@ function cleanVoiceDestination(text) {
         "sewage treatment plant",
         "stp",
 
-        // --------------------------------------------------------
-        // ADDITIONAL CURRENT CAMPUS FACILITIES
-        // --------------------------------------------------------
-
-        "indoor stadium",
         "indoor stadium",
 
         "sports ground",
@@ -2230,10 +3066,10 @@ function cleanVoiceDestination(text) {
         "gym",
         "gymnasium",
 
-        "parking",
         "car parking",
         "bike parking",
         "two wheeler parking",
+        "parking",
 
         "main gate",
         "main entrance",
@@ -2248,7 +3084,6 @@ function cleanVoiceDestination(text) {
         "medical center",
         "health centre",
         "health center",
-        "medical centre",
 
         "placement cell",
         "placement office",
@@ -2262,11 +3097,8 @@ function cleanVoiceDestination(text) {
 
         "temple",
 
-        // Current university campus references
         "centre for advanced studies",
         "center for advanced studies",
-        "sathyabama centre for advanced studies",
-        "sathyabama center for advanced studies",
 
         "st pauls block",
         "st paul's block",
@@ -2281,296 +3113,231 @@ function cleanVoiceDestination(text) {
         "innovation center"
     ];
 
-    // ============================================================
-    // IMPORTANT:
-    // Check the longest destination first.
-    // Example:
-    // "central library" must be detected before "library".
-    // ============================================================
 
-    campusPlaces.sort((a, b) => b.length - a.length);
+    campusPlaces.sort(
+        (a,b) => b.length - a.length
+    );
+
 
     for (const place of campusPlaces) {
 
         if (input.includes(place)) {
 
-            // Return canonical display name
             return place
-                .replace(/\b\w/g, c => c.toUpperCase())
-                .replace(/\bAnd\b/g, "and")
-                .replace(/\bOf\b/g, "of")
-                .replace(/\bThe\b/g, "the");
+                .replace(/\b\w/g,c =>
+                    c.toUpperCase()
+                )
+                .replace(/\bAnd\b/g,"and")
+                .replace(/\bOf\b/g,"of")
+                .replace(/\bThe\b/g,"the");
         }
     }
+
 
     return "";
 }
 
+
 /* =========================================================
-   TRANSLATE ANY SUPPORTED LANGUAGE TO ENGLISH
+   TRANSLATION
 ========================================================= */
 
 async function translateToEnglish(text) {
 
-  const original =
-    String(text || "").trim();
-
-  if (!original) {
-    return "";
-  }
+    const original =
+        String(text || "").trim();
 
 
-  /*
-   * English does not need translation.
-   */
-
-  const selectedLanguage =
-    document.getElementById(
-      "languagePicker"
-    ).value;
-
-
-  if (
-    selectedLanguage === "en-IN" ||
-    /^[\x00-\x7F]*$/.test(original)
-  ) {
-
-    return original;
-  }
-
-
-  showMessage(
-    "Translating destination to English...",
-    false
-  );
-
-
-  try {
-
-    /*
-     * Google translation endpoint.
-     *
-     * sl=auto
-     * tl=en
-     *
-     * Therefore the browser does not
-     * need to know the exact source language.
-     */
-
-    const url =
-      "https://translate.googleapis.com/translate_a/single" +
-      "?client=gtx" +
-      "&sl=auto" +
-      "&tl=en" +
-      "&dt=t" +
-      "&q=" +
-      encodeURIComponent(original);
-
-
-    const response =
-      await fetch(url);
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        "Translation request failed"
-      );
+    if (!original) {
+        return "";
     }
 
 
-    const data =
-      await response.json();
-
-
-    /*
-     * Google translation response:
-     *
-     * [
-     *   [
-     *     ["translated text", "original text"]
-     *   ]
-     * ]
-     */
-
-    let translated = "";
+    const selectedLanguage =
+        document.getElementById(
+            "languagePicker"
+        ).value;
 
 
     if (
-      Array.isArray(data) &&
-      Array.isArray(data[0])
+        selectedLanguage === "en-IN" ||
+        /^[\x00-\x7F]*$/.test(original)
     ) {
 
-      translated =
-        data[0]
-          .map(
-            part =>
-              Array.isArray(part)
-                ? part[0]
-                : ""
-          )
-          .join(" ")
-          .trim();
-
+        return original;
     }
-
-
-    if (!translated) {
-
-      throw new Error(
-        "Empty translation"
-      );
-    }
-
-
-    console.log(
-      "ORIGINAL LANGUAGE TEXT:",
-      original
-    );
-
-    console.log(
-      "ENGLISH TRANSLATION:",
-      translated
-    );
-
-
-    return translated;
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Translation error:",
-      error
-    );
 
 
     showMessage(
-      "Translation failed. Please check your internet connection and try again.",
-      true
+        "Translating destination to English...",
+        false
     );
 
 
-    speak(
-      "I could not translate the destination. Please try again."
-    );
+    try {
+
+        const url =
+            "https://translate.googleapis.com/translate_a/single" +
+            "?client=gtx" +
+            "&sl=auto" +
+            "&tl=en" +
+            "&dt=t" +
+            "&q=" +
+            encodeURIComponent(original);
 
 
-    return "";
-  }
+        const response =
+            await fetch(url);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Translation request failed"
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        let translated = "";
+
+
+        if (
+            Array.isArray(data) &&
+            Array.isArray(data[0])
+        ) {
+
+            translated =
+                data[0]
+                    .map(part =>
+                        Array.isArray(part)
+                            ? part[0]
+                            : ""
+                    )
+                    .join(" ")
+                    .trim();
+        }
+
+
+        if (!translated) {
+
+            throw new Error(
+                "Empty translation"
+            );
+        }
+
+
+        console.log(
+            "ORIGINAL:",
+            original
+        );
+
+
+        console.log(
+            "TRANSLATED:",
+            translated
+        );
+
+
+        return translated;
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Translation error:",
+            error
+        );
+
+
+        showMessage(
+            "Translation failed. Please check your internet connection.",
+            true
+        );
+
+
+        speak(
+            "I could not translate the destination."
+        );
+
+
+        return "";
+    }
 }
 
 
 /* =========================================================
-   TRANSLATE + EXTRACT DESTINATION
+   TRANSLATE + EXTRACT
 ========================================================= */
 
 async function translateAndExtractDestination(
-  originalText
+    originalText
 ) {
 
-  const text =
-    String(originalText || "").trim();
+    const text =
+        String(originalText || "").trim();
 
 
-  if (!text) {
-    return "";
-  }
+    if (!text) {
+        return "";
+    }
 
 
-  /*
-   * STEP 1
-   *
-   * Translate the user's language
-   * into English.
-   */
-
-  const englishText =
-    await translateToEnglish(text);
+    const englishText =
+        await translateToEnglish(text);
 
 
-  if (!englishText) {
-    return "";
-  }
+    if (!englishText) {
+        return "";
+    }
 
 
-  console.log(
-    "ENGLISH TEXT:",
-    englishText
-  );
+    let destination =
+        cleanVoiceDestination(
+            englishText
+        );
 
 
-  /*
-   * STEP 2
-   *
-   * Remove conversational navigation
-   * commands.
-   */
-
-  let destination =
-    cleanVoiceDestination(
-      englishText
-    );
+    destination =
+        destination.replace(
+            /^(i|we)\s+(want|need|would like)\s+(to\s+)?/i,
+            ""
+        );
 
 
-  /*
-   * STEP 3
-   *
-   * Additional natural-language cleanup.
-   *
-   * Example:
-   *
-   * "I want to go to Central Library"
-   *
-   * becomes:
-   *
-   * "Central Library"
-   */
+    destination =
+        destination.replace(
+            /^(please\s+)?(take|bring|guide)\s+me\s+(to\s+)?/i,
+            ""
+        );
 
 
-  destination =
-    destination.replace(
-      /^(i|we)\s+(want|need|would like)\s+(to\s+)?/i,
-      ""
-    );
+    destination =
+        destination.replace(
+            /^(please\s+)?(go|navigate|travel)\s+(to\s+)?/i,
+            ""
+        );
 
 
-  destination =
-    destination.replace(
-      /^(please\s+)?(take|bring|guide)\s+me\s+(to\s+)?/i,
-      ""
-    );
+    destination =
+        destination.replace(
+            /\s+(please|thanks|thank you)$/i,
+            ""
+        );
 
 
-  destination =
-    destination.replace(
-      /^(please\s+)?(go|navigate|travel)\s+(to\s+)?/i,
-      ""
-    );
+    destination =
+        destination
+            .replace(/[.!?,]+$/g,"")
+            .replace(/\s+/g," ")
+            .trim();
 
 
-  destination =
-    destination.replace(
-      /\s+(please|thanks|thank you)$/i,
-      ""
-    );
-
-
-  destination =
-    destination
-      .replace(/[.!?,]+$/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-
-
-  console.log(
-    "FINAL ENGLISH DESTINATION:",
-    destination
-  );
-
-
-  return destination;
+    return destination;
 }
 
 
@@ -2580,401 +3347,298 @@ async function translateAndExtractDestination(
 
 async function processTextSubmit() {
 
-  const input =
-    document.getElementById(
-      "userInput"
+    const input =
+        document.getElementById(
+            "userInput"
+        );
+
+
+    const originalText =
+        input.value.trim();
+
+
+    if (!originalText) {
+
+        showMessage(
+            "Please enter a destination.",
+            true
+        );
+
+        input.focus();
+
+        return;
+    }
+
+
+    const englishDestination =
+        await translateAndExtractDestination(
+            originalText
+        );
+
+
+    if (!englishDestination) {
+
+        showMessage(
+            "Could not identify the destination. Please try again.",
+            true
+        );
+
+        return;
+    }
+
+
+    input.value =
+        englishDestination;
+
+
+    createGoogleRoute(
+        englishDestination
     );
-
-  const originalText =
-    input.value.trim();
-
-
-  if (!originalText) {
-
-    showMessage(
-      "Please enter a destination.",
-      true
-    );
-
-    input.focus();
-
-    return;
-  }
-
-
-  /*
-   * Translate typed input too.
-   *
-   * Therefore both:
-   *
-   * Tamil typing
-   * Hindi typing
-   * Telugu typing
-   * Voice input
-   *
-   * follow the same pipeline.
-   */
-
-  const englishDestination =
-    await translateAndExtractDestination(
-      originalText
-    );
-
-
-  if (!englishDestination) {
-
-    showMessage(
-      "Could not identify the destination. Please try again.",
-      true
-    );
-
-    return;
-  }
-
-
-  /*
-   * Put ENGLISH destination in input.
-   */
-
-  input.value =
-    englishDestination;
-
-
-  /*
-   * Generate Google Maps route.
-   */
-
-  createGoogleRoute(
-    englishDestination
-  );
 }
 
 
 /* =========================================================
-   ENTER KEY
+   ENTER
 ========================================================= */
 
 function handleEnter(event) {
 
-  if (
-    event.key === "Enter"
-  ) {
+    if (event.key === "Enter") {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    processTextSubmit();
-
-  }
+        processTextSubmit();
+    }
 }
 
 
 /* =========================================================
-   CREATE GOOGLE MAPS ROUTE
+   GOOGLE MAPS ROUTE
 ========================================================= */
 
 function createGoogleRoute(
-  originalText
+    originalText
 ) {
 
-  if (
-    userLat === null ||
-    userLng === null
-  ) {
+    if (
+        userLat === null ||
+        userLng === null
+    ) {
 
-    showMessage(
-      "Waiting for your current GPS location. Please allow location access.",
-      true
+        showMessage(
+            "Waiting for your current GPS location. Please allow location access.",
+            true
+        );
+
+
+        speak(
+            "Please allow location access."
+        );
+
+
+        return;
+    }
+
+
+    let destination =
+        cleanVoiceDestination(
+            originalText
+        ).trim();
+
+
+    if (!destination) {
+
+        showMessage(
+            "Please enter a valid Sathyabama campus destination.",
+            true
+        );
+
+
+        speak(
+            "Please enter a valid campus destination."
+        );
+
+
+        return;
+    }
+
+
+    const finalDestination =
+        destination +
+        ", " +
+        SATHYABAMA_ADDRESS;
+
+
+    const origin =
+        `${userLat},${userLng}`;
+
+
+    const params =
+        new URLSearchParams();
+
+
+    params.set(
+        "api",
+        "1"
     );
 
-    speak(
-      "Please allow location access."
+
+    params.set(
+        "origin",
+        origin
     );
 
-    return;
-  }
 
-
-  /*
-   * At this point destination
-   * SHOULD ALREADY be English.
-   */
-
-  let destination =
-    cleanVoiceDestination(
-      originalText
-    ).trim();
-
-
-  if (!destination) {
-
-    showMessage(
-      "Please enter a destination.",
-      true
+    params.set(
+        "destination",
+        finalDestination
     );
 
-    speak(
-      "Please enter a destination."
+
+    params.set(
+        "travelmode",
+        "walking"
     );
 
-    return;
-  }
+
+    params.set(
+        "dir_action",
+        "navigate"
+    );
 
 
-  /*
-   * IMPORTANT:
-   *
-   * English destination
-   * +
-   * exact Sathyabama campus address.
-   */
-
-  const finalDestination =
-    destination +
-    ", " +
-    SATHYABAMA_ADDRESS;
+    currentGoogleMapsUrl =
+        "https://www.google.com/maps/dir/?" +
+        params.toString();
 
 
-  /*
-   * Current browser GPS.
-   */
-
-  const origin =
-    `${userLat},${userLng}`;
-
-
-  /*
-   * REAL GOOGLE MAPS DIRECTIONS URL
-   */
-
-  const params =
-    new URLSearchParams();
-
-  params.set(
-    "api",
-    "1"
-  );
-
-  params.set(
-    "origin",
-    origin
-  );
-
-  params.set(
-    "destination",
-    finalDestination
-  );
-
-  params.set(
-    "travelmode",
-    "walking"
-  );
-
-  params.set(
-    "dir_action",
-    "navigate"
-  );
-
-
-  currentGoogleMapsUrl =
-    "https://www.google.com/maps/dir/?" +
-    params.toString();
-
-
-  console.log(
-    "================================"
-  );
-
-  console.log(
-    "USER ORIGINAL INPUT:",
-    originalText
-  );
-
-  console.log(
-    "ENGLISH DESTINATION:",
-    destination
-  );
-
-  console.log(
-    "FINAL GOOGLE DESTINATION:",
-    finalDestination
-  );
-
-  console.log(
-    "CURRENT GPS:",
-    origin
-  );
-
-  console.log(
-    "GOOGLE MAPS URL:",
-    currentGoogleMapsUrl
-  );
-
-  console.log(
-    "================================"
-  );
-
-
-  /*
-   * UPDATE DASHBOARD
-   */
-
-  document.getElementById(
-    "userInput"
-  ).value =
-    destination;
-
-
-  document.getElementById(
-    "targetDisplay"
-  ).innerText =
-    destination;
-
-
-  document.getElementById(
-    "googleOrigin"
-  ).innerText =
-    origin;
-
-
-  document.getElementById(
-    "googleDestination"
-  ).innerText =
-    finalDestination;
-
-
-  document.getElementById(
-    "googleMapsUrl"
-  ).value =
-    currentGoogleMapsUrl;
-
-
-  /*
-   * START GOOGLE MAPS BUTTON
-   */
-
-  const startButton =
     document.getElementById(
-      "startNavigation"
+        "userInput"
+    ).value =
+        destination;
+
+
+    document.getElementById(
+        "targetDisplay"
+    ).innerText =
+        destination;
+
+
+    document.getElementById(
+        "googleOrigin"
+    ).innerText =
+        origin;
+
+
+    document.getElementById(
+        "googleDestination"
+    ).innerText =
+        finalDestination;
+
+
+    document.getElementById(
+        "googleMapsUrl"
+    ).value =
+        currentGoogleMapsUrl;
+
+
+    const startButton =
+        document.getElementById(
+            "startNavigation"
+        );
+
+
+    startButton.href =
+        currentGoogleMapsUrl;
+
+
+    document.getElementById(
+        "googlePanel"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "emptyState"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "navigationReady"
+    ).classList.add(
+        "show"
     );
 
 
-  startButton.href =
-    currentGoogleMapsUrl;
-
-  startButton.target =
-    "_blank";
-
-  startButton.rel =
-    "noopener noreferrer";
-
-
-  /*
-   * SHOW GOOGLE PANEL
-   */
-
-  document.getElementById(
-    "googlePanel"
-  ).style.display =
-    "block";
-
-
-  document.getElementById(
-    "emptyState"
-  ).style.display =
-    "none";
-
-
-  document
-    .getElementById(
-      "navigationReady"
-    )
-    .classList.add(
-      "show"
+    showMessage(
+        "English destination detected: " +
+        destination,
+        false
     );
 
 
-  /*
-   * SUCCESS MESSAGE
-   */
-
-  showMessage(
-    "English destination detected: " +
-    destination,
-    false
-  );
+    speak(
+        "Google Maps walking route to " +
+        destination +
+        " is ready."
+    );
 
 
-  /*
-   * SPEAK
-   */
-
-  speak(
-    "Google Maps walking route to " +
-    destination +
-    " is ready."
-  );
-
-
-  /*
-   * SCROLL
-   */
-
-  document
-    .getElementById(
-      "googlePanel"
-    )
-    .scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
+    document
+        .getElementById("googlePanel")
+        .scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+        });
 }
 
 
 /* =========================================================
-   COPY GOOGLE MAPS URL
+   COPY URL
 ========================================================= */
 
 async function copyGoogleUrl() {
 
-  const input =
-    document.getElementById(
-      "googleMapsUrl"
-    );
+    const input =
+        document.getElementById(
+            "googleMapsUrl"
+        );
 
 
-  if (!input.value) {
-    return;
-  }
+    if (!input.value) {
+        return;
+    }
 
 
-  try {
+    try {
 
-    await navigator.clipboard.writeText(
-      input.value
-    );
-
-
-    showMessage(
-      "Google Maps URL copied successfully.",
-      false
-    );
-
-  }
-
-  catch (error) {
-
-    input.select();
-
-    document.execCommand(
-      "copy"
-    );
+        await navigator.clipboard.writeText(
+            input.value
+        );
 
 
-    showMessage(
-      "Google Maps URL copied.",
-      false
-    );
-  }
+        showMessage(
+            "Google Maps URL copied successfully.",
+            false
+        );
+
+    }
+
+    catch(error) {
+
+        input.select();
+
+        document.execCommand(
+            "copy"
+        );
+
+
+        showMessage(
+            "Google Maps URL copied.",
+            false
+        );
+    }
 }
 
 
@@ -2983,411 +3647,294 @@ async function copyGoogleUrl() {
 ========================================================= */
 
 function showMessage(
-  text,
-  isError
+    text,
+    isError
 ) {
 
-  const element =
-    document.getElementById(
-      "message"
+    const element =
+        document.getElementById(
+            "message"
+        );
+
+
+    element.innerText =
+        text;
+
+
+    element.classList.add(
+        "show"
     );
 
 
-  element.innerText =
-    text;
+    if (isError) {
 
+        element.style.color =
+            "#b91c1c";
 
-  element.classList.add(
-    "show"
-  );
+        element.style.background =
+            "#fef2f2";
 
+        element.style.borderColor =
+            "#fecaca";
 
-  if (isError) {
+    }
 
-    element.style.color =
-      "#b91c1c";
+    else {
 
-    element.style.background =
-      "#fef2f2";
+        element.style.color =
+            "var(--wine)";
 
-    element.style.borderColor =
-      "#fecaca";
+        element.style.background =
+            "#fff8fa";
 
-  }
-
-  else {
-
-    element.style.color =
-      "var(--wine)";
-
-    element.style.background =
-      "#fff8fa";
-
-    element.style.borderColor =
-      "#efdce2";
-  }
+        element.style.borderColor =
+            "#efdce2";
+    }
 }
 
 
 /* =========================================================
-   VOICE RECOGNITION
+   VOICE INPUT
 ========================================================= */
 
 function toggleVoiceInput() {
 
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
 
 
-  if (!SpeechRecognition) {
+    if (!SpeechRecognition) {
 
-    alert(
-      "Voice recognition is not supported in this browser. Please use Google Chrome."
-    );
+        alert(
+            "Voice recognition is not supported. Please use Google Chrome."
+        );
 
-    return;
-  }
-
-
-  /*
-   * Stop current recognition.
-   */
-
-  if (recognition) {
-
-    try {
-
-      recognition.stop();
-
+        return;
     }
 
-    catch (error) {
 
-      console.log(error);
+    if (recognition) {
 
-    }
-
-    return;
-  }
-
-
-  /*
-   * Create recognition.
-   */
-
-  recognition =
-    new SpeechRecognition();
-
-
-  /*
-   * IMPORTANT:
-   *
-   * Recognition language is based
-   * on the user's selected language.
-   */
-
-  recognition.lang =
-    document.getElementById(
-      "languagePicker"
-    ).value;
-
-
-  recognition.continuous =
-    false;
-
-
-  recognition.interimResults =
-    false;
-
-
-  recognition.maxAlternatives =
-    5;
-
-
-  const mic =
-    document.getElementById(
-      "micBtn"
-    );
-
-
-  /* =======================================================
-     START
-  ======================================================= */
-
-  recognition.onstart =
-    function() {
-
-      mic.classList.add(
-        "listening"
-      );
-
-
-      showMessage(
-        "Listening... Say your destination.",
-        false
-      );
-
-
-      console.log(
-        "Speech recognition started."
-      );
-
-      console.log(
-        "Recognition language:",
-        recognition.lang
-      );
-
-    };
-
-
-  /* =======================================================
-     RESULT
-  ======================================================= */
-
-  recognition.onresult =
-    async function(event) {
-
-      try {
-
-        const transcript =
-          event
-            .results[0][0]
-            .transcript
-            .trim();
-
-
-        console.log(
-          "================================"
-        );
-
-        console.log(
-          "VOICE TRANSCRIPT:",
-          transcript
-        );
-
-        console.log(
-          "SELECTED LANGUAGE:",
-          recognition.lang
-        );
-
-
-        /*
-         * Show original speech text
-         * temporarily.
-         */
-
-        document.getElementById(
-          "userInput"
-        ).value =
-          transcript;
-
-
-        showMessage(
-          "Converting destination to English...",
-          false
-        );
-
-
-        /*
-         * TRANSLATE
-         */
-
-        const englishDestination =
-          await translateAndExtractDestination(
-            transcript
-          );
-
-
-        if (!englishDestination) {
-
-          showMessage(
-            "I could not identify the destination. Please speak again.",
-            true
-          );
-
-          speak(
-            "I could not identify the destination. Please speak again."
-          );
-
-          return;
+        try {
+            recognition.stop();
         }
 
+        catch(error) {
+            console.log(error);
+        }
 
-        console.log(
-          "ENGLISH DESTINATION:",
-          englishDestination
-        );
-
-
-        /*
-         * Put ONLY English destination
-         * into input.
-         */
-
-        document.getElementById(
-          "userInput"
-        ).value =
-          englishDestination;
-
-
-        /*
-         * Create Google Maps URL.
-         */
-
-        createGoogleRoute(
-          englishDestination
-        );
-
-
-        console.log(
-          "================================"
-        );
-
-      }
-
-      catch (error) {
-
-        console.error(
-          "Voice processing error:",
-          error
-        );
-
-
-        showMessage(
-          "Could not process the voice destination.",
-          true
-        );
-
-      }
-
-    };
-
-
-  /* =======================================================
-     ERROR
-  ======================================================= */
-
-  recognition.onerror =
-    function(event) {
-
-      console.error(
-        "Speech recognition error:",
-        event.error
-      );
-
-
-      if (
-        event.error ===
-        "not-allowed"
-      ) {
-
-        showMessage(
-          "Microphone permission was denied. Allow microphone access in Chrome.",
-          true
-        );
-
-      }
-
-      else if (
-        event.error ===
-        "no-speech"
-      ) {
-
-        showMessage(
-          "No speech detected. Please try again.",
-          true
-        );
-
-      }
-
-      else if (
-        event.error ===
-        "audio-capture"
-      ) {
-
-        showMessage(
-          "No microphone was detected.",
-          true
-        );
-
-      }
-
-      else if (
-        event.error ===
-        "network"
-      ) {
-
-        showMessage(
-          "Speech recognition needs an internet connection.",
-          true
-        );
-
-      }
-
-      else {
-
-        showMessage(
-          "Voice input failed: " +
-          event.error,
-          true
-        );
-      }
-
-    };
-
-
-  /* =======================================================
-     END
-  ======================================================= */
-
-  recognition.onend =
-    function() {
-
-      mic.classList.remove(
-        "listening"
-      );
-
-
-      recognition =
-        null;
-
-
-      console.log(
-        "Speech recognition ended."
-      );
-
-    };
-
-
-  /* =======================================================
-     START LISTENING
-  ======================================================= */
-
-  try {
-
-    recognition.start();
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Recognition start error:",
-      error
-    );
-
-
-    mic.classList.remove(
-      "listening"
-    );
+        return;
+    }
 
 
     recognition =
-      null;
+        new SpeechRecognition();
 
-  }
 
+    recognition.lang =
+        document.getElementById(
+            "languagePicker"
+        ).value;
+
+
+    recognition.continuous =
+        false;
+
+
+    recognition.interimResults =
+        false;
+
+
+    recognition.maxAlternatives =
+        5;
+
+
+    const mic =
+        document.getElementById(
+            "micBtn"
+        );
+
+
+    recognition.onstart =
+        function() {
+
+            mic.classList.add(
+                "listening"
+            );
+
+
+            showMessage(
+                "Listening... Say your destination.",
+                false
+            );
+        };
+
+
+    recognition.onresult =
+        async function(event) {
+
+            try {
+
+                const transcript =
+                    event.results[0][0]
+                        .transcript
+                        .trim();
+
+
+                document.getElementById(
+                    "userInput"
+                ).value =
+                    transcript;
+
+
+                showMessage(
+                    "Converting destination to English...",
+                    false
+                );
+
+
+                const englishDestination =
+                    await translateAndExtractDestination(
+                        transcript
+                    );
+
+
+                if (!englishDestination) {
+
+                    showMessage(
+                        "I could not identify the destination. Please speak again.",
+                        true
+                    );
+
+
+                    speak(
+                        "I could not identify the destination. Please speak again."
+                    );
+
+
+                    return;
+                }
+
+
+                document.getElementById(
+                    "userInput"
+                ).value =
+                    englishDestination;
+
+
+                createGoogleRoute(
+                    englishDestination
+                );
+
+            }
+
+            catch(error) {
+
+                console.error(
+                    "Voice processing error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Could not process the voice destination.",
+                    true
+                );
+            }
+        };
+
+
+    recognition.onerror =
+        function(event) {
+
+            console.error(
+                "Speech recognition error:",
+                event.error
+            );
+
+
+            if (
+                event.error ===
+                "not-allowed"
+            ) {
+
+                showMessage(
+                    "Microphone permission was denied.",
+                    true
+                );
+
+            }
+
+            else if (
+                event.error ===
+                "no-speech"
+            ) {
+
+                showMessage(
+                    "No speech detected. Please try again.",
+                    true
+                );
+
+            }
+
+            else if (
+                event.error ===
+                "audio-capture"
+            ) {
+
+                showMessage(
+                    "No microphone was detected.",
+                    true
+                );
+
+            }
+
+            else {
+
+                showMessage(
+                    "Voice input failed: " +
+                    event.error,
+                    true
+                );
+            }
+        };
+
+
+    recognition.onend =
+        function() {
+
+            mic.classList.remove(
+                "listening"
+            );
+
+
+            recognition =
+                null;
+        };
+
+
+    try {
+
+        recognition.start();
+
+    }
+
+    catch(error) {
+
+        console.error(
+            error
+        );
+
+
+        mic.classList.remove(
+            "listening"
+        );
+
+
+        recognition =
+            null;
+    }
 }
 
 
@@ -3397,40 +3944,39 @@ function toggleVoiceInput() {
 
 function speak(text) {
 
-  if (
-    !("speechSynthesis" in window)
-  ) {
-
-    return;
-  }
-
-
-  window.speechSynthesis.cancel();
+    if (
+        !("speechSynthesis" in window)
+    ) {
+        return;
+    }
 
 
-  const utterance =
-    new SpeechSynthesisUtterance(
-      text
+    window.speechSynthesis.cancel();
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+
+    utterance.lang =
+        document.getElementById(
+            "languagePicker"
+        ).value;
+
+
+    utterance.rate =
+        0.92;
+
+
+    utterance.pitch =
+        1;
+
+
+    window.speechSynthesis.speak(
+        utterance
     );
-
-
-  utterance.lang =
-    document.getElementById(
-      "languagePicker"
-    ).value;
-
-
-  utterance.rate =
-    0.92;
-
-
-  utterance.pitch =
-    1;
-
-
-  window.speechSynthesis.speak(
-    utterance
-  );
 }
 
 
@@ -3440,42 +3986,42 @@ function speak(text) {
 
 function triggerSOS() {
 
-  let locationText =
-    "Current GPS location is not available.";
+    let locationText =
+        "Current GPS location is not available.";
 
 
-  if (
-    userLat !== null &&
-    userLng !== null
-  ) {
+    if (
+        userLat !== null &&
+        userLng !== null
+    ) {
 
-    locationText =
-      "Current GPS location: " +
-      userLat.toFixed(6) +
-      ", " +
-      userLng.toFixed(6);
-  }
-
-
-  const message =
-    "Emergency SOS activated. " +
-    locationText;
+        locationText =
+            "Current GPS location: " +
+            userLat.toFixed(6) +
+            ", " +
+            userLng.toFixed(6);
+    }
 
 
-  showMessage(
-    message,
-    true
-  );
+    const message =
+        "Emergency SOS activated. " +
+        locationText;
 
 
-  speak(
-    "Emergency SOS activated."
-  );
+    showMessage(
+        message,
+        true
+    );
 
 
-  alert(
-    message
-  );
+    speak(
+        "Emergency SOS activated."
+    );
+
+
+    alert(
+        message
+    );
 }
 
 
@@ -3484,30 +4030,173 @@ function triggerSOS() {
 ========================================================= */
 
 document
-  .getElementById(
-    "languagePicker"
-  )
-  .addEventListener(
-    "change",
-    function() {
+    .getElementById(
+        "languagePicker"
+    )
+    .addEventListener(
+        "change",
+        function() {
 
-      if (
-        currentGoogleMapsUrl
-      ) {
+            if (
+                currentGoogleMapsUrl
+            ) {
 
-        showMessage(
-          "Language changed to " +
-          this.options[
-            this.selectedIndex
-          ].text +
-          ".",
-          false
+                showMessage(
+                    "Language changed to " +
+                    this.options[
+                        this.selectedIndex
+                    ].text +
+                    ".",
+                    false
+                );
+            }
+        }
+    );
+
+
+/* =========================================================
+   MOBILE ACTIVE BUTTON
+========================================================= */
+
+function setMobileActive(button) {
+
+    document
+        .querySelectorAll(
+            ".mobile-nav-item"
+        )
+        .forEach(
+            item =>
+                item.classList.remove(
+                    "active"
+                )
         );
 
-      }
+
+    button.classList.add(
+        "active"
+    );
+}
+
+
+/* =========================================================
+   VISUAL GUIDANCE
+========================================================= */
+
+function openVisualGuidance() {
+
+    const destination =
+        document.getElementById(
+            "targetDisplay"
+        ).innerText.trim();
+
+
+    if (
+        destination &&
+        destination !== "None"
+    ) {
+
+        localStorage.setItem(
+            "accessPathDestination",
+            destination
+        );
+
+
+        sessionStorage.setItem(
+            "accessPathDestination",
+            destination
+        );
+
+
+        window.location.href =
+            "virtual.html?destination=" +
+            encodeURIComponent(
+                destination
+            );
 
     }
-  );
+
+    else {
+
+        localStorage.removeItem(
+            "accessPathDestination"
+        );
+
+
+        sessionStorage.removeItem(
+            "accessPathDestination"
+        );
+
+
+        window.location.href =
+            "virtual.html";
+    }
+}
+
+
+/* =========================================================
+   WHEELCHAIR ROUTE
+========================================================= */
+
+function openWheelchairRoute() {
+
+    const destination =
+        document.getElementById(
+            "targetDisplay"
+        )?.innerText.trim() || "";
+
+
+    if (
+        destination &&
+        destination !== "None"
+    ) {
+
+        localStorage.setItem(
+            "accessPathDestination",
+            destination
+        );
+
+
+        sessionStorage.setItem(
+            "accessPathDestination",
+            destination
+        );
+
+
+        window.location.href =
+            "wheelchair.html?destination=" +
+            encodeURIComponent(
+                destination
+            );
+
+    }
+
+    else {
+
+        localStorage.removeItem(
+            "accessPathDestination"
+        );
+
+
+        sessionStorage.removeItem(
+            "accessPathDestination"
+        );
+
+
+        window.location.href =
+            "wheelchair.html";
+    }
+}
+
+
+/* =========================================================
+   CAMPUS SHUTTLE
+========================================================= */
+
+function openCampusShuttle() {
+
+    window.location.href =
+        "shuttle.html";
+}
 
 
 /* =========================================================
@@ -3515,101 +4204,15 @@ document
 ========================================================= */
 
 window.addEventListener(
-  "load",
-  function() {
+    "load",
+    function() {
 
-    lucide.createIcons();
+        lucide.createIcons();
 
-    startGPS();
-
-  }
-);
-
-function openVisualGuidance() {
-
-    const destination =
-        document.getElementById("targetDisplay").innerText.trim();
-
-    if (destination && destination !== "None") {
-
-        localStorage.setItem(
-            "accessPathDestination",
-            destination
-        );
-
-        sessionStorage.setItem(
-            "accessPathDestination",
-            destination
-        );
-
-        window.location.href =
-            "virtual.html?destination=" +
-            encodeURIComponent(destination);
-
-    } else {
-
-        localStorage.removeItem(
-            "accessPathDestination"
-        );
-
-        sessionStorage.removeItem(
-            "accessPathDestination"
-        );
-
-        window.location.href =
-            "virtual.html";
+        startGPS();
 
     }
-}
-
-/* =========================================================
-   WHEELCHAIR ACCESS ROUTE
-========================================================= */
-
-function openWheelchairRoute() {
-
-  const destination =
-    document.getElementById("targetDisplay")
-      ?.innerText
-      .trim() || "";
-
-  if (destination && destination !== "None") {
-
-    localStorage.setItem(
-      "accessPathDestination",
-      destination
-    );
-
-    sessionStorage.setItem(
-      "accessPathDestination",
-      destination
-    );
-
-    window.location.href =
-      "wheelchair.html?destination=" +
-      encodeURIComponent(destination);
-
-  } else {
-
-    localStorage.removeItem(
-      "accessPathDestination"
-    );
-
-    sessionStorage.removeItem(
-      "accessPathDestination"
-    );
-
-    window.location.href =
-      "wheelchair.html";
-
-  }
-
-}
-
-function openCampusShuttle() {
-    window.location.href = "shuttle.html";
-}
-
+);
 
 </script>
 
