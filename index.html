@@ -3998,8 +3998,205 @@ function triggerSOS() {
 
 
 /* =========================================================
-   LANGUAGE CHANGE
+   LANGUAGE SUPPORT
 ========================================================= */
+
+const languageTranslations = {
+    "en-IN": {
+        gpsStatus: "GPS Locating...",
+        voiceAssistant: "AI Voice Assistant",
+        visualAi: "Visual AI Guidance",
+        wheelchair: "Wheelchair Access Routes",
+        shuttle: "Campus Shuttle Live",
+        sos: "EMERGENCY SOS",
+        currentGps: "Current GPS:",
+        destination: "Destination:",
+        none: "None",
+        destinationPlaceholder: "Type or speak any destination...",
+        languageChanged: "Language changed to"
+    },
+    "ta-IN": {
+        gpsStatus: "ஜி.பி.எஸ் கண்டுபிடிக்கிறது...",
+        voiceAssistant: "AI குரல் உதவியாளர்",
+        visualAi: "விஷுவல் AI வழிகாட்டல்",
+        wheelchair: "சக்கர நாற்காலி அணுகல் வழிகள்",
+        shuttle: "கேம்பஸ் ஷட்டில் நேரடி",
+        sos: "அவசர SOS",
+        currentGps: "தற்போதைய GPS:",
+        destination: "சேருமிடம்:",
+        none: "எதுவும் இல்லை",
+        destinationPlaceholder: "எந்த இலக்கையும் தட்டச்சு செய்யுங்கள்...",
+        languageChanged: "மொழி மாற்றப்பட்டது:"
+    },
+    "hi-IN": {
+        gpsStatus: "जीपीएस定位 हो रहा है...",
+        voiceAssistant: "एआई वॉइस असिस्टेंट",
+        visualAi: "विज़ुअल AI मार्गदर्शन",
+        wheelchair: "व्हीलचेयर एक्सेस रूट्स",
+        shuttle: "कैम्पस शटल लाइव",
+        sos: "आपातकालीन SOS",
+        currentGps: "वर्तमान GPS:",
+        destination: "गंतव्य:",
+        none: "कुछ नहीं",
+        destinationPlaceholder: "कोई भी गंतव्य टाइप करें...",
+        languageChanged: "भाषा बदली:" 
+    },
+    "te-IN": {
+        gpsStatus: "GPS కనెక్ట్ అవుతుంది...",
+        voiceAssistant: "AI వాయిస్ అసిస్టెంట్",
+        visualAi: "విజువల్ AI మార్గదర్శన",
+        wheelchair: "వీల్చైర్ యాక్సెస్ మార్గాలు",
+        shuttle: "క్యాంపస్ షటిల్ లైవ్",
+        sos: "అత్యవసర SOS",
+        currentGps: "ప్రస్తుత GPS:",
+        destination: "గమ్యం:",
+        none: "ఏదీ లేదు",
+        destinationPlaceholder: "ఏదైనా గమ్యాన్ని నమోదు చేయండి...",
+        languageChanged: "భాష మార్చబడింది:"
+    },
+    "kn-IN": {
+        gpsStatus: "GPS ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
+        voiceAssistant: "AI ಧ್ವನಿ ಸಹಾಯಕ",
+        visualAi: "ವಿಷುವಲ್ AI ಮಾರ್ಗದರ್ಶನ",
+        wheelchair: "ವೀಲ್‌ಚೇರ್ ಪ್ರವೇಶ ಮಾರ್ಗಗಳು",
+        shuttle: "ಕ್ಯಾಂಪಸ್ ಶಟ್ಲ್ ಲೈವ್",
+        sos: "ತುರ್ತು SOS",
+        currentGps: "ಪ್ರಸ್ತುತ GPS:",
+        destination: "ಗುರಿ:",
+        none: "ಯಾವುದೂ ಇಲ್ಲ",
+        destinationPlaceholder: "ಯಾವುದಾದರೂ ಗುರಿಯನ್ನು ಟೈಪ್ ಮಾಡಿ...",
+        languageChanged: "ಭಾಷೆ ಬದಲಾಯಿಸಲಾಗಿದೆ:"
+    },
+    "ml-IN": {
+        gpsStatus: "GPS കണ്ടെത്തുന്നു...",
+        voiceAssistant: "AI വോയ്‌സ് അസിസ്റ്റന്റ്",
+        visualAi: "വിഷ്വൽ AI മാർഗ്ഗനിർദ്ദേശം",
+        wheelchair: "വിഐൽചെയർ ആക്സസ് റൂട്ടുകൾ",
+        shuttle: "കാമ്പസ് ഷട്ടിൽ ലൈവ്",
+        sos: "അടിയന്തര SOS",
+        currentGps: "നിലവിലെ GPS:",
+        destination: "ലക്ഷ്യം:",
+        none: "ഒന്നുമില്ല",
+        destinationPlaceholder: "ഏത് ലക്ഷ്യമാണെങ്കിലും ടെക്സ്റ്റ് ചെയ്യുക...",
+        languageChanged: "ഭാഷ മാറി:"
+    },
+    "mr-IN": {
+        gpsStatus: "GPS शोधत आहे...",
+        voiceAssistant: "AI व्हॉइस सहाय्यक",
+        visualAi: "व्हिज्युअल AI मार्गदर्शन",
+        wheelchair: "व्हीलचेयर प्रवेश मार्ग",
+        shuttle: "कॅम्पस शटल लाइव्ह",
+        sos: "आणीबाणी SOS",
+        currentGps: "सध्याचा GPS:",
+        destination: "गंतव्य:",
+        none: "काही नाही",
+        destinationPlaceholder: "कोणतेही गंतव्य टाइप करा...",
+        languageChanged: "भाषा बदलली:"
+    },
+    "bn-IN": {
+        gpsStatus: "GPS খুঁজছে...",
+        voiceAssistant: "AI ভয়েস সহকারী",
+        visualAi: "ভিজ্যুয়াল AI দিকনির্দেশ",
+        wheelchair: "হুইলচেয়ার অ্যাক্সেস রুট",
+        shuttle: "ক্যাম্পাস শাটল লাইভ",
+        sos: "জরুরি SOS",
+        currentGps: "বর্তমান GPS:",
+        destination: "গন্তব্য:",
+        none: "কিছু নেই",
+        destinationPlaceholder: "কোনো গন্তব্য লিখুন...",
+        languageChanged: "ভাষা পরিবর্তন হয়েছে:"
+    },
+    "gu-IN": {
+        gpsStatus: "GPS શોધી રહ્યું છે...",
+        voiceAssistant: "AI વૉઇસ સહાયક",
+        visualAi: "વિઝ્યુઅલ AI માર્ગદર્શન",
+        wheelchair: "વ્હીલચેર એક્સેસ રોટ્સ",
+        shuttle: "કેમ્પસ શટલ લાઇવ",
+        sos: "તાત્કાલિક SOS",
+        currentGps: "વર્તમાન GPS:",
+        destination: "લક્ષ્ય:",
+        none: "કોઈ નહીં",
+        destinationPlaceholder: "કોઈ પણ લક્ષ્ય ટાઇપ કરો...",
+        languageChanged: "ભાષા બદલાઈ:"
+    },
+    "pa-IN": {
+        gpsStatus: "GPS ਲੱਭਿਆ ਜਾ ਰਿਹਾ ਹੈ...",
+        voiceAssistant: "AI ਵਾਇਸ ਸਹਾਇਕ",
+        visualAi: "ਵਿਜ਼ੂਅਲ AI ਮਾਰਗਦਰਸ਼ਨ",
+        wheelchair: "व्हੀਲਚੇਅਰ ਐਕਸੈਸ ਰੂਟਸ",
+        shuttle: "ਕੈਮਪਸ ਸ਼ਟਲ ਲਾਈਵ",
+        sos: "ਤੁਰੰਤ SOS",
+        currentGps: "ਮੌਜੂਦਾ GPS:",
+        destination: "ਮੰਜ਼ਿਲ:",
+        none: "ਕੋਈ ਨਹੀਂ",
+        destinationPlaceholder: "ਕੋਈ ਵੀ ਮੰਜ਼ਿਲ ਟਾਈਪ ਕਰੋ...",
+        languageChanged: "ਭਾਸ਼ਾ ਬਦਲੀ ਗਈ:"
+    }
+};
+
+let currentLanguage = localStorage.getItem("accessPathLanguage") || "en-IN";
+
+function getLocalizedText(key) {
+    if (languageTranslations[currentLanguage] && languageTranslations[currentLanguage][key]) {
+        return languageTranslations[currentLanguage][key];
+    }
+    return languageTranslations["en-IN"][key] || key;
+}
+
+function applyLanguageUI() {
+    const selectedLanguage = languageTranslations[currentLanguage] ? currentLanguage : "en-IN";
+    currentLanguage = selectedLanguage;
+
+    const picker = document.getElementById("languagePicker");
+    if (picker) {
+        picker.value = selectedLanguage;
+    }
+
+    document.documentElement.lang = selectedLanguage;
+
+    const menuItems = document.querySelectorAll(".menu-item");
+    const menuText = [
+        getLocalizedText("voiceAssistant"),
+        getLocalizedText("visualAi"),
+        getLocalizedText("wheelchair"),
+        getLocalizedText("shuttle")
+    ];
+
+    menuItems.forEach((item, index) => {
+        if (index >= menuText.length) return;
+        const label = item.querySelector("span");
+        if (label) {
+            label.textContent = menuText[index];
+        }
+        else {
+            Array.from(item.childNodes).forEach((node) => {
+                if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                    node.textContent = menuText[index];
+                }
+            });
+        }
+    });
+
+    const sosButton = document.querySelector(".sos-btn");
+    if (sosButton) {
+        const textNode = Array.from(sosButton.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+        if (textNode) textNode.textContent = getLocalizedText("sos");
+    }
+
+    const gpsText = document.getElementById("gpsStatus");
+    if (gpsText) gpsText.textContent = getLocalizedText("gpsStatus");
+
+    const currentLoc = document.getElementById("currentLocDisplay");
+    if (currentLoc) currentLoc.textContent = getLocalizedText("currentGps");
+
+    const targetDisplay = document.getElementById("targetDisplay");
+    if (targetDisplay) targetDisplay.textContent = getLocalizedText("none");
+
+    const destinationInput = document.getElementById("userInput");
+    if (destinationInput) destinationInput.placeholder = getLocalizedText("destinationPlaceholder");
+
+    localStorage.setItem("accessPathLanguage", selectedLanguage);
+}
 
 document
     .getElementById(
@@ -4008,22 +4205,24 @@ document
     .addEventListener(
         "change",
         function() {
+            currentLanguage = this.value;
+            applyLanguageUI();
 
-            if (
-                currentGoogleMapsUrl
-            ) {
-
-                showMessage(
-                    "Language changed to " +
-                    this.options[
-                        this.selectedIndex
-                    ].text +
-                    ".",
-                    false
-                );
-            }
+            const selectedText = this.options[this.selectedIndex]?.text || "English";
+            showMessage(
+                getLocalizedText("languageChanged") + " " + selectedText + ".",
+                false
+            );
         }
     );
+
+if (document.getElementById("languagePicker")) {
+    const savedLanguage = localStorage.getItem("accessPathLanguage");
+    if (savedLanguage && languageTranslations[savedLanguage]) {
+        currentLanguage = savedLanguage;
+    }
+    applyLanguageUI();
+}
 
 
 /* =========================================================

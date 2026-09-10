@@ -4011,31 +4011,188 @@
 
 
     /* ==========================================================
-       LANGUAGE
+       LANGUAGE SUPPORT
     ========================================================== */
 
-    document
-      .getElementById(
-        "languagePicker"
-      )
-      .addEventListener(
-        "change",
-        function() {
+    const languageTranslations = {
+      "en-IN": {
+        gpsStatus: "GPS Locating...",
+        voiceAssistant: "AI Voice Assistant",
+        visualAi: "Visual AI Guidance",
+        wheelchair: "Wheelchair Access Routes",
+        shuttle: "Campus Shuttle Live",
+        sos: "EMERGENCY SOS",
+        pageTitle: "Campus Shuttle Live",
+        pageSubtitle: "Track campus shuttle movement, stops and estimated arrival times.",
+        routePlanner: "Shuttle Route Planner",
+        routeLabel: "SHUTTLE ROUTE",
+        stopLabel: "YOUR STOP",
+        trackShuttle: "Track Shuttle",
+        languageChanged: "Language changed to"
+      },
+      "ta-IN": {
+        gpsStatus: "ஜி.பி.எஸ் கண்டுபிடிக்கிறது...",
+        voiceAssistant: "AI குரல் உதவியாளர்",
+        visualAi: "விஷுவல் AI வழிகாட்டல்",
+        wheelchair: "சக்கர நாற்காலி அணுகல் வழிகள்",
+        shuttle: "கேம்பஸ் ஷட்டில் நேரடி",
+        sos: "அவசர SOS",
+        pageTitle: "கேம்பஸ் ஷட்டில் நேரடி",
+        pageSubtitle: "கேம்பஸ் ஷட்டில் இயக்கம், நிறுத்தங்கள் மற்றும் மதிப்பிடப்பட்ட வருகை நேரத்தை கண்காணிக்கவும்.",
+        routePlanner: "ஷட்டில் ரூட் பிளானர்",
+        routeLabel: "ஷட்டில் ரூட்",
+        stopLabel: "உங்கள் நிறுத்தம்",
+        trackShuttle: "ஷட்டிலை கண்காணிக்கவும்",
+        languageChanged: "மொழி மாற்றப்பட்டது:"
+      },
+      "hi-IN": {
+        gpsStatus: "जीपीएस定位 हो रहा है...",
+        voiceAssistant: "एआई वॉइस असिस्टेंट",
+        visualAi: "विज़ुअल AI मार्गदर्शन",
+        wheelchair: "व्हीलचेयर एक्सेस रूट्स",
+        shuttle: "कैम्पस शटल लाइव",
+        sos: "आपातकालीन SOS",
+        pageTitle: "कैम्पस शटल लाइव",
+        pageSubtitle: "कैम्पस शटल की चाल, स्टॉप और अनुमानित आगमन समय देखें।",
+        routePlanner: "शटल रूट प्लानर",
+        routeLabel: "शटल रूट",
+        stopLabel: "आपका स्टॉप",
+        trackShuttle: "शटल ट्रैक करें",
+        languageChanged: "भाषा बदली:"
+      },
+      "te-IN": {
+        gpsStatus: "GPS కనెక్ట్ అవుతుంది...",
+        voiceAssistant: "AI వాయిస్ అసిస్టెంట్",
+        visualAi: "విజువల్ AI మార్గదర్శన",
+        wheelchair: "వీల్చైర్ యాక్సెస్ మార్గాలు",
+        shuttle: "క్యాంపస్ షటిల్ లైవ్",
+        sos: "అత్యవసర SOS",
+        pageTitle: "క్యాంపస్ షటిల్ లైవ్",
+        pageSubtitle: "క్యాంపస్ షటిల్ చలనం, స్టాప్లు మరియు అంచనా చేరిన సమయాన్ని చూడండి.",
+        routePlanner: "షటిల్ మార్గ ప్లానర్",
+        routeLabel: "షటిల్ మార్గం",
+        stopLabel: "మీ స్టాప్",
+        trackShuttle: "షటిల్ ట్రాక్ చేయండి",
+        languageChanged: "భాష మార్చబడింది:"
+      },
+      "kn-IN": {
+        gpsStatus: "GPS ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
+        voiceAssistant: "AI ಧ್ವನಿ ಸಹಾಯಕ",
+        visualAi: "ವಿಷುವಲ್ AI ಮಾರ್ಗದರ್ಶನ",
+        wheelchair: "ವೀಲ್‌ಚೇರ್ ಪ್ರವೇಶ ಮಾರ್ಗಗಳು",
+        shuttle: "ಕ್ಯಾಂಪಸ್ ಶಟ್ಲ್ ಲೈವ್",
+        sos: "ತುರ್ತು SOS",
+        pageTitle: "ಕ್ಯಾಂಪಸ್ ಶಟ್ಲ್ ಲೈವ್",
+        pageSubtitle: "ಕ್ಯಾಂಪಸ್ ಶಟ್ಲ್ ಚಲನೆ, ನಿಲ್ದಾಣಗಳು ಮತ್ತು ಅಂದಾಜು ಆಗಮನ ಸಮಯವನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.",
+        routePlanner: "ಶಟ್ಲ್ ಮಾರ್ಗ ಯೋಜನೆ",
+        routeLabel: "ಶಟ್ಲ್ ಮಾರ್ಗ",
+        stopLabel: "ನಿಮ್ಮ ನಿಲ್ದಾಣ",
+        trackShuttle: "ಶಟ್ಲ್ ಟ್ರ್ಯಾಕ್ ಮಾಡಿ",
+        languageChanged: "ಭಾಷೆ ಬದಲಾಯಿಸಲಾಗಿದೆ:"
+      },
+      "ml-IN": {
+        gpsStatus: "GPS കണ്ടെത്തുന്നു...",
+        voiceAssistant: "AI വോയ്‌സ് അസിസ്റ്റന്റ്",
+        visualAi: "വിഷ്വൽ AI മാർഗ്ഗനിർദ്ദേശം",
+        wheelchair: "വിഐൽചെയർ ആക്സസ് റൂട്ടുകൾ",
+        shuttle: "കാമ്പസ് ഷട്ടിൽ ലൈവ്",
+        sos: "അടിയന്തര SOS",
+        pageTitle: "കാമ്പസ് ഷട്ടിൽ ലൈവ്",
+        pageSubtitle: "കാമ്പസ് ഷട്ടിൽ ചലനം, സ്റ്റോപ്പുകൾ, അതുപോലെ espered‌ എത്തുമെന്ന കാലം കാണുക.",
+        routePlanner: "ഷട്ടിൽ റൂട്ട്പ്ലാനർ",
+        routeLabel: "ഷട്ടിൽ റൂട്ട്",
+        stopLabel: "നിങ്ങളുടെ സ്റ്റോപ്പ്",
+        trackShuttle: "ഷട്ടിൽ ട്രാക്ക് ചെയ്യുക",
+        languageChanged: "ഭാഷ മാറി:"
+      }
+    };
 
-          showMessage(
+    let currentLanguage = localStorage.getItem("accessPathLanguage") || "en-IN";
 
-            "Language changed to " +
-            this.options[
-              this.selectedIndex
-            ].text +
-            ".",
+    function getLocalizedText(key) {
+      return (languageTranslations[currentLanguage] && languageTranslations[currentLanguage][key]) || languageTranslations["en-IN"][key] || key;
+    }
 
-            false
+    function applyLanguageUI() {
+      const selectedLanguage = languageTranslations[currentLanguage] ? currentLanguage : "en-IN";
+      currentLanguage = selectedLanguage;
+      const picker = document.getElementById("languagePicker");
+      if (picker) picker.value = selectedLanguage;
+      document.documentElement.lang = selectedLanguage;
 
-          );
+      const menuItems = document.querySelectorAll(".menu-item");
+      const menuText = [
+        getLocalizedText("voiceAssistant"),
+        getLocalizedText("visualAi"),
+        getLocalizedText("wheelchair"),
+        getLocalizedText("shuttle")
+      ];
 
+      menuItems.forEach((item, index) => {
+        if (index >= menuText.length) return;
+
+        const span = item.querySelector("span");
+        if (span) {
+          span.textContent = menuText[index];
+          return;
         }
-      );
+
+        Array.from(item.childNodes).forEach((node) => {
+          if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+            node.textContent = menuText[index];
+          }
+        });
+      });
+
+      const sosButton = document.querySelector(".sos-btn");
+      if (sosButton) {
+        const textNode = Array.from(sosButton.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+        if (textNode) textNode.textContent = getLocalizedText("sos");
+      }
+
+      const gpsStatus = document.getElementById("gpsStatus");
+      if (gpsStatus) gpsStatus.textContent = getLocalizedText("gpsStatus");
+
+      const heading = document.querySelector(".heading-text h1");
+      if (heading) heading.textContent = getLocalizedText("pageTitle");
+
+      const subtitle = document.querySelector(".heading-text p");
+      if (subtitle) subtitle.textContent = getLocalizedText("pageSubtitle");
+
+      const routePlanner = document.querySelector(".section-title");
+      if (routePlanner) routePlanner.innerHTML = '<i data-lucide="route"></i>' + getLocalizedText("routePlanner");
+
+      const routeLabel = document.querySelector("#routeSelect")?.closest(".field")?.querySelector("label");
+      if (routeLabel) routeLabel.textContent = getLocalizedText("routeLabel");
+
+      const stopLabel = document.querySelector("#stopSelect")?.closest(".field")?.querySelector("label");
+      if (stopLabel) stopLabel.textContent = getLocalizedText("stopLabel");
+
+      const trackBtn = document.querySelector(".track-btn");
+      if (trackBtn) {
+        const btnText = Array.from(trackBtn.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+        if (btnText) btnText.textContent = getLocalizedText("trackShuttle");
+      }
+
+      localStorage.setItem("accessPathLanguage", currentLanguage);
+    }
+
+    document
+      .getElementById("languagePicker")
+      .addEventListener("change", function() {
+        currentLanguage = this.value;
+        applyLanguageUI();
+        showMessage(
+          getLocalizedText("languageChanged") + " " + this.options[this.selectedIndex]?.text + ".",
+          false
+        );
+      });
+
+    const savedLanguage = localStorage.getItem("accessPathLanguage");
+    if (savedLanguage && languageTranslations[savedLanguage]) {
+      currentLanguage = savedLanguage;
+    }
+    applyLanguageUI();
 
 
 

@@ -3828,31 +3828,183 @@ function escapeHTML(
 
 
 /* =========================================================
-   LANGUAGE CHANGE
+   LANGUAGE SUPPORT
 ========================================================= */
 
-document
-  .getElementById(
-    "languagePicker"
-  )
-  .addEventListener(
-    "change",
-    function() {
+const languageTranslations = {
+  "en-IN": {
+    gpsStatus: "GPS Locating...",
+    voiceAssistant: "AI Voice Assistant",
+    visualAi: "Visual AI Guidance",
+    wheelchair: "Wheelchair Access Routes",
+    shuttle: "Campus Shuttle Live",
+    sos: "EMERGENCY SOS",
+    pageTitle: "Wheelchair Access Routes",
+    pageSubtitle: "Find step-free and wheelchair-friendly routes across the Sathyabama University campus.",
+    startLabel: "STARTING POINT",
+    destinationLabel: "DESTINATION",
+    optionRamps: "Prefer ramps",
+    optionSmooth: "Smooth surfaces",
+    optionShort: "Shortest accessible route",
+    languageChanged: "Language changed to"
+  },
+  "ta-IN": {
+    gpsStatus: "ஜி.பி.எஸ் கண்டுபிடிக்கிறது...",
+    voiceAssistant: "AI குரல் உதவியாளர்",
+    visualAi: "விஷுவல் AI வழிகாட்டல்",
+    wheelchair: "சக்கர நாற்காலி அணுகல் வழிகள்",
+    shuttle: "கேம்பஸ் ஷட்டில் நேரடி",
+    sos: "அவசர SOS",
+    pageTitle: "சக்கர நாற்காலி அணுகல் வழிகள்",
+    pageSubtitle: "சத்தியபாமா பல்கலைக்கழக வளாகத்தில் படிக்கட்டுகள் இல்லாத மற்றும் சக்கர நாற்காலிக்கு ஏற்ற பாதைகளை கண்டறியவும்.",
+    startLabel: "தொடக்கப் புள்ளி",
+    destinationLabel: "சேருமிடம்",
+    optionRamps: "ரேம்புகளை விரும்புங்கள்",
+    optionSmooth: "மிருதுவான சாலைகள்",
+    optionShort: "சுருக்கமான அணுகக்கூடிய பாதை",
+    languageChanged: "மொழி மாற்றப்பட்டது:"
+  },
+  "hi-IN": {
+    gpsStatus: "जीपीएस定位 हो रहा है...",
+    voiceAssistant: "एआई वॉइस असिस्टेंट",
+    visualAi: "विज़ुअल AI मार्गदर्शन",
+    wheelchair: "व्हीलचेयर एक्सेस रूट्स",
+    shuttle: "कैम्पस शटल लाइव",
+    sos: "आपातकालीन SOS",
+    pageTitle: "व्हीलचेयर एक्सेस रूट्स",
+    pageSubtitle: "सैथ्याम्बामा विश्वविद्यालय परिसर में स्टेप-फ्री और व्हीलचेयर-फ्रेंडली रास्ते खोजें।",
+    startLabel: "प्रारंभ बिंदु",
+    destinationLabel: "गंतव्य",
+    optionRamps: "राम्प पसंद करें",
+    optionSmooth: "स्मूथ सतहें",
+    optionShort: "सबसे छोटा एक्सेसिबल रूट",
+    languageChanged: "भाषा बदली:"
+  },
+  "te-IN": {
+    gpsStatus: "GPS కనెక్ట్ అవుతుంది...",
+    voiceAssistant: "AI వాయిస్ అసిస్టెంట్",
+    visualAi: "విజువల్ AI మార్గదర్శన",
+    wheelchair: "వీల్చైర్ యాక్సెస్ మార్గాలు",
+    shuttle: "క్యాంపస్ షటిల్ లైవ్",
+    sos: "అత్యవసర SOS",
+    pageTitle: "వీల్చైర్ యాక్సెస్ మార్గాలు",
+    pageSubtitle: "సత్యబామా విశ్వవిద్యాలయ క్యాంపస్‌లో స్టెప్-ఫ్రీ మరియు వీల్‌చైర్-స్నేహపూర్వక మార్గాలను కనుగొనండి.",
+    startLabel: "ప్రారంభ స్థానం",
+    destinationLabel: "గమ్యం",
+    optionRamps: "రంప్లు ఇష్టపడండి",
+    optionSmooth: "సమతల ఉపరితలాలు",
+    optionShort: "చిన్న అంగీకరించదగిన మార్గం",
+    languageChanged: "భాష మార్చబడింది:"
+  },
+  "kn-IN": {
+    gpsStatus: "GPS ಹುಡುಕಲಾಗುತ್ತಿದೆ...",
+    voiceAssistant: "AI ಧ್ವನಿ ಸಹಾಯಕ",
+    visualAi: "ವಿಷುವಲ್ AI ಮಾರ್ಗದರ್ಶನ",
+    wheelchair: "ವೀಲ್‌ಚೇರ್ ಪ್ರವೇಶ ಮಾರ್ಗಗಳು",
+    shuttle: "ಕ್ಯಾಂಪಸ್ ಶಟ್ಲ್ ಲೈವ್",
+    sos: "ತುರ್ತು SOS",
+    pageTitle: "ವೀಲ್‌ಚೇರ್ ಪ್ರವೇಶ ಮಾರ್ಗಗಳು",
+    pageSubtitle: "ಸತ್ಯಬಾಮ ವಿಶ್ವವಿದ್ಯಾಲಯದ ಕ್ಯಾಂಪಸ್‌ನಲ್ಲಿ ಸ್ಟೆಪ್-ಫ್ರೀ ಮತ್ತು ವೀಲ್‌ಚೇರ್-ಫ್ರೆಂಡ್ಲಿ ಮಾರ್ಗಗಳನ್ನು ಹುಡುಕಿ.",
+    startLabel: "ಹುಡುಕಾಟ ಎಬಿ",
+    destinationLabel: "ಗುರಿ",
+    optionRamps: "ರಾಂಪ್ಗಳನ್ನು ಆದ್ಯತೆಯ follow",
+    optionSmooth: "ಸಮತಟ್ಟಾದ ಮೇಲ್ಮೈಗಳು",
+    optionShort: "ಚಿಕ್ಕ ಪ್ರವೇಶಿಸಬಹುದಾದ ಮಾರ್ಗ",
+    languageChanged: "ಭಾಷೆ ಬದಲಾಯಿಸಲಾಗಿದೆ:"
+  },
+  "ml-IN": {
+    gpsStatus: "GPS കണ്ടെത്തുന്നു...",
+    voiceAssistant: "AI വോയ്‌സ് അസിസ്റ്റന്റ്",
+    visualAi: "വിഷ്വൽ AI മാർഗ്ഗനിർദ്ദേശം",
+    wheelchair: "വിഐൽചെയർ ആക്സസ് റൂട്ടുകൾ",
+    shuttle: "കാമ്പസ് ഷട്ടിൽ ലൈവ്",
+    sos: "അടിയന്തര SOS",
+    pageTitle: "വിഐൽചെയർ ആക്സസ് റൂട്ടുകൾ",
+    pageSubtitle: "സത്യബാമാ സർവ്വകലാശാലാ ക്യാമ്പസിൽ സ്റ്റെപ്പ്-ഫ്രീ, വിഐൽചെയർ-ഫ്രെൻഡ്ലി റൂട്ടുകൾ കണ്ടെത്തുക.",
+    startLabel: "തുടക്കം",
+    destinationLabel: "ലക്ഷ്യം",
+    optionRamps: "റാംപുകൾ ബോർദ്ദിക്കുക",
+    optionSmooth: "സമതലമായ സ്ഥലങ്ങൾ",
+    optionShort: "ചെറുതായുള്ള ആക്സസ് റൂട്ട്",
+    languageChanged: "ഭാഷ മാറി:"
+  }
+};
 
-      showMessage(
+let currentLanguage = localStorage.getItem("accessPathLanguage") || "en-IN";
 
-        "Language changed to " +
-        this.options[
-          this.selectedIndex
-        ].text +
-        ".",
+function getLocalizedText(key) {
+  return (languageTranslations[currentLanguage] && languageTranslations[currentLanguage][key]) || languageTranslations["en-IN"][key] || key;
+}
 
-        false
+function applyLanguageUI() {
+  const selectedLanguage = languageTranslations[currentLanguage] ? currentLanguage : "en-IN";
+  currentLanguage = selectedLanguage;
+  const picker = document.getElementById("languagePicker");
+  if (picker) picker.value = selectedLanguage;
+  document.documentElement.lang = selectedLanguage;
 
-      );
+  const menuItems = document.querySelectorAll(".menu-item");
+  const menuText = [
+    getLocalizedText("voiceAssistant"),
+    getLocalizedText("visualAi"),
+    getLocalizedText("wheelchair"),
+    getLocalizedText("shuttle")
+  ];
 
+  menuItems.forEach((item, index) => {
+    if (index >= menuText.length) return;
+
+    const span = item.querySelector("span");
+    if (span) {
+      span.textContent = menuText[index];
+      return;
     }
-  );
+
+    Array.from(item.childNodes).forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        node.textContent = menuText[index];
+      }
+    });
+  });
+
+  const sosButton = document.querySelector(".sos-btn");
+  if (sosButton) {
+    const textNode = Array.from(sosButton.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+    if (textNode) textNode.textContent = getLocalizedText("sos");
+  }
+
+  const gpsStatus = document.getElementById("gpsStatus");
+  if (gpsStatus) gpsStatus.textContent = getLocalizedText("gpsStatus");
+
+  const pageTitle = document.querySelector(".heading-text h1");
+  if (pageTitle) pageTitle.textContent = getLocalizedText("pageTitle");
+
+  const pageSubtitle = document.querySelector(".heading-text p");
+  if (pageSubtitle) pageSubtitle.textContent = getLocalizedText("pageSubtitle");
+
+  const startLabel = document.querySelector("#startPoint")?.closest(".field")?.querySelector("label");
+  if (startLabel) startLabel.textContent = getLocalizedText("startLabel");
+
+  const destinationLabel = document.querySelector("#destination")?.closest(".field")?.querySelector("label");
+  if (destinationLabel) destinationLabel.textContent = getLocalizedText("destinationLabel");
+
+  localStorage.setItem("accessPathLanguage", currentLanguage);
+}
+
+document
+  .getElementById("languagePicker")
+  .addEventListener("change", function() {
+    currentLanguage = this.value;
+    applyLanguageUI();
+    showMessage(
+      getLocalizedText("languageChanged") + " " + this.options[this.selectedIndex]?.text + ".",
+      false
+    );
+  });
+
+const savedLanguage = localStorage.getItem("accessPathLanguage");
+if (savedLanguage && languageTranslations[savedLanguage]) currentLanguage = savedLanguage;
+applyLanguageUI();
 
 
 

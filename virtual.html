@@ -2157,11 +2157,11 @@
 
       <div class="page-title-section">
 
-        <h1>
+        <h1 id="pageTitleText">
           Visual <span>AI Guidance</span>
         </h1>
 
-        <p>
+        <p id="pageDescriptionText">
           Use your camera to receive real-time AI-assisted
           visual and voice guidance while travelling through
           Sathyabama Institute of Science and Technology.
@@ -2172,11 +2172,11 @@
       </div>
 
 
-      <div class="ai-pill">
+      <div class="ai-pill" id="aiReadyBadge">
 
         <span class="ai-pill-dot"></span>
 
-        VISION AI READY
+        <span id="aiReadyText">VISION AI READY</span>
 
       </div>
 
@@ -2198,7 +2198,7 @@
 
       <div class="destination-content">
 
-        <small>
+        <small id="destinationLabel">
           Select destination
         </small>
 
@@ -2282,7 +2282,7 @@
 
         <i data-lucide="navigation"></i>
 
-        <span>
+        <span id="startGuidanceBtnText">
           Start AI Guidance
         </span>
 
@@ -2370,12 +2370,12 @@
             </div>
 
 
-            <h3>
+            <h3 id="cameraPlaceholderTitle">
               Start Visual Guidance
             </h3>
 
 
-            <p>
+            <p id="cameraPlaceholderText">
               Enable your camera so AccessPathAI can use
               browser-based Vision AI to detect supported
               objects, people and vehicles and provide
@@ -2391,7 +2391,7 @@
 
               <i data-lucide="camera"></i>
 
-              Enable Camera
+              <span id="cameraStartText">Enable Camera</span>
 
             </button>
 
@@ -2503,7 +2503,7 @@
 
         <div class="ai-status-card">
 
-          <div class="ai-status-label">
+          <div class="ai-status-label" id="aiStatusLabel">
             AI Navigation Status
           </div>
 
@@ -2535,7 +2535,7 @@
 
         <div class="obstacle-card">
 
-          <div class="section-heading">
+          <div class="section-heading" id="obstacleSectionTitle">
 
             <div class="section-heading-icon">
 
@@ -2588,7 +2588,7 @@
 
         <div class="guidance-card">
 
-          <div class="guidance-title">
+          <div class="guidance-title" id="guidanceTitle">
             Current Guidance
           </div>
 
@@ -2606,7 +2606,7 @@
                 Select destination
               </strong>
 
-              <span>
+              <span id="stepOneText">
                 Choose a Sathyabama campus location
               </span>
 
@@ -2628,7 +2628,7 @@
                 Start camera guidance
               </strong>
 
-              <span>
+              <span id="stepTwoText">
                 Enable visual environment analysis
               </span>
 
@@ -2650,7 +2650,7 @@
                 Follow voice instructions
               </strong>
 
-              <span>
+              <span id="stepThreeText">
                 Receive spoken movement guidance
               </span>
 
@@ -2672,7 +2672,7 @@
                 Watch for obstacles
               </strong>
 
-              <span>
+              <span id="stepFourText">
                 Vision AI warns about detected objects
               </span>
 
@@ -2693,7 +2693,7 @@
 
           <i data-lucide="volume-2"></i>
 
-          Announce Guidance
+          <span id="announceGuidanceText">Announce Guidance</span>
 
         </button>
 
@@ -2711,7 +2711,7 @@
 
           <div>
 
-            <h3>
+            <h3 id="gpsPositionTitle">
               Current GPS Position
             </h3>
 
@@ -2866,6 +2866,489 @@
     let selectedDestination = "";
 
     let currentLanguage = "en-IN";
+
+    const languageTranslations = {
+      "en-IN": {
+        pageTitlePrefix: "Visual",
+        pageTitleHighlight: "AI Guidance",
+        pageDescription: "Use your camera to receive real-time AI-assisted visual and voice guidance while travelling through Sathyabama Institute of Science and Technology. AccessPathAI detects supported objects and warns when an object appears near the likely walking path.",
+        aiReady: "VISION AI READY",
+        destinationLabel: "SELECT DESTINATION",
+        destinationHint: "Choose a campus destination",
+        cameraStart: "Enable Camera",
+        cameraPlaceholderTitle: "Start Visual Guidance",
+        cameraPlaceholderText: "Enable your camera so AccessPathAI can use browser-based Vision AI to detect supported objects, people and vehicles and provide voice-friendly safety warnings.",
+        aiStatusLabel: "AI Navigation Status",
+        aiStatusLoading: "Loading Vision AI",
+        aiStatusLoadingText: "Loading the browser-based object detection model.",
+        aiIndicator: "AI model loading...",
+        obstacleSection: "Object & Obstacle Detection",
+        obstacleTitle: "AI model loading",
+        obstacleDescription: "Please wait while Vision AI starts.",
+        guidanceTitle: "Current Guidance",
+        steps: [
+          { title: "Select destination", text: "Choose a Sathyabama campus location" },
+          { title: "Start camera guidance", text: "Enable visual environment analysis" },
+          { title: "Follow voice instructions", text: "Receive spoken movement guidance" },
+          { title: "Watch for obstacles", text: "Vision AI warns about detected objects" }
+        ],
+        announceGuidance: "Announce Guidance",
+        startGuidance: "Start AI Guidance",
+        gpsTitle: "Current GPS Position",
+        languageChanged: "Language changed.",
+        selectDestinationMessage: "Please select a destination first.",
+        guidancePaused: "AI guidance paused.",
+        guidanceResumed: "AI guidance resumed.",
+        emergencySos: "Emergency SOS activated.",
+        guidanceAnnounced: "Guidance announced.",
+        areaGuidance: "You are using AccessPathAI visual guidance.",
+        destinationText: "Your destination is",
+        gpsActive: "GPS is active.",
+        startCameraText: "Start the camera to activate visual analysis.",
+        pathWarning: "The system will warn you when supported objects appear near the likely walking path. Continue carefully."
+      },
+      "ta-IN": {
+        pageTitlePrefix: "காட்சி",
+        pageTitleHighlight: "AI வழிகாட்டி",
+        pageDescription: "உங்கள் கேமராவைப் பயன்படுத்தி சத்யாபாமா இன்ஸ்டிடியூட் ஆப் சயின்ஸ் அண்ட் டெக்னாலஜியில் நிகழ்நேர AI வழிகாட்டுதலைப் பெறுங்கள். AccessPathAI ஆதரிக்கப்படும் பொருள்களை கண்டறிந்து, பாதை அருகே பொருள் தோன்றும்போது எச்சரிக்கிறது.",
+        aiReady: "VISION AI தயாராக உள்ளது",
+        destinationLabel: "இலக்கைத் தேர்ந்தெடுக்கவும்",
+        destinationHint: "கேம்பஸ் இலக்கை தேர்ந்தெடுக்கவும்",
+        cameraStart: "கேமராவை செயல்படுத்து",
+        cameraPlaceholderTitle: "காட்சிப் பயணத்தைத் தொடங்குங்கள்",
+        cameraPlaceholderText: "உங்கள் கேமராவை செயல்படுத்தி, AccessPathAI ஆனது பொருள்கள், மக்கள் மற்றும் வாகனங்களை கண்டறிந்து, குரல் வழிகாட்டுதலை வழங்கும்.",
+        aiStatusLabel: "AI வழிகாட்டல் நிலை",
+        aiStatusLoading: "Vision AI ஏற்றப்படுகிறது",
+        aiStatusLoadingText: "நிகழ்நேர பொருள் கண்டறிதல் மாதிரி ஏற்றப்படுகிறது.",
+        aiIndicator: "AI மாதிரி ஏற்றப்படுகிறது...",
+        obstacleSection: "பொருள் & தடையைக் கண்டறிதல்",
+        obstacleTitle: "AI மாதிரி ஏற்றப்படுகிறது",
+        obstacleDescription: "Vision AI தொடங்குவதற்கு காத்திருங்கள்.",
+        guidanceTitle: "தற்போதைய வழிகாட்டல்",
+        steps: [
+          { title: "இலக்கைத் தேர்ந்தெடுக்கவும்", text: "சத்யாபாமா கேம்பஸ் இடத்தைத் தேர்ந்தெடுக்கவும்" },
+          { title: "கேமரா வழிகாட்டலைத் தொடங்கவும்", text: "காட்சி சூழலை பகுப்பாய்வு செய்யவும்" },
+          { title: "குரல் வழிமுறைகளைப் பின்பற்றவும்", text: "குரல் நகர்வு வழிகாட்டலைப் பெறவும்" },
+          { title: "தடைகளைப் பார்க்கவும்", text: "Vision AI கண்டறிந்த பொருள்களை எச்சரிக்கிறது" }
+        ],
+        announceGuidance: "வழிகாட்டலை அறிவியுங்கள்",
+        startGuidance: "AI வழிகாட்டலைத் தொடங்கவும்",
+        gpsTitle: "தற்போதைய GPS நிலை",
+        languageChanged: "மொழி மாற்றப்பட்டது.",
+        selectDestinationMessage: "முதலில் இலக்கைத் தேர்ந்தெடுக்கவும்.",
+        guidancePaused: "AI வழிகாட்டல் இடைநிறுத்தப்பட்டது.",
+        guidanceResumed: "AI வழிகாட்டல் தொடர்கிறது.",
+        emergencySos: "அவசர SOS செயல்படுத்தப்பட்டது.",
+        guidanceAnnounced: "வழிகாட்டல் அறிவிக்கப்பட்டது.",
+        areaGuidance: "நீங்கள் AccessPathAI காட்சி வழிகாட்டலைப் பயன்படுத்துகிறீர்கள்.",
+        destinationText: "உங்கள் இலக்கு",
+        gpsActive: "GPS செயலில் உள்ளது.",
+        startCameraText: "காட்சித் திறன் செயல்படுத்த கேமராவைத் தொடங்கவும்.",
+        pathWarning: "ஆதரிக்கப்படும் பொருள்கள் உங்கள் நடைபாதைக்கு அருகில் தோன்றும் போது அமைப்பு உங்களுக்கு எச்சரிக்கும். கவனமாக தொடரவும்."
+      },
+      "hi-IN": {
+        pageTitlePrefix: "दृश्य",
+        pageTitleHighlight: "AI मार्गदर्शन",
+        pageDescription: "अपने कैमरे का उपयोग करके Sathyabama Institute of Science and Technology में वास्तविक समय AI-असिस्टेड दृश्य और आवाज मार्गदर्शन प्राप्त करें। AccessPathAI समर्थित वस्तुओं का पता लगाता है और रास्ते के पास होने पर चेतावनी देता है।",
+        aiReady: "VISION AI तैयार",
+        destinationLabel: "गंतव्य चुनें",
+        destinationHint: "कैम्पस गंतव्य चुनें",
+        cameraStart: "कैमरा सक्षम करें",
+        cameraPlaceholderTitle: "दृश्य मार्गदर्शन शुरू करें",
+        cameraPlaceholderText: "अपना कैमरा सक्षम करें ताकि AccessPathAI वस्तुओं, लोगों और वाहनों का पता लगाकर आवाज़ मार्गदर्शन दे सके।",
+        aiStatusLabel: "AI नेविगेशन स्थिति",
+        aiStatusLoading: "Vision AI लोड हो रहा है",
+        aiStatusLoadingText: "रियल-टाइम ऑब्जेक्ट डिटेक्शन मॉडल लोड हो रहा है।",
+        aiIndicator: "AI मॉडल लोड हो रहा है...",
+        obstacleSection: "ऑब्जेक्ट और अवरोध पता लगाना",
+        obstacleTitle: "AI मॉडल लोड हो रहा है",
+        obstacleDescription: "Vision AI शुरू होने की प्रतीक्षा करें।",
+        guidanceTitle: "वर्तमान मार्गदर्शन",
+        steps: [
+          { title: "गंतव्य चुनें", text: "Sathyabama कैम्पस स्थान चुनें" },
+          { title: "कैमरा मार्गदर्शन शुरू करें", text: "दृश्य वातावरण का विश्लेषण शुरू करें" },
+          { title: "आवाज़ निर्देशों का पालन करें", text: "आवाज़ मार्गदर्शन प्राप्त करें" },
+          { title: "अवरोधों पर ध्यान दें", text: "Vision AI पाए गए वस्तुओं के बारे में चेतावनी देता है" }
+        ],
+        announceGuidance: "मार्गदर्शन घोषित करें",
+        startGuidance: "AI मार्गदर्शन शुरू करें",
+        gpsTitle: "वर्तमान GPS स्थिति",
+        languageChanged: "भाषा बदल गई।",
+        selectDestinationMessage: "कृपया पहले गंतव्य चुनें।",
+        guidancePaused: "AI मार्गदर्शन रुका हुआ है।",
+        guidanceResumed: "AI मार्गदर्शन फिर से शुरू हुआ।",
+        emergencySos: "आपातकालीन SOS सक्रिय है।",
+        guidanceAnnounced: "मार्गदर्शन घोषित किया गया।",
+        areaGuidance: "आप AccessPathAI दृश्य मार्गदर्शन का उपयोग कर रहे हैं।",
+        destinationText: "आपका गंतव्य",
+        gpsActive: "GPS सक्रिय है।",
+        startCameraText: "दृश्य विश्लेषण शुरू करने के लिए कैमरा चालू करें।",
+        pathWarning: "सिस्टम आपको तब चेतावनी देगा जब समर्थित वस्तुएँ संभावित चलने वाले रास्ते के पास दिखाई देंगी। सावधानी से आगे बढ़ें।"
+      },
+      "te-IN": {
+        pageTitlePrefix: "విజువల్",
+        pageTitleHighlight: "AI మార్గదర్శనం",
+        pageDescription: "మీ కెమెరాను ఉపయోగించి Sathyabama Institute of Science and Technologyలో నిజసమయ AI సహాయక దర్శన మరియు వాయిస్ మార్గదర్శనను పొందండి. AccessPathAI మద్దతు ఇచ్చే వస్తువులను గుర్తించి, మార్గం దగ్గర వస్తువులు వచ్చినప్పుడు హెచ్చరిస్తుంది.",
+        aiReady: "VISION AI సిద్ధంగా ఉంది",
+        destinationLabel: "గమ్యస్థానాన్ని ఎంచుకోండి",
+        destinationHint: "క్యాంపస్ గమ్యస్థానాన్ని ఎంచుకోండి",
+        cameraStart: "కెమెరాను ప్రారంభించండి",
+        cameraPlaceholderTitle: "విజువల్ మార్గదర్శన ప్రారంభించండి",
+        cameraPlaceholderText: "మీ కెమెరాను ప్రారంభించి, AccessPathAI వస్తువులు, ప్రజలు మరియు వాహనాలను గుర్తించి, వాయిస్ మార్గదర్శనను అందిస్తుంది.",
+        aiStatusLabel: "AI నావిగేషన్ స్థితి",
+        aiStatusLoading: "Vision AI లోడ్ అవుతోంది",
+        aiStatusLoadingText: "నిజసమయ వస్తువు గుర్తింపు మోడల్ లోడ్ అవుతోంది.",
+        aiIndicator: "AI మోడల్ లోడ్ అవుతోంది...",
+        obstacleSection: "వస్తువు & అడ్డువలైతను గుర్తించడం",
+        obstacleTitle: "AI మోడల్ లోడ్ అవుతోంది",
+        obstacleDescription: "Vision AI ప్రారంభమవడానికి వేచి ఉండండి.",
+        guidanceTitle: "ప్రస్తుత మార్గదర్శనం",
+        steps: [
+          { title: "గమ్యస్థానాన్ని ఎంచుకోండి", text: "Sathyabama క్యాంపస్ స్థలాన్ని ఎంచుకోండి" },
+          { title: "కెమెరా మార్గదర్శనను ప్రారంభించండి", text: "విజువల్ వాతావరణాన్ని విశ్లేషించండి" },
+          { title: "వాయిస్ సూచనలను అనుసరించండి", text: "వాయిస్ చలనం మార్గదర్శనను పొందండి" },
+          { title: "అడ్డువలైతలను గమనించండి", text: "Vision AI గుర్తించిన వస్తువులను హెచ్చరిస్తుంది" }
+        ],
+        announceGuidance: "మార్గదర్శనను ప్రకటించండి",
+        startGuidance: "AI మార్గదర్శనను ప్రారంభించండి",
+        gpsTitle: "ప్రస్తుత GPS స్థితి",
+        languageChanged: "భాష మార్చబడింది.",
+        selectDestinationMessage: "ముందుగా గమ్యస్థానాన్ని ఎంచుకోండి.",
+        guidancePaused: "AI మార్గదర్శనం పాజ్ అయ్యింది.",
+        guidanceResumed: "AI మార్గదర్శనం తిరిగి ప్రారంభమైంది.",
+        emergencySos: "అత్యవసర SOS ప్రారంభమైంది.",
+        guidanceAnnounced: "మార్గదర్శనం ప్రకటించబడింది.",
+        areaGuidance: "మీరు AccessPathAI విజువల్ మార్గదర్శనను ఉపయోగిస్తున్నారు.",
+        destinationText: "మీ గమ్యస్థానం",
+        gpsActive: "GPS క్రియాశీలంగా ఉంది.",
+        startCameraText: "విజువల్ విశ్లేషణను ప్రారంభించడానికి కెమెరాను ప్రారంభించండి.",
+        pathWarning: "మద్దతు ఇచ్చే వస్తువులు సాధారణ నడక మార్గానికి దగ్గరగా ఉంటే సిస్టమ్ మీకు హెచ్చరికను అందిస్తుంది. జాగ్రత్తగా కొనసాగండి."
+      },
+      "kn-IN": {
+        pageTitlePrefix: "ವಿಷುಯಲ್",
+        pageTitleHighlight: "AI ಮಾರ್ಗದರ್ಶನ",
+        pageDescription: "ನಿಮ್ಮ ಕ್ಯಾಮರಾವನ್ನು ಬಳಸಿಕೊಂಡು Sathyabama Institute of Science and Technologyದಲ್ಲಿ ನೈಜ ಸಮಯದ AI-ಸಹಾಯದ ದೃಶ್ಯ ಮತ್ತು ಧ್ವನಿ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪಡೆಯಿರಿ. AccessPathAI ಬೆಂಬಲಿತ ವಸ್ತುಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಿ, ಮಾರ್ಗದ ಹತ್ತಿರ ವಸ್ತು ಕಾಣಿಸಿದಾಗ ಎಚ್ಚರಿಸುತ್ತದೆ.",
+        aiReady: "VISION AI ಸಿದ್ಧ",
+        destinationLabel: "ಗಮ್ಯಸ್ಥಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        destinationHint: "ಕ್ಯಾಂಪಸ್ ಗಮ್ಯಸ್ಥಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+        cameraStart: "ಕ್ಯಾಮರಾವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ",
+        cameraPlaceholderTitle: "ವಿಷುಯಲ್ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪ್ರಾರಂಭಿಸಿ",
+        cameraPlaceholderText: "ನಿಮ್ಮ ಕ್ಯಾಮರಾವನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ, AccessPathAI ವಸ್ತುಗಳು, ಜನರು ಮತ್ತು ವಾಹನಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಿ ಧ್ವನಿ ಮಾರ್ಗದರ್ಶನ ನೀಡುತ್ತದೆ.",
+        aiStatusLabel: "AI ನ್ಯಾವಿಗೇಷನ್ ಸ್ಥಿತಿ",
+        aiStatusLoading: "Vision AI ಲೋಡ್ ಆಗುತ್ತಿದೆ",
+        aiStatusLoadingText: "ನೈಜ ಸಮಯದ ವಸ್ತು ಪತ್ತೆ ಮಾದರಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ.",
+        aiIndicator: "AI ಮಾದರಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+        obstacleSection: "ವಸ್ತು & ಅಡಚಣೆಯನ್ನು ಪತ್ತೆಹಚ್ಚು",
+        obstacleTitle: "AI ಮಾದರಿ ಲೋಡ್ ಆಗುತ್ತಿದೆ",
+        obstacleDescription: "Vision AI ಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಕಾಯಿರಿ.",
+        guidanceTitle: "ಪ್ರಸ್ತುತ ಮಾರ್ಗದರ್ಶನ",
+        steps: [
+          { title: "ಗಮ್ಯಸ್ಥಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ", text: "Sathyabama ಕ್ಯಾಂಪಸ್ ಸ್ಥಳವನ್ನು ಆಯ್ಕೆಮಾಡಿ" },
+          { title: "ಕ್ಯಾಮರಾ ಮಾರ್ಗದರ್ಶನ ಪ್ರಾರಂಭಿಸಿ", text: "ದೃಶ್ಯ ಪರಿಸರವನ್ನು ವಿಶ್ಲೇಷಿಸಿ" },
+          { title: "ಧ್ವನಿ ಸೂಚನೆಗಳನ್ನು ಅನುಸರಿಸಿ", text: "ಧ್ವನಿ ಚಲನೆ ಮಾರ್ಗದರ್ಶನವನ್ನು ಪಡೆಯಿರಿ" },
+          { title: "ಅಡಚಣೆಗಳನ್ನು ಗಮನಿಸಿ", text: "Vision AI ಪತ್ತೆಹಚ್ಚಿದ ವಸ್ತುಗಳ ಬಗ್ಗೆ ಎಚ್ಚರಿಸುತ್ತದೆ" }
+        ],
+        announceGuidance: "ಮಾರ್ಗದರ್ಶನವನ್ನು ಪ್ರಕಟಿಸಿ",
+        startGuidance: "AI ಮಾರ್ಗದರ್ಶನವನ್ನು ಪ್ರಾರಂಭಿಸಿ",
+        gpsTitle: "ಪ್ರಸ್ತುತ GPS ಸ್ಥಿತಿ",
+        languageChanged: "ಭಾಷೆ ಬದಲಾಯಿಸಲಾಗಿದೆ.",
+        selectDestinationMessage: "ಮೊದಲು ಗಮ್ಯಸ್ಥಾನವನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+        guidancePaused: "AI ಮಾರ್ಗದರ್ಶನ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ.",
+        guidanceResumed: "AI ಮಾರ್ಗದರ್ಶನ ಪುನರಾರಂಭವಾಯಿತು.",
+        emergencySos: "ಅಪಾಯಕಾರಿಯಾದ SOS ಸಕ್ರಿಯಗೊಂಡಿದೆ.",
+        guidanceAnnounced: "ಮಾರ್ಗದರ್ಶನ ಪ್ರಕಟಿಸಲಾಗಿದೆ.",
+        areaGuidance: "ನೀವು AccessPathAI ವಿಷುಯಲ್ ಮಾರ್ಗದರ್ಶನವನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ.",
+        destinationText: "ನಿಮ್ಮ ಗಮ್ಯಸ್ಥಾನ",
+        gpsActive: "GPS ಸಕ್ರಿಯವಾಗಿದೆ.",
+        startCameraText: "ವಿಷುಯಲ್ ವಿಶ್ಲೇಷಣೆಯನ್ನು ಪ್ರಾರಂಭಿಸಲು ಕ್ಯಾಮರಾವನ್ನು ಪ್ರಾರಂಭಿಸಿ.",
+        pathWarning: "ಬೆಂಬಲಿತ ವಸ್ತುಗಳು ಸಂಭವನೀಯ ನಡೆಯುವ ಮಾರ್ಗದ ಹತ್ತಿರ ಕಾಣಿಸಿದಾಗ ಸಿಸ್ಟಂ ನಿಮಗೆ ಎಚ್ಚರಿಸುತ್ತದೆ. ಜಾಗರೂಕವಾಗಿ ಮುಂದುವರಿಯಿರಿ."
+      },
+      "ml-IN": {
+        pageTitlePrefix: "വിഷ്വൽ",
+        pageTitleHighlight: "AI മാർഗ്ഗനിർദ്ദേശം",
+        pageDescription: "നിങ്ങളുടെ ക്യാമറ ഉപയോഗിച്ച് Sathyabama Institute of Science and Technologyയിൽ റിയൽ-ടൈം AI-സഹായം ഉള്ള വിഷ്വൽ, വോയിസ് മാർഗ്ഗനിർദ്ദേശം സ്വീകരിക്കുക. AccessPathAI പിന്തുണയ്ക്കുന്ന വസ്തുക്കളെ കണ്ടെത്തുകയും പാതയ്ക്ക് സമീപം വസ്തു വന്നാൽ മുന്നറിയിപ്പ് നൽകും.",
+        aiReady: "VISION AI തയ്യാറാണ്",
+        destinationLabel: "ലക്ഷ്യസ്ഥാനം തിരഞ്ഞെടുക്കുക",
+        destinationHint: "ക്യാമ്പസ് ലക്ഷ്യസ്ഥാനം തിരഞ്ഞെടുക്കുക",
+        cameraStart: "ക്യാമറ പ്രവർത്തിപ്പിക്കുക",
+        cameraPlaceholderTitle: "വിഷ്വൽ മാർഗ്ഗനിർദ്ദേശം ആരംഭിക്കൂ",
+        cameraPlaceholderText: "നിങ്ങളുടെ ക്യാമറ ഓൺ ചെയ്ത ശേഷം, AccessPathAI വസ്തുക്കളെ, ആളുകളെയും വാഹനങ്ങളെയും കണ്ടെത്തി വോയിസ് മാർഗ്ഗനിർദ്ദേശം നൽകും.",
+        aiStatusLabel: "AI നാവിഗേഷൻ നില",
+        aiStatusLoading: "Vision AI ലോഡുചെയ്യുന്നു",
+        aiStatusLoadingText: "റിയൽ-ടൈം ഒബ്‌ജക്റ്റ് ഡിറ്റക്ഷൻ മോഡൽ ലോഡുചെയ്യുന്നു.",
+        aiIndicator: "AI മോഡൽ ലോഡുചെയ്യുന്നു...",
+        obstacleSection: "വസ്തു & തടസ്സം കണ്ടെത്തൽ",
+        obstacleTitle: "AI മോഡൽ ലോഡുചെയ്യുന്നു",
+        obstacleDescription: "Vision AI ആരംഭിക്കുന്നതിന് കാത്തിരിക്കുക.",
+        guidanceTitle: "നിലവിലെ മാർഗ്ഗനിർദ്ദേശം",
+        steps: [
+          { title: "ലക്ഷ്യസ്ഥാനം തിരഞ്ഞെടുക്കുക", text: "Sathyabama ക്യാമ്പസ് സ്ഥലം തിരഞ്ഞെടുക്കുക" },
+          { title: "ക്യാമറ മാർഗ്ഗനിർദ്ദേശം ആരംഭിക്കുക", text: "വിഷ്വൽ അന്തരീക്ഷം വിശകലനം ചെയ്യുക" },
+          { title: "വോയിസ് നിർദ്ദേശങ്ങൾ പാലിക്കുക", text: "വോയിസ് ചലനം മാർഗ്ഗനിർദ്ദേശം ലഭിക്കുക" },
+          { title: "തടസ്സങ്ങളിലേക്ക് ശ്രദ്ധിക്കുക", text: "Vision AI കണ്ടെത്തിയ വസ്തുക്കളെ മുന്നറിയിപ്പ് നൽകും" }
+        ],
+        announceGuidance: "മാർഗ്ഗനിർദ്ദേശം അറിയിക്കുക",
+        startGuidance: "AI മാർഗ്ഗനിർദ്ദേശം ആരംഭിക്കുക",
+        gpsTitle: "നിലവിലെ GPS സ്ഥിതി",
+        languageChanged: "ഭാഷ മാറ്റി.",
+        selectDestinationMessage: "ദയവായി ആദ്യം ലക്ഷ്യസ്ഥാനം തിരഞ്ഞെടുക്കുക.",
+        guidancePaused: "AI മാർഗ്ഗനിർദ്ദേശം താൽക്കാലികമായി നിർത്തിവച്ചു.",
+        guidanceResumed: "AI മാർഗ്ഗനിർദ്ദേശം വീണ്ടും ആരംഭിച്ചു.",
+        emergencySos: "അടിയന്തിര SOS സജീവമാക്കി.",
+        guidanceAnnounced: "മാർഗ്ഗനിർദ്ദേശം അറിയിക്കപ്പെട്ടു.",
+        areaGuidance: "നിങ്ങൾ AccessPathAI വിഷ്വൽ മാർഗ്ഗനിർദ്ദേശം ഉപയോഗിക്കുന്നു.",
+        destinationText: "നിങ്ങളുടെ ലക്ഷ്യസ്ഥാനം",
+        gpsActive: "GPS സജീവമാണ്.",
+        startCameraText: "വിഷ്വൽ വിശകലനം ആരംഭിക്കാൻ ക്യാമറ ആരംഭിക്കുക.",
+        pathWarning: "സപ്പോർട്ടുചെയ്യുന്ന വസ്തുക്കൾ സാന്ദർഭികമായി നടപ്പിക്കുന്ന പാതയ്ക്ക് സമീപം വന്നാൽ സിസ്റ്റം നിങ്ങളെ മുന്നറിയിപ്പ് നൽകും. ജാഗ്രതയോടെ തുടരുക."
+      }
+    };
+
+    const sidebarTranslations = {
+      "en-IN": {
+        voiceAssistant: "AI Voice Assistant",
+        visualAi: "Visual AI Guidance",
+        wheelchair: "Wheelchair Access Routes",
+        shuttle: "Campus Shuttle Live",
+        sos: "EMERGENCY SOS",
+        mobileVoice: "Voice",
+        mobileVisual: "Visual",
+        mobileWheelchair: "Wheelchair",
+        mobileShuttle: "Shuttle",
+        mobileSos: "SOS"
+      },
+      "ta-IN": {
+        voiceAssistant: "AI குரல் உதவியாளர்",
+        visualAi: "விஷுவல் AI வழிகாட்டல்",
+        wheelchair: "சக்கர நாற்காலி அணுகல் வழிகள்",
+        shuttle: "கேம்பஸ் ஷட்டில் நேரடி",
+        sos: "அவசர SOS",
+        mobileVoice: "குரல்",
+        mobileVisual: "காட்சி",
+        mobileWheelchair: "சக்கரம்",
+        mobileShuttle: "ஷட்டில்",
+        mobileSos: "SOS"
+      },
+      "hi-IN": {
+        voiceAssistant: "एआई वॉइस असिस्टेंट",
+        visualAi: "विज़ुअल AI मार्गदर्शन",
+        wheelchair: "व्हीलचेयर एक्सेस रूट्स",
+        shuttle: "कैम्पस शटल लाइव",
+        sos: "आपातकालीन SOS",
+        mobileVoice: "वॉइस",
+        mobileVisual: "विज़ुअल",
+        mobileWheelchair: "व्हीलचेयर",
+        mobileShuttle: "शटल",
+        mobileSos: "SOS"
+      },
+      "te-IN": {
+        voiceAssistant: "AI వాయిస్ అసిస్టెంట్",
+        visualAi: "విజువల్ AI మార్గదర్శన",
+        wheelchair: "వీల్చైర్ యాక్సెస్ మార్గాలు",
+        shuttle: "క్యాంపస్ షటిల్ లైవ్",
+        sos: "అత్యవసర SOS",
+        mobileVoice: "వాయిస్",
+        mobileVisual: "విజువల్",
+        mobileWheelchair: "వీల్చైర్",
+        mobileShuttle: "షటిల్",
+        mobileSos: "SOS"
+      },
+      "kn-IN": {
+        voiceAssistant: "AI ಧ್ವನಿ ಸಹಾಯಕ",
+        visualAi: "ವಿಷುವಲ್ AI ಮಾರ್ಗದರ್ಶನ",
+        wheelchair: "ವೀಲ್‌ಚೇರ್ ಪ್ರವೇಶ ಮಾರ್ಗಗಳು",
+        shuttle: "ಕ್ಯಾಂಪಸ್ ಶಟ್ಲ್ ಲೈವ್",
+        sos: "ತುರ್ತು SOS",
+        mobileVoice: "ಧ್ವನಿ",
+        mobileVisual: "ವಿಷುಯಲ್",
+        mobileWheelchair: "ವೀಲ್‌ಚೇರ್",
+        mobileShuttle: "ಶಟ್ಲ್",
+        mobileSos: "SOS"
+      },
+      "ml-IN": {
+        voiceAssistant: "AI വോയ്‌സ് അസിസ്റ്റന്റ്",
+        visualAi: "വിഷ്വൽ AI മാർഗ്ഗനിർദ്ദേശം",
+        wheelchair: "വിഐൽചെയർ ആക്സസ് റൂട്ടുകൾ",
+        shuttle: "കാമ്പസ് ഷട്ടിൽ ലൈവ്",
+        sos: "അടിയന്തര SOS",
+        mobileVoice: "വോയിസ്",
+        mobileVisual: "വിഷ്വൽ",
+        mobileWheelchair: "വീൽചെയർ",
+        mobileShuttle: "ഷട്ടിൽ",
+        mobileSos: "SOS"
+      }
+    };
+
+    function getLocalizedText(key) {
+      const locale = languageTranslations[currentLanguage] || languageTranslations["en-IN"];
+      return locale[key] || languageTranslations["en-IN"][key] || "";
+    }
+
+    function getLocalizedSidebarText(key) {
+      const locale = sidebarTranslations[currentLanguage] || sidebarTranslations["en-IN"];
+      return locale[key] || sidebarTranslations["en-IN"][key] || "";
+    }
+
+    function applyLanguageUI() {
+      const locale = languageTranslations[currentLanguage] || languageTranslations["en-IN"];
+
+      const pageTitle = document.getElementById("pageTitleText");
+      if (pageTitle) {
+        pageTitle.innerHTML = `${locale.pageTitlePrefix} <span>${locale.pageTitleHighlight}</span>`;
+      }
+
+      const pageDescription = document.getElementById("pageDescriptionText");
+      if (pageDescription) {
+        pageDescription.textContent = locale.pageDescription;
+      }
+
+      const aiReadyText = document.getElementById("aiReadyText");
+      if (aiReadyText) {
+        aiReadyText.textContent = locale.aiReady;
+      }
+
+      const destinationLabel = document.getElementById("destinationLabel");
+      if (destinationLabel) {
+        destinationLabel.textContent = locale.destinationLabel;
+      }
+
+      const cameraStartText = document.getElementById("cameraStartText");
+      if (cameraStartText) {
+        cameraStartText.textContent = locale.cameraStart;
+      }
+
+      const cameraTitle = document.getElementById("cameraPlaceholderTitle");
+      if (cameraTitle) {
+        cameraTitle.textContent = locale.cameraPlaceholderTitle;
+      }
+
+      const cameraText = document.getElementById("cameraPlaceholderText");
+      if (cameraText) {
+        cameraText.textContent = locale.cameraPlaceholderText;
+      }
+
+      const aiStatusLabel = document.getElementById("aiStatusLabel");
+      if (aiStatusLabel) {
+        aiStatusLabel.textContent = locale.aiStatusLabel;
+      }
+
+      const obstacleTitle = document.getElementById("obstacleSectionTitle");
+      if (obstacleTitle) {
+        obstacleTitle.childNodes[obstacleTitle.childNodes.length - 1].textContent = locale.obstacleSection;
+      }
+
+      const guidanceTitle = document.getElementById("guidanceTitle");
+      if (guidanceTitle) {
+        guidanceTitle.textContent = locale.guidanceTitle;
+      }
+
+      const stepOne = document.getElementById("stepOne");
+      const stepOneText = document.getElementById("stepOneText");
+      if (stepOne) stepOne.textContent = locale.steps[0].title;
+      if (stepOneText) stepOneText.textContent = locale.steps[0].text;
+
+      const stepTwo = document.getElementById("stepTwo");
+      const stepTwoText = document.getElementById("stepTwoText");
+      if (stepTwo) stepTwo.textContent = locale.steps[1].title;
+      if (stepTwoText) stepTwoText.textContent = locale.steps[1].text;
+
+      const stepThree = document.getElementById("stepThree");
+      const stepThreeText = document.getElementById("stepThreeText");
+      if (stepThree) stepThree.textContent = locale.steps[2].title;
+      if (stepThreeText) stepThreeText.textContent = locale.steps[2].text;
+
+      const stepFour = document.getElementById("stepFour");
+      const stepFourText = document.getElementById("stepFourText");
+      if (stepFour) stepFour.textContent = locale.steps[3].title;
+      if (stepFourText) stepFourText.textContent = locale.steps[3].text;
+
+      const startGuidanceBtnText = document.getElementById("startGuidanceBtnText");
+      if (startGuidanceBtnText) {
+        startGuidanceBtnText.textContent = locale.startGuidance;
+      }
+
+      const announceText = document.getElementById("announceGuidanceText");
+      if (announceText) {
+        announceText.textContent = locale.announceGuidance;
+      }
+
+      const gpsTitle = document.getElementById("gpsPositionTitle");
+      if (gpsTitle) {
+        gpsTitle.textContent = locale.gpsTitle;
+      }
+
+      const sidebarItems = document.querySelectorAll(".menu-item");
+      const sidebarLabels = [
+        getLocalizedSidebarText("voiceAssistant"),
+        getLocalizedSidebarText("visualAi"),
+        getLocalizedSidebarText("wheelchair"),
+        getLocalizedSidebarText("shuttle")
+      ];
+
+      sidebarItems.forEach((item, index) => {
+        if (index >= sidebarLabels.length) return;
+        const span = item.querySelector("span");
+        if (span) {
+          span.textContent = sidebarLabels[index];
+        } else {
+          Array.from(item.childNodes).forEach((node) => {
+            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+              node.textContent = sidebarLabels[index];
+            }
+          });
+        }
+      });
+
+      const sosButton = document.querySelector(".sos-btn");
+      if (sosButton) {
+        const textNode = Array.from(sosButton.childNodes).find((node) => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+        if (textNode) {
+          textNode.textContent = getLocalizedSidebarText("sos");
+        }
+      }
+
+      const mobileItems = document.querySelectorAll(".mobile-nav-item");
+      const mobileLabels = [
+        getLocalizedSidebarText("mobileVoice"),
+        getLocalizedSidebarText("mobileVisual"),
+        getLocalizedSidebarText("mobileWheelchair"),
+        getLocalizedSidebarText("mobileShuttle"),
+        getLocalizedSidebarText("mobileSos")
+      ];
+
+      mobileItems.forEach((item, index) => {
+        if (index >= mobileLabels.length) return;
+        const span = item.querySelector("span");
+        if (span) {
+          span.textContent = mobileLabels[index];
+        }
+      });
+
+      if (document.documentElement) {
+        document.documentElement.lang = currentLanguage;
+      }
+    }
+
+    function getLocalizedSpeechText(key) {
+      const locale = languageTranslations[currentLanguage] || languageTranslations["en-IN"];
+      return locale[key] || languageTranslations["en-IN"][key] || "";
+    }
+
+    function speakLocalized(key, interrupt = false) {
+      const text = getLocalizedSpeechText(key);
+      if (text) {
+        speak(text, interrupt);
+      }
+    }
+
+    function updateLanguageSelection() {
+      const languageSelect = document.getElementById("languageSelect");
+      if (languageSelect) {
+        languageSelect.value = currentLanguage;
+      }
+      applyLanguageUI();
+      localStorage.setItem("accessPathLanguage", currentLanguage);
+    }
 
     let objectDetectionModel = null;
 
@@ -4705,12 +5188,12 @@
 
 
         showMessage(
-          "AI guidance paused."
+          getLocalizedSpeechText("guidancePaused")
         );
 
 
-        speak(
-          "AI guidance paused.",
+        speakLocalized(
+          "guidancePaused",
           true
         );
 
@@ -4744,12 +5227,12 @@
 
 
         showMessage(
-          "AI guidance resumed."
+          getLocalizedSpeechText("guidanceResumed")
         );
 
 
-        speak(
-          "AI guidance resumed.",
+        speakLocalized(
+          "guidanceResumed",
           true
         );
 
@@ -4769,14 +5252,14 @@
 
       if (!selectedDestination) {
 
-        speak(
-          "Please select a destination first.",
+        speakLocalized(
+          "selectDestinationMessage",
           true
         );
 
 
         showMessage(
-          "Select a destination for voice guidance."
+          getLocalizedText("destinationLabel") + ""
         );
 
 
@@ -4786,11 +5269,11 @@
 
 
       let message =
-        "You are using AccessPathAI visual guidance. ";
+        getLocalizedText("areaGuidance");
 
 
       message +=
-        `Your destination is ${selectedDestination}. `;
+        ` ${getLocalizedText("destinationText")} ${selectedDestination}. `;
 
 
       if (
@@ -4799,7 +5282,7 @@
       ) {
 
         message +=
-          "GPS is active. ";
+          getLocalizedText("gpsActive");
 
       }
 
@@ -4807,20 +5290,24 @@
       if (guidanceRunning) {
 
         message +=
-          "Real-time object detection is active. ";
+          " ";
+        message +=
+          getLocalizedText("aiStatusLoadingText") || "Real-time object detection is active.";
 
       }
 
       else {
 
         message +=
-          "Start the camera to activate visual analysis. ";
+          " ";
+        message +=
+          getLocalizedText("startCameraText");
 
       }
 
 
       message +=
-        "The system will warn you when supported objects appear near the likely walking path. Continue carefully.";
+        " " + (getLocalizedText("pathWarning") || "The system will warn you when supported objects appear near the likely walking path. Continue carefully.");
 
 
       speak(
@@ -4830,7 +5317,7 @@
 
 
       showMessage(
-        "Guidance announced."
+        getLocalizedText("guidanceAnnounced")
       );
 
     }
@@ -4903,8 +5390,8 @@
       }
 
 
-      speak(
-        "Emergency SOS activated.",
+      speakLocalized(
+        "emergencySos",
         true
       );
 
@@ -4996,9 +5483,10 @@
           currentLanguage =
             this.value;
 
+          updateLanguageSelection();
 
           showMessage(
-            "Language changed."
+            getLocalizedSpeechText("languageChanged")
           );
 
         }
@@ -5126,9 +5614,12 @@
       "load",
       async function() {
 
-        lucide.createIcons();
+        const savedLanguage = localStorage.getItem("accessPathLanguage");
+        if (savedLanguage && languageTranslations[savedLanguage]) {
+          currentLanguage = savedLanguage;
+        }
 
-        startGPS();
+        updateLanguageSelection();
 
         loadSavedDestination();
 
