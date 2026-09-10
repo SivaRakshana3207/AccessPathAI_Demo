@@ -1608,41 +1608,13 @@ main {
 
     .mobile-sos {
 
-        position:fixed;
-
-        right:14px;
-
-        bottom:87px;
-
-        width:57px;
-
-        height:57px;
-
-        border-radius:50%;
-
-        border:none;
-
-        background:#e52424;
-
-        color:white;
-
-        display:flex;
-
-        align-items:center;
-
-        justify-content:center;
-
-        box-shadow:
-            0 7px 20px rgba(220,38,38,.35);
-
-        z-index:1500;
+        display:none;
     }
 
 
     .mobile-sos svg {
 
-        width:25px;
-        height:25px;
+        display:none;
     }
 
 
@@ -2437,18 +2409,6 @@ a:focus-visible {
      MOBILE SOS
 ========================================================= -->
 
-<button
-    class="mobile-sos"
-    type="button"
-    onclick="triggerSOS()"
-    aria-label="Emergency SOS"
-    title="Emergency SOS">
-
-    <i data-lucide="alert-triangle"></i>
-
-</button>
-
-
 <!-- =========================================================
      MOBILE BOTTOM NAVIGATION
 ========================================================= -->
@@ -2458,7 +2418,7 @@ a:focus-visible {
     <button
         class="mobile-nav-item active"
         type="button"
-        onclick="setMobileActive(this)">
+        onclick="setMobileActive(this); window.location.href='index.html'">
 
         <i data-lucide="bot"></i>
 
@@ -2467,7 +2427,6 @@ a:focus-visible {
         </span>
 
     </button>
-
 
     <button
         class="mobile-nav-item"
@@ -2482,7 +2441,6 @@ a:focus-visible {
 
     </button>
 
-
     <button
         class="mobile-nav-item"
         type="button"
@@ -2496,7 +2454,6 @@ a:focus-visible {
 
     </button>
 
-
     <button
         class="mobile-nav-item"
         type="button"
@@ -2506,6 +2463,21 @@ a:focus-visible {
 
         <span>
             Shuttle
+        </span>
+
+    </button>
+
+    <button
+        class="mobile-nav-item sos-item"
+        type="button"
+        onclick="triggerSOS()"
+        aria-label="Emergency SOS"
+        title="Emergency SOS">
+
+        <i data-lucide="alert-triangle"></i>
+
+        <span>
+            SOS
         </span>
 
     </button>

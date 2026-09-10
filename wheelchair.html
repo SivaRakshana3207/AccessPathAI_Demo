@@ -1618,9 +1618,6 @@
 
     <div class="menu">
 
-
-      <!-- HOME -->
-
       <button
         class="menu-item"
         type="button"
@@ -1632,10 +1629,6 @@
         AI Voice Assistant
 
       </button>
-
-
-
-      <!-- AI GUIDANCE -->
 
       <button
         class="menu-item"
@@ -1649,10 +1642,6 @@
 
       </button>
 
-
-
-      <!-- WHEELCHAIR ACTIVE -->
-
       <button
         class="menu-item active"
         type="button"
@@ -1665,10 +1654,6 @@
 
       </button>
 
-
-
-      <!-- SHUTTLE -->
-
       <button
         class="menu-item"
         type="button"
@@ -1678,22 +1663,6 @@
         <i data-lucide="bus"></i>
 
         Campus Shuttle Live
-
-      </button>
-
-
-
-      <!-- INDOOR MAP -->
-
-      <button
-        class="menu-item"
-        type="button"
-        onclick="showComingSoon('Indoor Building Maps')"
-      >
-
-        <i data-lucide="map-pin"></i>
-
-        Indoor Building Maps
 
       </button>
 
@@ -2379,105 +2348,85 @@
   aria-label="Mobile navigation"
 >
 
+    <button
+      class="mobile-nav-item"
+      type="button"
+      aria-label="AI Voice Assistant"
+      onclick="goTo('index.html')"
+    >
 
-  <!-- HOME -->
+      <i data-lucide="bot"></i>
 
-  <button
-    class="mobile-nav-item"
-    type="button"
-    aria-label="Go to Home"
-    onclick="goTo('index.html')"
-  >
+      <span>
+        Voice
+      </span>
 
-    <i data-lucide="home"></i>
+    </button>
 
-    <span>
-      Home
-    </span>
+    <button
+      class="mobile-nav-item"
+      type="button"
+      aria-label="Visual AI Guidance"
+      onclick="goTo('virtual.html')"
+    >
 
-  </button>
+      <i data-lucide="eye"></i>
 
+      <span>
+        Visual
+      </span>
 
+    </button>
 
-  <!-- AI GUIDE -->
+    <button
+      class="mobile-nav-item active"
+      type="button"
+      aria-label="Wheelchair Access Routes"
+      aria-current="page"
+    >
 
-  <button
-    class="mobile-nav-item"
-    type="button"
-    aria-label="Visual AI Guidance"
-    onclick="goTo('virtual.html')"
-  >
+      <i data-lucide="accessibility"></i>
 
-    <i data-lucide="eye"></i>
+      <span>
+        Wheelchair
+      </span>
 
-    <span>
-      AI Guide
-    </span>
+    </button>
 
-  </button>
+    <button
+      class="mobile-nav-item"
+      type="button"
+      aria-label="Campus Shuttle Live"
+      onclick="goTo('shuttle.html')"
+    >
 
+      <i data-lucide="bus"></i>
 
+      <span>
+        Shuttle
+      </span>
 
-  <!-- WHEELCHAIR ACTIVE -->
+    </button>
 
-  <button
-    class="mobile-nav-item active"
-    type="button"
-    aria-label="Wheelchair Access Routes"
-    aria-current="page"
-  >
+    <button
+      class="mobile-nav-item sos-item"
+      type="button"
+      aria-label="Emergency SOS"
+      onclick="triggerSOS()"
+    >
 
-    <i data-lucide="accessibility"></i>
+      <i data-lucide="alert-triangle"></i>
 
-    <span>
-      Wheelchair
-    </span>
+      <span>
+        SOS
+      </span>
 
-  </button>
+    </button>
 
-
-
-  <!-- SHUTTLE -->
-
-  <button
-    class="mobile-nav-item"
-    type="button"
-    aria-label="Campus Shuttle Live"
-    onclick="goTo('shuttle.html')"
-  >
-
-    <i data-lucide="bus"></i>
-
-    <span>
-      Shuttle
-    </span>
-
-  </button>
-
-
-
-  <!-- SOS -->
-
-  <button
-    class="mobile-nav-item sos-item"
-    type="button"
-    aria-label="Emergency SOS"
-    onclick="triggerSOS()"
-  >
-
-    <i data-lucide="siren"></i>
-
-    <span>
-      SOS
-    </span>
-
-  </button>
-
-</nav>
+  </nav>
 
 
-
-<script>
+  <script>
 
 /* =========================================================
    ACCESSPATH AI
