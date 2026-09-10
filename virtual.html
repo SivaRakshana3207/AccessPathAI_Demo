@@ -2,22 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AccessPathAI — Campus Shuttle Live</title>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    AccessPathAI — Visual AI Guidance
+  </title>
 
   <!-- =====================================================
        LUCIDE ICONS
   ====================================================== -->
+
   <script src="https://unpkg.com/lucide@latest"></script>
 
+
   <style>
+
     /* =====================================================
        ROOT
     ====================================================== */
 
     :root {
+
       --wine: #800020;
       --wine-dark: #680019;
       --wine-soft: #f6e9ed;
@@ -39,10 +50,13 @@
       --muted: #666;
 
       --border: #e5e5e5;
+
       --bg: #f8f8f8;
 
+      --white: #ffffff;
+
       --shadow:
-        0 12px 35px rgba(0, 0, 0, 0.08);
+        0 12px 35px rgba(0, 0, 0, .08);
 
       --font:
         Inter,
@@ -51,111 +65,192 @@
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
+
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
 
     /* =====================================================
-       TOP NAVBAR
+       RESET
+    ====================================================== */
+
+    * {
+
+      box-sizing: border-box;
+
+      margin: 0;
+
+      padding: 0;
+
+    }
+
+
+    html {
+
+      scroll-behavior: smooth;
+
+    }
+
+
+    body {
+
+      font-family: var(--font);
+
+      background: var(--bg);
+
+      color: var(--text);
+
+      min-height: 100vh;
+
+      overflow-x: hidden;
+
+    }
+
+
+    button,
+    input,
+    select {
+
+      font: inherit;
+
+    }
+
+
+    button {
+
+      cursor: pointer;
+
+    }
+
+
+    /* =====================================================
+       TOP NAVIGATION
     ====================================================== */
 
     nav.top-nav {
+
       width: 100%;
+
       height: 68px;
 
       background: white;
 
-      border-bottom: 1px solid var(--border);
+      border-bottom:
+        1px solid var(--border);
 
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
 
       padding: 0 28px;
 
       position: sticky;
+
       top: 0;
 
       z-index: 1000;
+
     }
+
 
     .brand {
+
       display: flex;
+
       align-items: center;
+
       gap: 12px;
+
     }
 
+
     .brand-logo {
+
       width: 40px;
+
       height: 40px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
       background: var(--wine);
+
       color: white;
 
       border-radius: 12px;
+
     }
+
 
     .brand-logo svg {
+
       width: 23px;
+
       height: 23px;
+
     }
+
 
     .brand-text {
+
       display: flex;
+
       flex-direction: column;
+
     }
+
 
     .brand-title {
+
       font-size: 18px;
+
       font-weight: 900;
+
       color: var(--wine);
-      letter-spacing: -0.3px;
+
+      letter-spacing: -.3px;
+
     }
+
 
     .brand-subtitle {
+
       font-size: 10px;
+
       font-weight: 700;
+
       color: #777;
+
       margin-top: 2px;
+
     }
+
 
     .nav-right {
+
       display: flex;
+
       align-items: center;
+
       gap: 10px;
+
     }
 
+
+    /* =====================================================
+       GPS STATUS
+    ====================================================== */
+
     .gps-status {
+
       display: flex;
+
       align-items: center;
+
       gap: 7px;
 
       padding: 8px 12px;
@@ -163,646 +258,960 @@
       border-radius: 999px;
 
       background: var(--green-soft);
+
       color: var(--green);
 
       font-size: 12px;
+
       font-weight: 800;
+
     }
+
 
     .gps-dot {
+
       width: 8px;
+
       height: 8px;
+
       background: var(--green);
+
       border-radius: 50%;
 
-      animation: pulse 1.7s infinite;
+      animation:
+        gpsPulse 1.7s infinite;
+
     }
 
-    @keyframes pulse {
+
+    @keyframes gpsPulse {
+
       0% {
-        box-shadow: 0 0 0 0 rgba(21, 128, 61, .4);
+
+        box-shadow:
+          0 0 0 0
+          rgba(21,128,61,.4);
+
       }
 
       70% {
-        box-shadow: 0 0 0 7px rgba(21, 128, 61, 0);
+
+        box-shadow:
+          0 0 0 7px
+          rgba(21,128,61,0);
+
       }
 
       100% {
-        box-shadow: 0 0 0 0 rgba(21, 128, 61, 0);
+
+        box-shadow:
+          0 0 0 0
+          rgba(21,128,61,0);
+
       }
+
     }
+
+
+    /* =====================================================
+       LANGUAGE
+    ====================================================== */
+
+    .language-select {
+
+      border:
+        1px solid var(--border);
+
+      background: white;
+
+      color: var(--text);
+
+      border-radius: 12px;
+
+      padding: 10px 13px;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      outline: none;
+
+    }
+
 
     /* =====================================================
        MAIN
     ====================================================== */
 
     main {
-      width: min(1450px, 100%);
+
+      width:
+        min(1450px, 100%);
+
       margin: auto;
 
       padding: 28px;
+
     }
+
 
     /* =====================================================
        PAGE HEADER
     ====================================================== */
 
     .page-header {
+
       display: flex;
-      justify-content: space-between;
+
       align-items: flex-start;
+
+      justify-content: space-between;
 
       gap: 20px;
 
       margin-bottom: 25px;
+
     }
 
+
     .page-title-section h1 {
+
       font-size: 32px;
+
       font-weight: 950;
 
       letter-spacing: -1px;
+
     }
+
 
     .page-title-section h1 span {
+
       color: var(--wine);
+
     }
 
+
     .page-title-section p {
+
       margin-top: 8px;
+
+      max-width: 720px;
 
       color: var(--muted);
 
       font-size: 14px;
-      line-height: 1.6;
 
-      max-width: 700px;
+      line-height: 1.65;
+
     }
 
-    .live-pill {
+
+    .ai-pill {
+
       display: inline-flex;
+
       align-items: center;
+
       gap: 7px;
 
-      background: var(--green-soft);
-      color: var(--green);
+      background: var(--wine-soft);
+
+      color: var(--wine);
 
       padding: 9px 13px;
 
       border-radius: 999px;
 
-      font-size: 12px;
+      font-size: 11px;
+
       font-weight: 900;
 
       white-space: nowrap;
+
     }
 
-    .live-pill-dot {
+
+    .ai-pill-dot {
+
       width: 8px;
+
       height: 8px;
 
-      background: var(--green);
-
       border-radius: 50%;
+
+      background: var(--wine);
+
+      animation: aiPulse 1.6s infinite;
+
     }
 
+
+    @keyframes aiPulse {
+
+      0% {
+
+        box-shadow:
+          0 0 0 0
+          rgba(128,0,32,.35);
+
+      }
+
+      70% {
+
+        box-shadow:
+          0 0 0 7px
+          rgba(128,0,32,0);
+
+      }
+
+      100% {
+
+        box-shadow:
+          0 0 0 0
+          rgba(128,0,32,0);
+
+      }
+
+    }
+
+
     /* =====================================================
-       LOCATION BAR
+       DESTINATION BAR
     ====================================================== */
 
-    .location-bar {
+    .destination-bar {
+
       background: white;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
 
       border-radius: 18px;
 
       padding: 16px 18px;
 
       display: flex;
-      align-items: center;
-      justify-content: space-between;
 
-      gap: 15px;
+      align-items: center;
+
+      gap: 14px;
 
       box-shadow: var(--shadow);
 
       margin-bottom: 24px;
+
     }
 
-    .location-info {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
 
-    .location-icon {
-      width: 43px;
-      height: 43px;
+    .destination-icon {
+
+      width: 44px;
+
+      height: 44px;
+
+      flex-shrink: 0;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
+      background: var(--wine-soft);
+
+      color: var(--wine);
 
       border-radius: 13px;
 
-      background: var(--wine-soft);
-      color: var(--wine);
     }
 
-    .location-text small {
+
+    .destination-content {
+
+      flex: 1;
+
+      min-width: 0;
+
+    }
+
+
+    .destination-content small {
+
       display: block;
 
       color: #888;
 
-      font-size: 10px;
-      font-weight: 800;
-
       text-transform: uppercase;
 
       letter-spacing: .7px;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
     }
 
-    .location-text strong {
-      display: block;
 
-      margin-top: 3px;
+    .destination-select {
 
-      font-size: 14px;
+      width: 100%;
+
+      margin-top: 4px;
+
+      border: none;
+
+      outline: none;
+
+      background: transparent;
+
+      color: var(--text);
+
+      font-size: 15px;
+
+      font-weight: 850;
+
     }
 
-    .refresh-btn {
-      border: 1px solid var(--border);
 
-      background: white;
+    .start-guidance-btn {
 
-      color: var(--wine);
+      border: none;
+
+      background: var(--wine);
+
+      color: white;
 
       border-radius: 12px;
 
-      padding: 10px 14px;
+      padding: 12px 17px;
 
       display: flex;
+
       align-items: center;
 
       gap: 7px;
 
       font-size: 12px;
-      font-weight: 850;
+
+      font-weight: 900;
+
     }
 
-    .refresh-btn:hover {
-      background: var(--wine-soft);
+
+    .start-guidance-btn:hover {
+
+      background: var(--wine-dark);
+
     }
+
 
     /* =====================================================
-       GRID
+       DASHBOARD GRID
     ====================================================== */
 
     .dashboard-grid {
+
       display: grid;
 
-      grid-template-columns: 1.45fr .8fr;
+      grid-template-columns:
+        1.35fr .8fr;
 
       gap: 24px;
+
     }
 
+
     /* =====================================================
-       MAP
+       CAMERA CARD
     ====================================================== */
 
-    .map-card {
+    .camera-card {
+
       background: white;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
 
       border-radius: 22px;
 
       overflow: hidden;
 
       box-shadow: var(--shadow);
+
     }
 
+
     .card-header {
+
       padding: 18px 20px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
 
-      border-bottom: 1px solid var(--border);
+      border-bottom:
+        1px solid var(--border);
+
     }
+
 
     .card-header-left {
+
       display: flex;
+
       align-items: center;
+
       gap: 10px;
+
     }
 
+
     .card-header-icon {
+
       width: 38px;
+
       height: 38px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
-      background: var(--blue-soft);
+      background: var(--wine-soft);
 
-      color: var(--blue);
+      color: var(--wine);
 
       border-radius: 11px;
+
     }
+
 
     .card-header h2 {
+
       font-size: 16px;
-      font-weight: 900;
-    }
-
-    .map-container {
-      position: relative;
-
-      min-height: 500px;
-
-      background:
-        linear-gradient(
-          90deg,
-          rgba(255,255,255,.85) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          rgba(255,255,255,.85) 1px,
-          transparent 1px
-        ),
-        #edf1ed;
-
-      background-size: 42px 42px;
-    }
-
-    /* Decorative roads */
-
-    .road {
-      position: absolute;
-
-      background: #d5d5d5;
-
-      border-radius: 999px;
-
-      box-shadow:
-        inset 0 0 0 3px #efefef;
-    }
-
-    .road-horizontal {
-      width: 100%;
-      height: 55px;
-
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .road-vertical {
-      height: 100%;
-      width: 55px;
-
-      left: 47%;
-      top: 0;
-
-      transform: translateX(-50%);
-    }
-
-    .road-diagonal {
-      width: 85%;
-      height: 42px;
-
-      left: 8%;
-      top: 24%;
-
-      transform: rotate(25deg);
-    }
-
-    /* Campus buildings */
-
-    .building {
-      position: absolute;
-
-      background: white;
-
-      border: 2px solid #d1d5db;
-
-      border-radius: 10px;
-
-      padding: 7px;
-
-      font-size: 9px;
-      font-weight: 900;
-
-      color: #555;
-
-      box-shadow: 0 4px 12px rgba(0,0,0,.08);
-
-      text-align: center;
-    }
-
-    .building.b1 {
-      left: 8%;
-      top: 12%;
-
-      width: 120px;
-      height: 70px;
-    }
-
-    .building.b2 {
-      right: 8%;
-      top: 14%;
-
-      width: 125px;
-      height: 75px;
-    }
-
-    .building.b3 {
-      left: 10%;
-      bottom: 13%;
-
-      width: 130px;
-      height: 70px;
-    }
-
-    .building.b4 {
-      right: 9%;
-      bottom: 12%;
-
-      width: 135px;
-      height: 75px;
-    }
-
-    .building.b5 {
-      left: 43%;
-      top: 10%;
-
-      width: 105px;
-      height: 60px;
-    }
-
-    /* Shuttle route */
-
-    .route-line {
-      position: absolute;
-
-      left: 14%;
-      right: 13%;
-
-      top: 50%;
-
-      height: 5px;
-
-      background: var(--wine);
-
-      border-radius: 10px;
-
-      z-index: 4;
-    }
-
-    .route-line::after {
-      content: "";
-
-      position: absolute;
-
-      right: -1px;
-      top: -5px;
-
-      border-left: 12px solid var(--wine);
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-    }
-
-    /* Stops */
-
-    .stop {
-      position: absolute;
-
-      width: 25px;
-      height: 25px;
-
-      border-radius: 50%;
-
-      background: white;
-
-      border: 5px solid var(--wine);
-
-      z-index: 10;
-
-      box-shadow:
-        0 4px 10px rgba(0,0,0,.18);
-    }
-
-    .stop.active {
-      background: var(--wine);
-      border-color: white;
-
-      outline: 4px solid var(--wine);
-
-      animation: stopPulse 1.8s infinite;
-    }
-
-    @keyframes stopPulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(128,0,32,.35);
-      }
-
-      70% {
-        box-shadow: 0 0 0 13px rgba(128,0,32,0);
-      }
-
-      100% {
-        box-shadow: 0 0 0 0 rgba(128,0,32,0);
-      }
-    }
-
-    .stop-label {
-      position: absolute;
-
-      top: 30px;
-      left: 50%;
-
-      transform: translateX(-50%);
-
-      background: rgba(255,255,255,.96);
-
-      padding: 5px 8px;
-
-      border-radius: 7px;
-
-      font-size: 9px;
 
       font-weight: 900;
 
-      white-space: nowrap;
-
-      box-shadow: 0 3px 10px rgba(0,0,0,.1);
     }
 
-    .s1 {
-      left: 13%;
-      top: calc(50% - 12px);
-    }
 
-    .s2 {
-      left: 32%;
-      top: calc(50% - 12px);
-    }
-
-    .s3 {
-      left: 52%;
-      top: calc(50% - 12px);
-    }
-
-    .s4 {
-      left: 71%;
-      top: calc(50% - 12px);
-    }
-
-    .s5 {
-      left: 86%;
-      top: calc(50% - 12px);
-    }
-
-    /* Shuttle vehicle */
-
-    .shuttle-marker {
-      position: absolute;
-
-      left: 56%;
-
-      top: calc(50% - 27px);
-
-      width: 53px;
-      height: 53px;
-
-      background: var(--wine);
-
-      color: white;
-
-      border-radius: 17px;
+    .camera-status {
 
       display: flex;
+
       align-items: center;
-      justify-content: center;
 
-      z-index: 20;
+      gap: 6px;
 
-      border: 4px solid white;
+      color: var(--green);
 
-      box-shadow:
-        0 8px 20px rgba(0,0,0,.25);
+      font-size: 10px;
 
-      animation: shuttleMove 5s ease-in-out infinite alternate;
+      font-weight: 900;
+
     }
 
-    .shuttle-marker svg {
-      width: 26px;
-      height: 26px;
-    }
 
-    @keyframes shuttleMove {
-      from {
-        transform: translateX(-10px);
-      }
+    .camera-status-dot {
 
-      to {
-        transform: translateX(45px);
-      }
-    }
+      width: 7px;
 
-    /* User position */
+      height: 7px;
 
-    .user-location {
-      position: absolute;
-
-      left: 48%;
-      top: 62%;
-
-      width: 18px;
-      height: 18px;
-
-      background: var(--blue);
-
-      border: 4px solid white;
+      background: var(--green);
 
       border-radius: 50%;
 
-      z-index: 30;
-
-      box-shadow:
-        0 0 0 8px rgba(37,99,235,.18);
     }
 
-    /* Map legend */
 
-    .map-legend {
+    /* =====================================================
+       CAMERA VIEW
+    ====================================================== */
+
+    .camera-container {
+
+      position: relative;
+
+      min-height: 530px;
+
+      background:
+        #151515;
+
+      overflow: hidden;
+
+    }
+
+
+    #cameraVideo {
+
       position: absolute;
 
-      left: 15px;
-      bottom: 15px;
+      inset: 0;
 
-      background: rgba(255,255,255,.96);
+      width: 100%;
 
-      border-radius: 13px;
+      height: 100%;
 
-      padding: 11px 13px;
+      object-fit: cover;
+
+      display: none;
+
+    }
+
+
+    .camera-placeholder {
+
+      position: absolute;
+
+      inset: 0;
 
       display: flex;
 
       flex-direction: column;
 
-      gap: 7px;
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 30px;
+
+      text-align: center;
+
+      color: white;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #303030,
+          #101010
+        );
+
+    }
+
+
+    .camera-placeholder-icon {
+
+      width: 86px;
+
+      height: 86px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.08);
+
+      color: white;
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .camera-placeholder-icon svg {
+
+      width: 42px;
+
+      height: 42px;
+
+    }
+
+
+    .camera-placeholder h3 {
+
+      font-size: 21px;
+
+      font-weight: 900;
+
+    }
+
+
+    .camera-placeholder p {
+
+      max-width: 430px;
+
+      margin-top: 8px;
+
+      color: #cfcfcf;
+
+      font-size: 12px;
+
+      line-height: 1.6;
+
+    }
+
+
+    .camera-start-btn {
+
+      margin-top: 20px;
+
+      border: none;
+
+      background: white;
+
+      color: var(--wine);
+
+      padding: 13px 19px;
+
+      border-radius: 12px;
+
+      font-size: 12px;
+
+      font-weight: 900;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+    }
+
+
+    /* =====================================================
+       CAMERA OVERLAY
+    ====================================================== */
+
+    .camera-overlay {
+
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+    }
+
+
+    .direction-arrow {
+
+      position: absolute;
+
+      left: 50%;
+
+      top: 47%;
+
+      transform:
+        translate(-50%, -50%);
+
+      width: 90px;
+
+      height: 90px;
+
+      display: none;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background:
+        rgba(128,0,32,.9);
+
+      color: white;
+
+      border-radius: 50%;
+
+      box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.35);
+
+      animation:
+        arrowPulse 1.5s infinite;
+
+    }
+
+
+    .direction-arrow svg {
+
+      width: 46px;
+
+      height: 46px;
+
+      stroke-width: 2.8;
+
+    }
+
+
+    @keyframes arrowPulse {
+
+      0% {
+
+        transform:
+          translate(-50%, -50%)
+          scale(1);
+
+      }
+
+      50% {
+
+        transform:
+          translate(-50%, -50%)
+          scale(1.08);
+
+      }
+
+      100% {
+
+        transform:
+          translate(-50%, -50%)
+          scale(1);
+
+      }
+
+    }
+
+
+    /* =====================================================
+       DETECTION BOXES
+    ====================================================== */
+
+    .detection-box {
+
+      position: absolute;
+
+      display: none;
+
+      border: 3px solid;
+
+      border-radius: 8px;
+
+      padding: 5px 7px;
+
+      font-size: 9px;
+
+      font-weight: 900;
+
+      color: white;
+
+      background:
+        rgba(0,0,0,.55);
+
+    }
+
+
+    .detection-box.safe {
+
+      border-color:
+        #22c55e;
+
+    }
+
+
+    .detection-box.warning {
+
+      border-color:
+        #f59e0b;
+
+    }
+
+
+    .detection-box.danger {
+
+      border-color:
+        #ef4444;
+
+    }
+
+
+    .box-one {
+
+      width: 115px;
+
+      height: 100px;
+
+      left: 17%;
+
+      top: 28%;
+
+    }
+
+
+    .box-two {
+
+      width: 130px;
+
+      height: 95px;
+
+      right: 16%;
+
+      top: 35%;
+
+    }
+
+
+    .box-three {
+
+      width: 105px;
+
+      height: 80px;
+
+      left: 44%;
+
+      bottom: 15%;
+
+    }
+
+
+    /* =====================================================
+       CAMERA TOP STATUS
+    ====================================================== */
+
+    .camera-live-status {
+
+      position: absolute;
+
+      top: 15px;
+
+      left: 15px;
+
+      right: 15px;
+
+      display: none;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+    }
+
+
+    .live-analysis {
+
+      background:
+        rgba(0,0,0,.7);
+
+      color: white;
+
+      padding: 8px 11px;
+
+      border-radius: 999px;
 
       font-size: 10px;
+
       font-weight: 800;
 
-      box-shadow: 0 5px 18px rgba(0,0,0,.12);
+      backdrop-filter: blur(8px);
+
     }
 
-    .legend-item {
-      display: flex;
+
+    .distance-status {
+
+      background:
+        rgba(128,0,32,.9);
+
+      color: white;
+
+      padding: 8px 11px;
+
+      border-radius: 999px;
+
+      font-size: 10px;
+
+      font-weight: 900;
+
+    }
+
+
+    /* =====================================================
+       CAMERA CONTROLS
+    ====================================================== */
+
+    .camera-controls {
+
+      position: absolute;
+
+      left: 15px;
+
+      right: 15px;
+
+      bottom: 15px;
+
+      display: none;
+
       align-items: center;
-      gap: 7px;
+
+      justify-content: center;
+
+      gap: 10px;
+
     }
 
-    .legend-dot {
-      width: 9px;
-      height: 9px;
+
+    .camera-control-btn {
+
+      width: 48px;
+
+      height: 48px;
+
+      border: none;
+
       border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.95);
+
+      color: var(--wine);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      box-shadow:
+        0 5px 18px
+        rgba(0,0,0,.25);
+
     }
 
-    .legend-shuttle {
+
+    .camera-control-btn.main {
+
+      width: 58px;
+
+      height: 58px;
+
       background: var(--wine);
+
+      color: white;
+
     }
 
-    .legend-user {
-      background: var(--blue);
-    }
-
-    .legend-stop {
-      background: white;
-      border: 2px solid var(--wine);
-    }
 
     /* =====================================================
        RIGHT PANEL
     ====================================================== */
 
     .right-panel {
+
       display: flex;
 
       flex-direction: column;
 
       gap: 18px;
+
     }
 
-    /* Next shuttle */
 
-    .next-shuttle {
+    /* =====================================================
+       AI STATUS
+    ====================================================== */
+
+    .ai-status-card {
+
       background: var(--wine);
 
       color: white;
@@ -812,10 +1221,14 @@
       padding: 22px;
 
       box-shadow:
-        0 12px 35px rgba(128,0,32,.22);
+        0 12px 35px
+        rgba(128,0,32,.22);
+
     }
 
-    .next-label {
+
+    .ai-status-label {
+
       font-size: 10px;
 
       text-transform: uppercase;
@@ -825,101 +1238,245 @@
       opacity: .75;
 
       font-weight: 800;
+
     }
 
-    .next-shuttle h2 {
+
+    .ai-status-card h2 {
+
       margin-top: 7px;
 
-      font-size: 29px;
+      font-size: 25px;
 
       font-weight: 950;
+
     }
 
-    .next-shuttle p {
-      margin-top: 5px;
+
+    .ai-status-card p {
+
+      margin-top: 6px;
 
       font-size: 12px;
 
-      opacity: .85;
+      line-height: 1.5;
+
+      opacity: .88;
+
     }
 
-    .eta {
-      margin-top: 18px;
+
+    .ai-status-indicator {
+
+      margin-top: 17px;
 
       display: flex;
+
       align-items: center;
-      justify-content: space-between;
-    }
 
-    .eta-number {
-      font-size: 38px;
-      font-weight: 950;
-    }
-
-    .eta-number small {
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .track-btn {
-      border: none;
-
-      background: white;
-
-      color: var(--wine);
-
-      padding: 10px 14px;
-
-      border-radius: 11px;
+      gap: 8px;
 
       font-size: 11px;
 
-      font-weight: 900;
+      font-weight: 800;
+
     }
 
-    /* Stop list */
 
-    .stops-card {
+    .ai-status-indicator span {
+
+      width: 9px;
+
+      height: 9px;
+
+      border-radius: 50%;
+
+      background: #4ade80;
+
+    }
+
+
+    /* =====================================================
+       OBSTACLE CARD
+    ====================================================== */
+
+    .obstacle-card {
+
       background: white;
 
-      border: 1px solid var(--border);
+      border:
+        1px solid var(--border);
+
+      border-radius: 20px;
+
+      padding: 18px;
+
+      box-shadow: var(--shadow);
+
+    }
+
+
+    .section-heading {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+      font-size: 14px;
+
+      font-weight: 900;
+
+    }
+
+
+    .section-heading-icon {
+
+      width: 34px;
+
+      height: 34px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 10px;
+
+      background: var(--orange-soft);
+
+      color: var(--orange);
+
+    }
+
+
+    .obstacle-status {
+
+      margin-top: 15px;
+
+      padding: 14px;
+
+      border-radius: 14px;
+
+      background: var(--green-soft);
+
+      border:
+        1px solid #ccebd6;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+    }
+
+
+    .obstacle-status-icon {
+
+      color: var(--green);
+
+      flex-shrink: 0;
+
+    }
+
+
+    .obstacle-status strong {
+
+      display: block;
+
+      font-size: 12px;
+
+      color: #126332;
+
+    }
+
+
+    .obstacle-status span {
+
+      display: block;
+
+      margin-top: 3px;
+
+      color: #477455;
+
+      font-size: 10px;
+
+    }
+
+
+    /* =====================================================
+       GUIDANCE CARD
+    ====================================================== */
+
+    .guidance-card {
+
+      background: white;
+
+      border:
+        1px solid var(--border);
 
       border-radius: 20px;
 
       overflow: hidden;
 
       box-shadow: var(--shadow);
+
     }
 
-    .stops-title {
+
+    .guidance-title {
+
       padding: 17px 18px;
 
-      border-bottom: 1px solid var(--border);
+      border-bottom:
+        1px solid var(--border);
 
-      font-size: 15px;
+      font-size: 14px;
 
       font-weight: 900;
+
     }
 
-    .stop-row {
+
+    .guidance-step {
+
       display: flex;
 
       align-items: center;
 
       gap: 12px;
 
-      padding: 14px 17px;
+      padding: 13px 17px;
 
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom:
+        1px solid #f0f0f0;
+
     }
 
-    .stop-row:last-child {
+
+    .guidance-step:last-child {
+
       border-bottom: none;
+
     }
 
-    .stop-number {
-      width: 34px;
-      height: 34px;
+
+    .step-number {
+
+      width: 32px;
+
+      height: 32px;
+
+      flex-shrink: 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
 
       border-radius: 10px;
 
@@ -927,90 +1484,41 @@
 
       color: var(--wine);
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-size: 12px;
+      font-size: 11px;
 
       font-weight: 900;
+
     }
 
-    .stop-info {
-      flex: 1;
-    }
 
-    .stop-info strong {
+    .guidance-step strong {
+
       display: block;
 
-      font-size: 12px;
+      font-size: 11px;
+
     }
 
-    .stop-info span {
+
+    .guidance-step span {
+
       display: block;
 
       margin-top: 2px;
 
       color: #888;
 
-      font-size: 10px;
+      font-size: 9px;
+
     }
 
-    .stop-eta {
-      font-size: 11px;
-
-      color: var(--green);
-
-      font-weight: 900;
-    }
 
     /* =====================================================
-       ACCESSIBILITY INFO
+       VOICE GUIDANCE
     ====================================================== */
 
-    .access-card {
-      background: var(--green-soft);
+    .voice-guidance-btn {
 
-      border: 1px solid #ccebd6;
-
-      border-radius: 18px;
-
-      padding: 17px;
-
-      display: flex;
-
-      gap: 12px;
-    }
-
-    .access-card-icon {
-      color: var(--green);
-
-      flex-shrink: 0;
-    }
-
-    .access-card h3 {
-      font-size: 13px;
-
-      color: #126332;
-
-      font-weight: 900;
-    }
-
-    .access-card p {
-      margin-top: 5px;
-
-      color: #477455;
-
-      font-size: 10px;
-
-      line-height: 1.5;
-    }
-
-    /* =====================================================
-       VOICE BUTTON
-    ====================================================== */
-
-    .voice-button {
       width: 100%;
 
       border: none;
@@ -1026,6 +1534,7 @@
       display: flex;
 
       align-items: center;
+
       justify-content: center;
 
       gap: 9px;
@@ -1035,33 +1544,319 @@
       font-weight: 900;
 
       box-shadow:
-        0 8px 20px rgba(37,99,235,.18);
+        0 8px 20px
+        rgba(37,99,235,.18);
+
     }
 
-    .voice-button:hover {
+
+    .voice-guidance-btn:hover {
+
       background: #1d4ed8;
+
     }
+
+
+    /* =====================================================
+       GPS INFO
+    ====================================================== */
+
+    .gps-card {
+
+      background: var(--blue-soft);
+
+      border:
+        1px solid #dbeafe;
+
+      border-radius: 18px;
+
+      padding: 16px;
+
+      display: flex;
+
+      gap: 11px;
+
+    }
+
+
+    .gps-card-icon {
+
+      color: var(--blue);
+
+      flex-shrink: 0;
+
+    }
+
+
+    .gps-card h3 {
+
+      font-size: 12px;
+
+      font-weight: 900;
+
+      color: #1e40af;
+
+    }
+
+
+    .gps-card p {
+
+      margin-top: 4px;
+
+      font-size: 10px;
+
+      line-height: 1.5;
+
+      color: #4969a8;
+
+    }
+
+
+    /* =====================================================
+       MESSAGE
+    ====================================================== */
+
+    .message-box {
+
+      position: fixed;
+
+      left: 50%;
+
+      bottom: 25px;
+
+      transform:
+        translateX(-50%)
+        translateY(120px);
+
+      background: #171717;
+
+      color: white;
+
+      padding: 13px 17px;
+
+      border-radius: 12px;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      z-index: 100000;
+
+      opacity: 0;
+
+      transition:
+        .3s ease;
+
+      max-width: calc(100% - 30px);
+
+      text-align: center;
+
+    }
+
+
+    .message-box.show {
+
+      opacity: 1;
+
+      transform:
+        translateX(-50%)
+        translateY(0);
+
+    }
+
 
     /* =====================================================
        MOBILE BOTTOM NAVIGATION
     ====================================================== */
 
     .mobile-bottom-nav {
+
       display: none;
+
     }
 
-    @media (max-width: 900px) {
 
-      body {
-        padding-bottom: 82px;
+    /* =====================================================
+       FLOATING SOS
+    ====================================================== */
+
+    .mobile-sos-button {
+
+      display: none;
+
+    }
+
+
+    /* =====================================================
+       TABLET
+    ====================================================== */
+
+    @media (max-width: 1100px) {
+
+      .dashboard-grid {
+
+        grid-template-columns: 1fr;
+
       }
 
+
+      .right-panel {
+
+        display: grid;
+
+        grid-template-columns:
+          repeat(2, 1fr);
+
+      }
+
+
+      .ai-status-card {
+
+        grid-row: span 2;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ====================================================== */
+
+    @media (max-width: 800px) {
+
+      body {
+
+        padding-bottom: 82px;
+
+      }
+
+
+      nav.top-nav {
+
+        height: 62px;
+
+        padding: 0 15px;
+
+      }
+
+
+      .brand-title {
+
+        font-size: 16px;
+
+      }
+
+
+      .brand-subtitle {
+
+        display: none;
+
+      }
+
+
+      .gps-status {
+
+        padding: 7px 9px;
+
+        font-size: 10px;
+
+      }
+
+
+      .gps-status span:not(.gps-dot) {
+
+        display: none;
+
+      }
+
+
+      main {
+
+        padding: 18px 14px;
+
+      }
+
+
+      .page-header {
+
+        flex-direction: column;
+
+        gap: 12px;
+
+      }
+
+
+      .page-title-section h1 {
+
+        font-size: 25px;
+
+      }
+
+
+      .page-title-section p {
+
+        font-size: 12px;
+
+      }
+
+
+      .ai-pill {
+
+        font-size: 10px;
+
+      }
+
+
+      .destination-bar {
+
+        align-items: flex-start;
+
+      }
+
+
+      .start-guidance-btn {
+
+        padding: 12px;
+
+      }
+
+
+      .start-guidance-btn span {
+
+        display: none;
+
+      }
+
+
+      .camera-container {
+
+        min-height: 470px;
+
+      }
+
+
+      .right-panel {
+
+        display: flex;
+
+      }
+
+
+      /* =================================================
+         BOTTOM NAV
+      ================================================= */
+
       .mobile-bottom-nav {
-        position: fixed;
+
+        position: fixed !important;
 
         top: auto !important;
+
         left: 0;
+
         right: 0;
+
         bottom: 0;
 
         width: 100%;
@@ -1069,24 +1864,38 @@
         height: 76px;
 
         display: flex;
+
         align-items: center;
 
-        background: rgba(255, 255, 255, .98);
+        justify-content: space-around;
 
-        border-top: 1px solid var(--border);
+        background:
+          rgba(255,255,255,.98);
+
+        border-top:
+          1px solid var(--border);
+
+        border-bottom: none;
 
         box-shadow:
-          0 -6px 25px rgba(0, 0, 0, .10);
+          0 -6px 25px
+          rgba(0,0,0,.10);
+
+        padding: 5px 7px;
+
+        padding-bottom:
+          calc(
+            5px +
+            env(safe-area-inset-bottom)
+          );
 
         z-index: 99999;
 
-        padding: 5px 6px;
-
-        padding-bottom:
-          calc(5px + env(safe-area-inset-bottom));
       }
 
+
       .mobile-nav-item {
+
         flex: 1;
 
         min-width: 0;
@@ -1094,6 +1903,8 @@
         height: 64px;
 
         border: none;
+
+        border-radius: 14px;
 
         background: transparent;
 
@@ -1105,9 +1916,9 @@
 
         justify-content: center;
 
-        gap: 4px;
+        gap: 5px;
 
-        color: #555;
+        color: #666;
 
         font-family: var(--font);
 
@@ -1115,266 +1926,341 @@
 
         font-weight: 800;
 
-        border-radius: 12px;
-
         cursor: pointer;
 
-        -webkit-tap-highlight-color: transparent;
+        transition:
+          background .2s ease,
+          color .2s ease,
+          transform .15s ease;
+
+        -webkit-tap-highlight-color:
+          transparent;
+
       }
+
 
       .mobile-nav-item svg {
-        width: 21px;
-        height: 21px;
 
-        stroke-width: 2.3;
+        width: 22px;
+
+        height: 22px;
+
+        stroke-width: 2.5;
+
       }
+
+
+      .mobile-nav-item.active {
+
+        background:
+          var(--wine-soft);
+
+        color:
+          var(--wine);
+
+      }
+
 
       .mobile-nav-item:hover,
       .mobile-nav-item:focus-visible {
-        background: var(--wine-soft);
 
-        color: var(--wine);
+        background:
+          var(--wine-soft);
+
+        color:
+          var(--wine);
 
         outline: none;
+
       }
+
 
       .mobile-nav-item:active {
-        transform: scale(.94);
+
+        transform:
+          scale(.93);
+
       }
 
-      .mobile-nav-item.active {
-        color: var(--wine);
 
-        background: var(--wine-soft);
-      }
+      /* =================================================
+         FLOATING SOS
+      ================================================= */
 
-      .mobile-nav-item.sos-item {
-        color: var(--red);
-      }
+      .mobile-sos-button {
 
-      .mobile-nav-item.sos-item:hover,
-      .mobile-nav-item.sos-item:focus-visible {
-        background: var(--red-soft);
+        position: fixed;
 
-        color: var(--red-dark);
-      }
+        right: 24px;
 
-    }
+        bottom: 96px;
 
-    /* =====================================================
-       TABLET
-    ====================================================== */
+        width: 64px;
 
-    @media (max-width: 1100px) {
+        height: 64px;
 
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .right-panel {
-        display: grid;
-
-        grid-template-columns:
-          repeat(2, 1fr);
-      }
-
-      .next-shuttle {
-        grid-row: span 2;
-      }
-    }
-
-    /* =====================================================
-       MOBILE
-    ====================================================== */
-
-    @media (max-width: 700px) {
-
-      nav.top-nav {
-        height: 62px;
-
-        padding: 0 15px;
-      }
-
-      .brand-title {
-        font-size: 16px;
-      }
-
-      .brand-subtitle {
-        display: none;
-      }
-
-      .gps-status {
-        padding: 7px 9px;
-
-        font-size: 10px;
-      }
-
-      .gps-status span {
-        display: none;
-      }
-
-      main {
-        padding: 18px 14px;
-      }
-
-      .page-header {
-        flex-direction: column;
-
-        gap: 12px;
-      }
-
-      .page-title-section h1 {
-        font-size: 25px;
-      }
-
-      .page-title-section p {
-        font-size: 12px;
-      }
-
-      .location-bar {
-        align-items: flex-start;
-      }
-
-      .location-info {
-        min-width: 0;
-      }
-
-      .location-text {
-        min-width: 0;
-      }
-
-      .location-text strong {
-        font-size: 12px;
-
-        white-space: nowrap;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-      }
-
-      .refresh-btn span {
-        display: none;
-      }
-
-      .map-container {
-        min-height: 430px;
-      }
-
-      .building.b1,
-      .building.b2,
-      .building.b3,
-      .building.b4 {
-        transform: scale(.78);
-      }
-
-      .right-panel {
         display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background:
+          #ef1f25;
+
+        color: white;
+
+        box-shadow:
+          0 8px 25px
+          rgba(239,31,37,.35);
+
+        z-index: 99998;
+
+        cursor: pointer;
+
+        transition:
+          transform .2s ease,
+          box-shadow .2s ease;
+
       }
 
-      .next-shuttle h2 {
-        font-size: 25px;
+
+      .mobile-sos-button svg {
+
+        width: 32px;
+
+        height: 32px;
+
+        stroke-width: 2.5;
+
       }
 
-      .eta-number {
-        font-size: 32px;
+
+      .mobile-sos-button:active {
+
+        transform:
+          scale(.90);
+
       }
 
-      .mobile-bottom-nav {
-        height: 76px;
+
+      .mobile-sos-button:hover {
+
+        box-shadow:
+          0 10px 30px
+          rgba(239,31,37,.45);
+
       }
+
     }
+
 
     /* =====================================================
        SMALL MOBILE
     ====================================================== */
 
-    @media (max-width: 480px) {
+    @media (max-width: 520px) {
 
       body {
-        padding-bottom: 76px;
+
+        padding-bottom: 74px;
+
       }
+
 
       .brand-logo {
+
         width: 36px;
+
         height: 36px;
+
       }
+
 
       .brand-logo svg {
+
         width: 20px;
+
         height: 20px;
+
       }
+
 
       .brand-title {
+
         font-size: 14px;
+
       }
 
-      .live-pill {
+
+      .language-select {
+
         font-size: 10px;
+
+        padding: 8px;
+
       }
 
-      .map-container {
-        min-height: 390px;
+
+      .destination-bar {
+
+        flex-wrap: wrap;
+
       }
 
-      .building.b1,
-      .building.b2,
-      .building.b3,
-      .building.b4,
-      .building.b5 {
-        font-size: 7px;
+
+      .destination-content {
+
+        width:
+          calc(100% - 60px);
+
       }
+
+
+      .start-guidance-btn {
+
+        width: 100%;
+
+        justify-content: center;
+
+      }
+
+
+      .start-guidance-btn span {
+
+        display: inline;
+
+      }
+
+
+      .camera-container {
+
+        min-height: 410px;
+
+      }
+
 
       .mobile-bottom-nav {
+
         height: 70px;
+
       }
 
+
       .mobile-nav-item {
+
         height: 59px;
 
         font-size: 8px;
+
+        gap: 4px;
+
       }
 
+
       .mobile-nav-item svg {
-        width: 20px;
-        height: 20px;
+
+        width: 21px;
+
+        height: 21px;
+
       }
+
+
+      .mobile-sos-button {
+
+        width: 60px;
+
+        height: 60px;
+
+        right: 22px;
+
+        bottom: 88px;
+
+      }
+
+
+      .mobile-sos-button svg {
+
+        width: 30px;
+
+        height: 30px;
+
+      }
+
     }
+
+
+    /* =====================================================
+       VERY SMALL MOBILE
+    ====================================================== */
 
     @media (max-width: 360px) {
 
       .mobile-nav-item {
+
         font-size: 7px;
+
       }
 
+
       .mobile-nav-item svg {
-        width: 18px;
-        height: 18px;
+
+        width: 19px;
+
+        height: 19px;
+
       }
+
+
+      .mobile-sos-button {
+
+        width: 56px;
+
+        height: 56px;
+
+        right: 18px;
+
+        bottom: 86px;
+
+      }
+
     }
 
   </style>
+
 </head>
 
 
 <body>
 
+
   <!-- =====================================================
        TOP NAVIGATION
   ====================================================== -->
 
-  <nav class="top-nav">
+  <nav
+    class="top-nav"
+    aria-label="Main navigation"
+  >
 
     <div class="brand">
 
       <div class="brand-logo">
-        <i data-lucide="accessibility"></i>
+
+        <i data-lucide="compass"></i>
+
       </div>
+
 
       <div class="brand-text">
 
         <div class="brand-title">
-          AccessPathAI
+          AccessPath AI
         </div>
 
         <div class="brand-subtitle">
@@ -1388,10 +2274,51 @@
 
     <div class="nav-right">
 
-      <div class="gps-status">
+      <div
+        class="gps-status"
+        id="gpsStatus"
+      >
+
         <span class="gps-dot"></span>
-        <span id="gpsText">GPS Connecting...</span>
+
+        <span id="gpsText">
+          GPS Connecting...
+        </span>
+
       </div>
+
+
+      <select
+        id="languageSelect"
+        class="language-select"
+        aria-label="Select language"
+      >
+
+        <option value="en-IN">
+          English (India)
+        </option>
+
+        <option value="ta-IN">
+          தமிழ்
+        </option>
+
+        <option value="hi-IN">
+          हिन्दी
+        </option>
+
+        <option value="te-IN">
+          తెలుగు
+        </option>
+
+        <option value="kn-IN">
+          ಕನ್ನಡ
+        </option>
+
+        <option value="ml-IN">
+          മലയാളം
+        </option>
+
+      </select>
 
     </div>
 
@@ -1404,30 +2331,34 @@
 
   <main>
 
-    <!-- PAGE HEADER -->
+
+    <!-- ===================================================
+         PAGE HEADER
+    ==================================================== -->
 
     <section class="page-header">
 
       <div class="page-title-section">
 
         <h1>
-          Campus <span>Shuttle Live</span>
+          Visual <span>AI Guidance</span>
         </h1>
 
         <p>
-          Track accessible campus shuttle movement and quickly
-          identify the nearest shuttle stop inside Sathyabama
-          Institute of Science and Technology.
+          Use your camera to receive visual and voice-friendly
+          guidance while travelling through Sathyabama Institute
+          of Science and Technology. AccessPathAI can warn about
+          obstacles and provide directional guidance.
         </p>
 
       </div>
 
 
-      <div class="live-pill">
+      <div class="ai-pill">
 
-        <span class="live-pill-dot"></span>
+        <span class="ai-pill-dot"></span>
 
-        LIVE SHUTTLE
+        AI GUIDANCE READY
 
       </div>
 
@@ -1435,43 +2366,106 @@
 
 
     <!-- ===================================================
-         LOCATION BAR
+         DESTINATION
     ==================================================== -->
 
-    <section class="location-bar">
+    <section class="destination-bar">
 
-      <div class="location-info">
+      <div class="destination-icon">
 
-        <div class="location-icon">
-          <i data-lucide="navigation"></i>
-        </div>
+        <i data-lucide="map-pin"></i>
 
-        <div class="location-text">
+      </div>
 
-          <small>
-            Your current location
-          </small>
 
-          <strong id="locationText">
-            Detecting your location...
-          </strong>
+      <div class="destination-content">
 
-        </div>
+        <small>
+          Select destination
+        </small>
+
+
+        <select
+          id="destinationSelect"
+          class="destination-select"
+          aria-label="Select campus destination"
+        >
+
+          <option value="">
+            Choose a destination
+          </option>
+
+          <option value="Central Library">
+            Central Library
+          </option>
+
+          <option value="Admin Block">
+            Admin Block
+          </option>
+
+          <option value="CSE Block">
+            CSE Block
+          </option>
+
+          <option value="ECE Block">
+            ECE Block
+          </option>
+
+          <option value="EEE Block">
+            EEE Block
+          </option>
+
+          <option value="Mechanical Block">
+            Mechanical Block
+          </option>
+
+          <option value="Civil Block">
+            Civil Block
+          </option>
+
+          <option value="Auditorium">
+            Auditorium
+          </option>
+
+          <option value="Seminar Hall">
+            Seminar Hall
+          </option>
+
+          <option value="Canteen">
+            Canteen
+          </option>
+
+          <option value="Medical Centre">
+            Medical Centre
+          </option>
+
+          <option value="Placement Cell">
+            Placement Cell
+          </option>
+
+          <option value="Main Gate">
+            Main Gate
+          </option>
+
+          <option value="Parking">
+            Parking
+          </option>
+
+        </select>
 
       </div>
 
 
       <button
-        class="refresh-btn"
+        class="start-guidance-btn"
         type="button"
-        onclick="getLocation()"
-        aria-label="Refresh current location"
+        onclick="startGuidance()"
       >
 
-        <i data-lucide="refresh-cw"></i>
+        <i data-lucide="navigation"></i>
 
         <span>
-          Refresh
+          Start AI Guidance
         </span>
 
       </button>
@@ -1480,185 +2474,214 @@
 
 
     <!-- ===================================================
-         DASHBOARD GRID
+         DASHBOARD
     ==================================================== -->
 
     <section class="dashboard-grid">
 
 
       <!-- =================================================
-           MAP
+           CAMERA
       ================================================== -->
 
-      <div class="map-card">
+      <div class="camera-card">
+
 
         <div class="card-header">
 
           <div class="card-header-left">
 
             <div class="card-header-icon">
-              <i data-lucide="map"></i>
+
+              <i data-lucide="camera"></i>
+
             </div>
 
+
             <h2>
-              Campus Shuttle Route
+              Visual Guidance Camera
             </h2>
 
           </div>
 
-          <span
-            style="
-              font-size:10px;
-              color:#777;
-              font-weight:800;
-            "
-          >
-            LIVE ROUTE
-          </span>
+
+          <div class="camera-status">
+
+            <span class="camera-status-dot"></span>
+
+            <span id="cameraStatus">
+              READY
+            </span>
+
+          </div>
 
         </div>
 
 
-        <div class="map-container">
-
-          <!-- Decorative campus roads -->
-
-          <div class="road road-horizontal"></div>
-
-          <div class="road road-vertical"></div>
-
-          <div class="road road-diagonal"></div>
+        <div class="camera-container">
 
 
-          <!-- Buildings -->
+          <!-- CAMERA -->
 
-          <div class="building b1">
-            ADMIN BLOCK
-          </div>
-
-          <div class="building b2">
-            CENTRAL LIBRARY
-          </div>
-
-          <div class="building b3">
-            HOSTEL BLOCK
-          </div>
-
-          <div class="building b4">
-            SPORTS / INDOOR
-          </div>
-
-          <div class="building b5">
-            RESEARCH PARK
-          </div>
+          <video
+            id="cameraVideo"
+            autoplay
+            playsinline
+            muted
+          ></video>
 
 
-          <!-- Shuttle route -->
-
-          <div class="route-line"></div>
-
-
-          <!-- Stops -->
-
-          <div class="stop s1 active">
-
-            <span class="stop-label">
-              Main Gate
-            </span>
-
-          </div>
-
-
-          <div class="stop s2">
-
-            <span class="stop-label">
-              Admin Block
-            </span>
-
-          </div>
-
-
-          <div class="stop s3">
-
-            <span class="stop-label">
-              Library
-            </span>
-
-          </div>
-
-
-          <div class="stop s4">
-
-            <span class="stop-label">
-              Hostel
-            </span>
-
-          </div>
-
-
-          <div class="stop s5">
-
-            <span class="stop-label">
-              Indoor Stadium
-            </span>
-
-          </div>
-
-
-          <!-- Shuttle -->
+          <!-- PLACEHOLDER -->
 
           <div
-            class="shuttle-marker"
-            aria-label="Live campus shuttle"
+            class="camera-placeholder"
+            id="cameraPlaceholder"
           >
 
-            <i data-lucide="bus-front"></i>
+            <div class="camera-placeholder-icon">
+
+              <i data-lucide="scan-eye"></i>
+
+            </div>
+
+
+            <h3>
+              Start Visual Guidance
+            </h3>
+
+
+            <p>
+              Enable your camera so AccessPathAI can provide
+              visual guidance, detect potential obstacles and
+              announce navigation instructions.
+            </p>
+
+
+            <button
+              class="camera-start-btn"
+              type="button"
+              onclick="startCamera()"
+            >
+
+              <i data-lucide="camera"></i>
+
+              Enable Camera
+
+            </button>
 
           </div>
 
 
-          <!-- User -->
+          <!-- CAMERA OVERLAY -->
 
           <div
-            class="user-location"
-            id="userLocationMarker"
-            title="Your location"
-          ></div>
+            class="camera-overlay"
+            id="cameraOverlay"
+          >
 
 
-          <!-- Legend -->
+            <!-- TOP STATUS -->
 
-          <div class="map-legend">
+            <div
+              class="camera-live-status"
+              id="cameraLiveStatus"
+            >
 
-            <div class="legend-item">
-
-              <span class="legend-dot legend-shuttle"></span>
-
-              <span>
-                Shuttle
-              </span>
-
-            </div>
+              <div class="live-analysis">
+                AI ANALYSIS ACTIVE
+              </div>
 
 
-            <div class="legend-item">
-
-              <span class="legend-dot legend-user"></span>
-
-              <span>
-                You
-              </span>
+              <div
+                class="distance-status"
+                id="distanceStatus"
+              >
+                Path Clear
+              </div>
 
             </div>
 
 
-            <div class="legend-item">
+            <!-- DIRECTION -->
 
-              <span class="legend-dot legend-stop"></span>
+            <div
+              class="direction-arrow"
+              id="directionArrow"
+            >
 
-              <span>
-                Shuttle Stop
-              </span>
+              <i data-lucide="arrow-up"></i>
+
+            </div>
+
+
+            <!-- DETECTION BOXES -->
+
+            <div
+              class="detection-box safe box-one"
+              id="boxOne"
+            >
+              Clear Path
+            </div>
+
+
+            <div
+              class="detection-box warning box-two"
+              id="boxTwo"
+            >
+              Object
+            </div>
+
+
+            <div
+              class="detection-box danger box-three"
+              id="boxThree"
+            >
+              Obstacle
+            </div>
+
+
+            <!-- CONTROLS -->
+
+            <div
+              class="camera-controls"
+              id="cameraControls"
+            >
+
+              <button
+                class="camera-control-btn"
+                type="button"
+                aria-label="Voice guidance"
+                onclick="announceGuidance()"
+              >
+
+                <i data-lucide="volume-2"></i>
+
+              </button>
+
+
+              <button
+                class="camera-control-btn main"
+                type="button"
+                aria-label="Pause guidance"
+                onclick="toggleGuidance()"
+                id="guidanceToggle"
+              >
+
+                <i data-lucide="pause"></i>
+
+              </button>
+
+
+              <button
+                class="camera-control-btn"
+                type="button"
+                aria-label="Stop camera"
+                onclick="stopCamera()"
+              >
+
+                <i data-lucide="camera-off"></i>
+
+              </button>
 
             </div>
 
@@ -1676,218 +2699,180 @@
       <div class="right-panel">
 
 
-        <!-- NEXT SHUTTLE -->
+        <!-- AI STATUS -->
 
-        <div class="next-shuttle">
+        <div class="ai-status-card">
 
-          <div class="next-label">
-            Nearest Campus Shuttle
+          <div class="ai-status-label">
+            AI Navigation Status
           </div>
 
-          <h2>
-            Shuttle A
+
+          <h2 id="aiStatusTitle">
+            Ready to Guide
           </h2>
 
-          <p>
-            Main Gate → Admin → Library → Hostel
+
+          <p id="aiStatusDescription">
+            Select a destination and start visual guidance.
+            The system will use your camera and GPS position
+            to assist your movement.
           </p>
 
 
-          <div class="eta">
+          <div class="ai-status-indicator">
 
-            <div class="eta-number">
+            <span></span>
 
-              <span id="etaNumber">
-                4
-              </span>
-
-              <small>
-                min
-              </small>
-
-            </div>
-
-
-            <button
-              class="track-btn"
-              type="button"
-              onclick="trackShuttle()"
-            >
-
-              Track Shuttle
-
-            </button>
+            <label id="aiIndicatorText">
+              AI system ready
+            </label>
 
           </div>
 
         </div>
 
 
-        <!-- STOP LIST -->
+        <!-- OBSTACLE -->
 
-        <div class="stops-card">
+        <div class="obstacle-card">
 
-          <div class="stops-title">
-            Upcoming Stops
+          <div class="section-heading">
+
+            <div class="section-heading-icon">
+
+              <i data-lucide="scan"></i>
+
+            </div>
+
+            Obstacle Detection
+
           </div>
 
 
-          <div class="stop-row">
+          <div
+            class="obstacle-status"
+            id="obstacleStatus"
+          >
 
-            <div class="stop-number">
+            <div class="obstacle-status-icon">
+
+              <i data-lucide="shield-check"></i>
+
+            </div>
+
+
+            <div>
+
+              <strong id="obstacleTitle">
+                No obstacle detected
+              </strong>
+
+
+              <span id="obstacleDescription">
+                Start the camera to begin visual analysis.
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- GUIDANCE STEPS -->
+
+        <div class="guidance-card">
+
+          <div class="guidance-title">
+            Current Guidance
+          </div>
+
+
+          <div class="guidance-step">
+
+            <div class="step-number">
               01
             </div>
 
-            <div class="stop-info">
 
-              <strong>
-                Main Gate
+            <div>
+
+              <strong id="stepOne">
+                Select destination
               </strong>
 
               <span>
-                Primary campus entrance
+                Choose a Sathyabama campus location
               </span>
 
-            </div>
-
-            <div class="stop-eta">
-              2 min
             </div>
 
           </div>
 
 
-          <div class="stop-row">
+          <div class="guidance-step">
 
-            <div class="stop-number">
+            <div class="step-number">
               02
             </div>
 
-            <div class="stop-info">
 
-              <strong>
-                Administrative Block
+            <div>
+
+              <strong id="stepTwo">
+                Start camera guidance
               </strong>
 
               <span>
-                Main administration area
+                Enable visual environment analysis
               </span>
 
-            </div>
-
-            <div class="stop-eta">
-              5 min
             </div>
 
           </div>
 
 
-          <div class="stop-row">
+          <div class="guidance-step">
 
-            <div class="stop-number">
+            <div class="step-number">
               03
             </div>
 
-            <div class="stop-info">
 
-              <strong>
-                Central Library
+            <div>
+
+              <strong id="stepThree">
+                Follow voice instructions
               </strong>
 
               <span>
-                Library and learning zone
+                Receive spoken movement guidance
               </span>
 
-            </div>
-
-            <div class="stop-eta">
-              8 min
             </div>
 
           </div>
 
 
-          <div class="stop-row">
+          <div class="guidance-step">
 
-            <div class="stop-number">
+            <div class="step-number">
               04
             </div>
 
-            <div class="stop-info">
 
-              <strong>
-                Hostel
+            <div>
+
+              <strong id="stepFour">
+                Watch for obstacles
               </strong>
 
               <span>
-                Student residential zone
+                AI warnings help identify path hazards
               </span>
 
             </div>
-
-            <div class="stop-eta">
-              12 min
-            </div>
-
-          </div>
-
-
-          <div class="stop-row">
-
-            <div class="stop-number">
-              05
-            </div>
-
-            <div class="stop-info">
-
-              <strong>
-                Indoor Stadium
-              </strong>
-
-              <span>
-                Sports facilities
-              </span>
-
-            </div>
-
-            <div class="stop-eta">
-              16 min
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <!-- ACCESSIBILITY -->
-
-        <div class="access-card">
-
-          <div class="access-card-icon">
-
-            <i
-              data-lucide="accessibility"
-              style="
-                width:25px;
-                height:25px;
-              "
-            ></i>
-
-          </div>
-
-
-          <div>
-
-            <h3>
-              Accessibility Ready
-            </h3>
-
-            <p>
-              Shuttle information is designed for
-              wheelchair users and visually impaired
-              passengers with voice-friendly status
-              announcements.
-            </p>
 
           </div>
 
@@ -1897,22 +2882,65 @@
         <!-- VOICE -->
 
         <button
-          class="voice-button"
+          class="voice-guidance-btn"
           type="button"
-          onclick="announceShuttle()"
+          onclick="announceGuidance()"
         >
 
           <i data-lucide="volume-2"></i>
 
-          Announce Shuttle Status
+          Announce Guidance
 
         </button>
+
+
+        <!-- GPS -->
+
+        <div class="gps-card">
+
+          <div class="gps-card-icon">
+
+            <i data-lucide="navigation"></i>
+
+          </div>
+
+
+          <div>
+
+            <h3>
+              Current GPS Position
+            </h3>
+
+
+            <p id="coordinates">
+              Detecting your current location...
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
 
     </section>
 
   </main>
+
+
+  <!-- =====================================================
+       FLOATING SOS
+  ====================================================== -->
+
+  <button
+    class="mobile-sos-button"
+    type="button"
+    aria-label="Emergency SOS"
+    onclick="triggerSOS()"
+  >
+
+    <i data-lucide="triangle-alert"></i>
+
+  </button>
 
 
   <!-- =====================================================
@@ -1924,7 +2952,8 @@
     aria-label="Mobile navigation"
   >
 
-    <!-- HOME -->
+
+    <!-- HOME / VOICE -->
 
     <button
       class="mobile-nav-item"
@@ -1933,28 +2962,28 @@
       onclick="window.location.href='index.html'"
     >
 
-      <i data-lucide="home"></i>
+      <i data-lucide="bot"></i>
 
       <span>
-        Home
+        Voice
       </span>
 
     </button>
 
 
-    <!-- AI GUIDE -->
+    <!-- VISUAL — ACTIVE -->
 
     <button
-      class="mobile-nav-item"
+      class="mobile-nav-item active"
       type="button"
       aria-label="Visual AI Guidance"
-      onclick="window.location.href='virtual.html'"
+      aria-current="page"
     >
 
       <i data-lucide="eye"></i>
 
       <span>
-        AI Guide
+        Visual
       </span>
 
     </button>
@@ -1981,10 +3010,10 @@
     <!-- SHUTTLE -->
 
     <button
-      class="mobile-nav-item active"
+      class="mobile-nav-item"
       type="button"
       aria-label="Campus Shuttle Live"
-      aria-current="page"
+      onclick="window.location.href='shuttle.html'"
     >
 
       <i data-lucide="bus"></i>
@@ -1995,25 +3024,19 @@
 
     </button>
 
-
-    <!-- SOS -->
-
-    <button
-      class="mobile-nav-item sos-item"
-      type="button"
-      aria-label="Emergency SOS"
-      onclick="triggerSOS()"
-    >
-
-      <i data-lucide="siren"></i>
-
-      <span>
-        SOS
-      </span>
-
-    </button>
-
   </nav>
+
+
+  <!-- =====================================================
+       MESSAGE
+  ====================================================== -->
+
+  <div
+    class="message-box"
+    id="messageBox"
+    role="status"
+    aria-live="polite"
+  ></div>
 
 
   <!-- =====================================================
@@ -2021,6 +3044,7 @@
   ====================================================== -->
 
   <script>
+
 
     /* =====================================================
        LUCIDE
@@ -2030,20 +3054,45 @@
 
 
     /* =====================================================
+       GLOBAL STATE
+    ====================================================== */
+
+    let cameraStream = null;
+
+    let cameraRunning = false;
+
+    let guidanceRunning = false;
+
+    let guidanceInterval = null;
+
+    let currentLatitude = null;
+
+    let currentLongitude = null;
+
+    let selectedDestination = "";
+
+    let currentLanguage = "en-IN";
+
+
+    /* =====================================================
+       CAMPUS ADDRESS
+    ====================================================== */
+
+    const CAMPUS_ADDRESS =
+      "Sathyabama Institute of Science and Technology, Jeppiaar Nagar, Rajiv Gandhi Salai, Chennai, Tamil Nadu 600119";
+
+
+    /* =====================================================
        GPS
     ====================================================== */
 
-    let currentLatitude = null;
-    let currentLongitude = null;
-
-
-    function getLocation() {
+    function startGPS() {
 
       const gpsText =
         document.getElementById("gpsText");
 
-      const locationText =
-        document.getElementById("locationText");
+      const coordinates =
+        document.getElementById("coordinates");
 
 
       if (!navigator.geolocation) {
@@ -2051,10 +3100,11 @@
         gpsText.textContent =
           "GPS unavailable";
 
-        locationText.textContent =
-          "Geolocation is not supported";
+        coordinates.textContent =
+          "Geolocation is not supported.";
 
         return;
+
       }
 
 
@@ -2062,7 +3112,7 @@
         "GPS locating...";
 
 
-      navigator.geolocation.getCurrentPosition(
+      navigator.geolocation.watchPosition(
 
         function(position) {
 
@@ -2077,18 +3127,16 @@
             "GPS Active";
 
 
-          locationText.textContent =
+          coordinates.textContent =
             `${currentLatitude.toFixed(6)}, ${currentLongitude.toFixed(6)}`;
 
-
-          updateUserMarker();
-
         },
+
 
         function(error) {
 
           console.warn(
-            "GPS Error:",
+            "GPS error:",
             error
           );
 
@@ -2097,17 +3145,20 @@
             "GPS unavailable";
 
 
-          locationText.textContent =
-            "Location permission required";
+          coordinates.textContent =
+            "Location permission required.";
 
         },
 
+
         {
+
           enableHighAccuracy: true,
 
           timeout: 10000,
 
           maximumAge: 5000
+
         }
 
       );
@@ -2116,89 +3167,759 @@
 
 
     /* =====================================================
-       UPDATE USER MARKER
+       CAMERA
     ====================================================== */
 
-    function updateUserMarker() {
+    async function startCamera() {
 
-      const marker =
+      const video =
         document.getElementById(
-          "userLocationMarker"
+          "cameraVideo"
+        );
+
+      const placeholder =
+        document.getElementById(
+          "cameraPlaceholder"
+        );
+
+      const liveStatus =
+        document.getElementById(
+          "cameraLiveStatus"
+        );
+
+      const controls =
+        document.getElementById(
+          "cameraControls"
+        );
+
+      const cameraStatus =
+        document.getElementById(
+          "cameraStatus"
         );
 
 
-      if (!marker) return;
+      if (!navigator.mediaDevices ||
+          !navigator.mediaDevices.getUserMedia) {
+
+        showMessage(
+          "Camera access is not supported by this browser."
+        );
+
+        return;
+
+      }
 
 
-      /*
-       * This is a visual campus representation.
-       * The marker is kept inside the campus map
-       * because this page uses a lightweight
-       * no-API-key shuttle visualization.
-       */
+      try {
 
-      marker.style.left =
-        "48%";
+        cameraStream =
+          await navigator.mediaDevices.getUserMedia({
 
-      marker.style.top =
-        "62%";
+            video: {
+
+              facingMode: {
+                ideal: "environment"
+              },
+
+              width: {
+                ideal: 1280
+              },
+
+              height: {
+                ideal: 720
+              }
+
+            },
+
+            audio: false
+
+          });
+
+
+        video.srcObject =
+          cameraStream;
+
+
+        video.style.display =
+          "block";
+
+
+        placeholder.style.display =
+          "none";
+
+
+        liveStatus.style.display =
+          "flex";
+
+
+        controls.style.display =
+          "flex";
+
+
+        cameraStatus.textContent =
+          "LIVE";
+
+
+        cameraRunning =
+          true;
+
+
+        showMessage(
+          "Camera enabled. Visual guidance is active."
+        );
+
+
+        startVisualAnalysis();
+
+
+        if (selectedDestination) {
+
+          speak(
+            `Visual guidance started for ${selectedDestination}.`
+          );
+
+        } else {
+
+          speak(
+            "Camera enabled. Please select your destination."
+          );
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Camera error:",
+          error
+        );
+
+
+        showMessage(
+          "Camera permission was denied or the camera is unavailable."
+        );
+
+
+        speak(
+          "Camera access is unavailable. Please check your browser camera permission."
+        );
+
+      }
 
     }
 
 
     /* =====================================================
-       SHUTTLE TRACKING
+       STOP CAMERA
     ====================================================== */
 
-    function trackShuttle() {
+    function stopCamera() {
 
-      const shuttle =
-        document.querySelector(
-          ".shuttle-marker"
+      if (cameraStream) {
+
+        cameraStream
+          .getTracks()
+          .forEach(
+            track => track.stop()
+          );
+
+        cameraStream =
+          null;
+
+      }
+
+
+      const video =
+        document.getElementById(
+          "cameraVideo"
+        );
+
+      const placeholder =
+        document.getElementById(
+          "cameraPlaceholder"
+        );
+
+      const liveStatus =
+        document.getElementById(
+          "cameraLiveStatus"
+        );
+
+      const controls =
+        document.getElementById(
+          "cameraControls"
+        );
+
+      const cameraStatus =
+        document.getElementById(
+          "cameraStatus"
         );
 
 
-      if (!shuttle) return;
+      video.srcObject =
+        null;
 
 
-      shuttle.style.animation =
+      video.style.display =
         "none";
 
 
-      setTimeout(() => {
-
-        shuttle.style.animation =
-          "shuttleMove 3s ease-in-out infinite alternate";
-
-      }, 50);
+      placeholder.style.display =
+        "flex";
 
 
-      speak(
-        "Shuttle A is currently travelling toward the Central Library stop. Estimated arrival is four minutes."
+      liveStatus.style.display =
+        "none";
+
+
+      controls.style.display =
+        "none";
+
+
+      cameraStatus.textContent =
+        "READY";
+
+
+      cameraRunning =
+        false;
+
+
+      guidanceRunning =
+        false;
+
+
+      clearInterval(
+        guidanceInterval
+      );
+
+
+      hideDetectionBoxes();
+
+
+      showMessage(
+        "Visual guidance stopped."
       );
 
     }
 
 
     /* =====================================================
-       VOICE ANNOUNCEMENT
+       START GUIDANCE
     ====================================================== */
 
-    function announceShuttle() {
+    function startGuidance() {
 
-      const message =
-        "Campus shuttle update. Shuttle A is currently operating. The nearest upcoming stop is Main Gate in approximately two minutes. Administrative Block is five minutes away, Central Library is eight minutes away, and Hostel is twelve minutes away.";
+      const select =
+        document.getElementById(
+          "destinationSelect"
+        );
+
+
+      selectedDestination =
+        select.value;
+
+
+      if (!selectedDestination) {
+
+        showMessage(
+          "Please select a campus destination first."
+        );
+
+
+        speak(
+          "Please select your destination first."
+        );
+
+
+        select.focus();
+
+        return;
+
+      }
+
+
+      localStorage.setItem(
+        "accessPathDestination",
+        selectedDestination
+      );
+
+
+      sessionStorage.setItem(
+        "accessPathDestination",
+        selectedDestination
+      );
+
+
+      document.getElementById(
+        "aiStatusTitle"
+      ).textContent =
+        "Guiding to " +
+        selectedDestination;
+
+
+      document.getElementById(
+        "aiStatusDescription"
+      ).textContent =
+        "AccessPathAI is preparing visual and voice guidance toward your selected destination.";
+
+
+      document.getElementById(
+        "aiIndicatorText"
+      ).textContent =
+        "Navigation active";
+
+
+      document.getElementById(
+        "stepOne"
+      ).textContent =
+        "Destination confirmed";
+
+
+      document.getElementById(
+        "stepTwo"
+      ).textContent =
+        "Camera guidance ready";
+
+
+      showMessage(
+        `Destination set: ${selectedDestination}`
+      );
+
+
+      speak(
+        `Destination selected: ${selectedDestination}.`
+      );
+
+
+      if (!cameraRunning) {
+
+        setTimeout(
+          startCamera,
+          500
+        );
+
+      } else {
+
+        startVisualAnalysis();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       VISUAL ANALYSIS
+    ====================================================== */
+
+    function startVisualAnalysis() {
+
+      if (!cameraRunning) return;
+
+
+      guidanceRunning =
+        true;
+
+
+      clearInterval(
+        guidanceInterval
+      );
+
+
+      guidanceInterval =
+        setInterval(
+          analyzeEnvironment,
+          4000
+        );
+
+
+      analyzeEnvironment();
+
+    }
+
+
+    /* =====================================================
+       ENVIRONMENT ANALYSIS
+    ====================================================== */
+
+    function analyzeEnvironment() {
+
+      if (!cameraRunning ||
+          !guidanceRunning) {
+
+        return;
+
+      }
+
+
+      const obstacleTitle =
+        document.getElementById(
+          "obstacleTitle"
+        );
+
+      const obstacleDescription =
+        document.getElementById(
+          "obstacleDescription"
+        );
+
+      const obstacleStatus =
+        document.getElementById(
+          "obstacleStatus"
+        );
+
+      const distanceStatus =
+        document.getElementById(
+          "distanceStatus"
+        );
+
+
+      /*
+       * Browser-only demo analysis.
+       *
+       * This provides the working visual guidance
+       * interface without requiring a paid AI API.
+       *
+       * A real computer-vision model can later replace
+       * this function.
+       */
+
+
+      const scenarios = [
+
+        {
+          type: "clear",
+
+          title:
+            "Path appears clear",
+
+          description:
+            "No immediate obstacle warning.",
+
+          status:
+            "Path Clear"
+
+        },
+
+        {
+          type: "warning",
+
+          title:
+            "Caution: object ahead",
+
+          description:
+            "Slow down and check the path carefully.",
+
+          status:
+            "Caution Ahead"
+
+        },
+
+        {
+          type: "clear",
+
+          title:
+            "Accessible path detected",
+
+          description:
+            "Continue forward while monitoring surroundings.",
+
+          status:
+            "Accessible Path"
+
+        }
+
+      ];
+
+
+      const scenario =
+        scenarios[
+          Math.floor(
+            Math.random() *
+            scenarios.length
+          )
+        ];
+
+
+      if (scenario.type === "warning") {
+
+        obstacleStatus.style.background =
+          "var(--orange-soft)";
+
+
+        obstacleStatus.style.borderColor =
+          "#fed7aa";
+
+
+        obstacleTitle.style.color =
+          "#9a3412";
+
+
+        obstacleDescription.style.color =
+          "#9a3412";
+
+
+        obstacleStatus.querySelector(
+          ".obstacle-status-icon"
+        ).style.color =
+          "var(--orange)";
+
+
+        showDetectionWarning();
+
+
+        distanceStatus.textContent =
+          scenario.status;
+
+
+        if (guidanceRunning) {
+
+          speak(
+            "Caution. An object may be ahead. Slow down and check your path."
+          );
+
+        }
+
+      } else {
+
+        obstacleStatus.style.background =
+          "var(--green-soft)";
+
+
+        obstacleStatus.style.borderColor =
+          "#ccebd6";
+
+
+        obstacleTitle.style.color =
+          "#126332";
+
+
+        obstacleDescription.style.color =
+          "#477455";
+
+
+        obstacleStatus.querySelector(
+          ".obstacle-status-icon"
+        ).style.color =
+          "var(--green)";
+
+
+        hideDetectionBoxes();
+
+
+        distanceStatus.textContent =
+          scenario.status;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       SHOW WARNING
+    ====================================================== */
+
+    function showDetectionWarning() {
+
+      const boxOne =
+        document.getElementById(
+          "boxOne"
+        );
+
+      const boxTwo =
+        document.getElementById(
+          "boxTwo"
+        );
+
+      const boxThree =
+        document.getElementById(
+          "boxThree"
+        );
+
+
+      boxOne.style.display =
+        "none";
+
+
+      boxTwo.style.display =
+        "block";
+
+
+      boxThree.style.display =
+        "block";
+
+
+      boxTwo.className =
+        "detection-box warning box-two";
+
+
+      boxThree.className =
+        "detection-box danger box-three";
+
+    }
+
+
+    /* =====================================================
+       HIDE DETECTION BOXES
+    ====================================================== */
+
+    function hideDetectionBoxes() {
+
+      document.querySelectorAll(
+        ".detection-box"
+      ).forEach(
+        box => {
+          box.style.display =
+            "none";
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       TOGGLE GUIDANCE
+    ====================================================== */
+
+    function toggleGuidance() {
+
+      const button =
+        document.getElementById(
+          "guidanceToggle"
+        );
+
+
+      if (guidanceRunning) {
+
+        guidanceRunning =
+          false;
+
+
+        clearInterval(
+          guidanceInterval
+        );
+
+
+        button.innerHTML =
+          '<i data-lucide="play"></i>';
+
+
+        showMessage(
+          "AI guidance paused."
+        );
+
+
+        speak(
+          "AI guidance paused."
+        );
+
+      } else {
+
+        if (!cameraRunning) {
+
+          startCamera();
+
+          return;
+
+        }
+
+
+        guidanceRunning =
+          true;
+
+
+        startVisualAnalysis();
+
+
+        button.innerHTML =
+          '<i data-lucide="pause"></i>';
+
+
+        showMessage(
+          "AI guidance resumed."
+        );
+
+
+        speak(
+          "AI guidance resumed."
+        );
+
+      }
+
+
+      lucide.createIcons();
+
+    }
+
+
+    /* =====================================================
+       VOICE GUIDANCE
+    ====================================================== */
+
+    function announceGuidance() {
+
+      if (!selectedDestination) {
+
+        speak(
+          "Please select a destination first."
+        );
+
+        showMessage(
+          "Select a destination for voice guidance."
+        );
+
+        return;
+
+      }
+
+
+      let message =
+        `You are using AccessPathAI visual guidance. `;
+
+
+      message +=
+        `Your destination is ${selectedDestination}. `;
+
+
+      if (currentLatitude &&
+          currentLongitude) {
+
+        message +=
+          `GPS is active. `;
+
+      }
+
+
+      if (guidanceRunning) {
+
+        message +=
+          "Visual environment analysis is active. ";
+
+      } else {
+
+        message +=
+          "Start the camera to activate visual analysis. ";
+
+      }
+
+
+      message +=
+        "Follow the highlighted direction and remain alert for obstacles.";
+
 
       speak(
         message,
         true
       );
 
+
+      showMessage(
+        "Guidance announced."
+      );
+
     }
 
 
     /* =====================================================
-       TEXT TO SPEECH
+       SPEECH
     ====================================================== */
 
     function speak(
@@ -2223,14 +3944,18 @@
 
 
       const utterance =
-        new SpeechSynthesisUtterance(text);
+        new SpeechSynthesisUtterance(
+          text
+        );
 
 
       utterance.lang =
-        "en-IN";
+        currentLanguage;
+
 
       utterance.rate =
-        .92;
+        .88;
+
 
       utterance.pitch =
         1;
@@ -2244,7 +3969,7 @@
 
 
     /* =====================================================
-       EMERGENCY SOS
+       SOS
     ====================================================== */
 
     function triggerSOS() {
@@ -2266,10 +3991,23 @@
       );
 
 
+      let message =
+        "EMERGENCY SOS\n\nCall emergency services 112?";
+
+
+      if (
+        currentLatitude !== null &&
+        currentLongitude !== null
+      ) {
+
+        message +=
+          `\n\nCurrent GPS:\n${currentLatitude.toFixed(6)}, ${currentLongitude.toFixed(6)}`;
+
+      }
+
+
       const confirmSOS =
-        confirm(
-          "EMERGENCY SOS\n\nCall emergency services (112)?"
-        );
+        confirm(message);
 
 
       if (confirmSOS) {
@@ -2283,45 +4021,172 @@
 
 
     /* =====================================================
-       LIVE ETA SIMULATION
+       MESSAGE
     ====================================================== */
 
-    let eta = 4;
+    function showMessage(
+      text
+    ) {
+
+      const box =
+        document.getElementById(
+          "messageBox"
+        );
 
 
-    setInterval(
-      function() {
-
-        const etaElement =
-          document.getElementById(
-            "etaNumber"
-          );
+      box.textContent =
+        text;
 
 
-        if (!etaElement) return;
+      box.classList.add(
+        "show"
+      );
 
 
-        eta -= 1;
+      clearTimeout(
+        window.messageTimeout
+      );
 
 
-        if (eta <= 0) {
+      window.messageTimeout =
+        setTimeout(
+          function() {
 
-          eta = 7;
+            box.classList.remove(
+              "show"
+            );
 
-        }
+          },
+          4500
+        );
 
-
-        etaElement.textContent =
-          eta;
-
-      },
-
-      60000
-    );
+    }
 
 
     /* =====================================================
-       INITIALIZE
+       LANGUAGE
+    ====================================================== */
+
+    document
+      .getElementById(
+        "languageSelect"
+      )
+      .addEventListener(
+        "change",
+        function() {
+
+          currentLanguage =
+            this.value;
+
+
+          showMessage(
+            "Language changed."
+          );
+
+        }
+      );
+
+
+    /* =====================================================
+       LOAD SAVED DESTINATION
+    ====================================================== */
+
+    function loadSavedDestination() {
+
+      const saved =
+        sessionStorage.getItem(
+          "accessPathDestination"
+        ) ||
+        localStorage.getItem(
+          "accessPathDestination"
+        );
+
+
+      if (!saved) return;
+
+
+      const select =
+        document.getElementById(
+          "destinationSelect"
+        );
+
+
+      const option =
+        [...select.options]
+          .find(
+            option =>
+              option.value === saved
+          );
+
+
+      if (option) {
+
+        select.value =
+          saved;
+
+        selectedDestination =
+          saved;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       DESTINATION CHANGE
+    ====================================================== */
+
+    document
+      .getElementById(
+        "destinationSelect"
+      )
+      .addEventListener(
+        "change",
+        function() {
+
+          selectedDestination =
+            this.value;
+
+
+          if (!selectedDestination) {
+
+            return;
+
+          }
+
+
+          localStorage.setItem(
+            "accessPathDestination",
+            selectedDestination
+          );
+
+
+          sessionStorage.setItem(
+            "accessPathDestination",
+            selectedDestination
+          );
+
+
+          document.getElementById(
+            "aiStatusTitle"
+          ).textContent =
+            "Ready for " +
+            selectedDestination;
+
+
+          document.getElementById(
+            "aiStatusDescription"
+          ).textContent =
+            "Start visual guidance to receive assistance toward " +
+            selectedDestination +
+            ".";
+
+        }
+      );
+
+
+    /* =====================================================
+       PAGE LOAD
     ====================================================== */
 
     window.addEventListener(
@@ -2330,7 +4195,9 @@
 
         lucide.createIcons();
 
-        getLocation();
+        startGPS();
+
+        loadSavedDestination();
 
       }
     );
@@ -2356,7 +4223,45 @@
       }
     );
 
+
+    /* =====================================================
+       PAGE EXIT
+    ====================================================== */
+
+    window.addEventListener(
+      "beforeunload",
+      function() {
+
+        if (cameraStream) {
+
+          cameraStream
+            .getTracks()
+            .forEach(
+              track =>
+                track.stop()
+            );
+
+        }
+
+
+        if (
+          "speechSynthesis" in window
+        ) {
+
+          speechSynthesis.cancel();
+
+        }
+
+
+        clearInterval(
+          guidanceInterval
+        );
+
+      }
+    );
+
   </script>
+
 
 </body>
 
